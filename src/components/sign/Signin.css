@@ -1,0 +1,79 @@
+.signin {
+  text-align: center;
+}
+.signin-header {
+  color: white;
+  padding: 2em 0;
+  background-image: linear-gradient(-90deg, var(--main1), var(--main2));
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.signin-input {
+  padding: 0.4em 1em;
+  margin: 0.5em;
+  border-radius: 50px;
+  border: none;
+  background: rgb(240, 240, 240);
+  font-size: 16px;
+}
+
+.signin-button {
+  margin: 1em;
+  padding: 0.1em 1em;
+  border-radius: 50px;
+  border: none;
+  background: var(--main2);
+  color: white;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.siginin-button-facebook {
+  margin: 1em;
+  padding: 0.1em 1em;
+  border-radius: 50px;
+  border: none;
+  background: rgb(39, 62, 134);
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.siginin-button-google {
+  margin: 1em;
+  padding: 0.1em 1em;
+  border-radius: 50px;
+  border: none;
+  background: rgb(219, 77, 77);
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.signin-link {
+  color: var(--main2);
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.signin-guest {
+  color: var(--main1);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signin-or {
+  font-size: 16px;
+  color: rgb(221, 221, 221);
+  margin-right: 10px;
+}
+
+.signin-also {
+  color: rgb(221, 221, 221);
+}

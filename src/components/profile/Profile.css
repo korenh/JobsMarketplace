@@ -1,0 +1,24 @@
+.profile {
+  text-align: center;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-top: 15vh;
+}
+
+.profile-button {
+  margin: 0.1em;
+  padding: 0.1em 1em;
+  border-radius: 50px;
+  border: none;
+  background: white;
+  box-shadow: 0px 0px 10px 1px gainsboro;
+  color: var(--main2);
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 17px;
+  cursor: pointer;
+}
