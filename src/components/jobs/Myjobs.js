@@ -9,6 +9,9 @@ export default class Myjobs extends Component {
           <p>Saved</p>
           <p>Going</p>
         </div>
+        <br />
+        <br />
+        <br />
         <div className="jobs-card">
           <div className="jobs-card-title">
             <p>deliver food to various companies</p>

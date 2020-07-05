@@ -1,5 +1,6 @@
 .jobs {
-  padding-top: 10vh;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .jobs-card {
@@ -22,6 +23,8 @@
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
+  position: fixed;
+  width: 100%;
 }
 
 .jobs-card-title {

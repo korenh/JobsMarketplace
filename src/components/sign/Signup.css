@@ -17,6 +17,15 @@
   font-size: 16px;
 }
 
+.signup-textarea {
+  padding: 0.4em 1em;
+  margin: 0.5em;
+  border-radius: 5px;
+  border: none;
+  background: rgb(240, 240, 240);
+  font-size: 16px;
+}
+
 .signup-button {
   margin: 1em;
   padding: 0.1em 1em;
@@ -35,4 +44,10 @@
   text-decoration: none;
   font-weight: bold;
   margin-left: 10px;
+}
+
+.signup-back {
+  position: fixed;
+  left: 1em;
+  height: 40px;
 }

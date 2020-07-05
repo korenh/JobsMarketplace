@@ -25,7 +25,10 @@ export default class Signup extends Component {
           <Link to="/" className="signup-link">
             Sign in
           </Link>
-          <br /> <button className="signup-button">Continue</button>
+          <Link to="/signup2">
+            <br />
+            <button className="signup-button">Continue</button>
+          </Link>
         </div>
       </div>
     );

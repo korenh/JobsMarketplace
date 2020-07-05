@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import "./Main.css";
-import Circle from "../../icons/circle.png";
+import User from "../../icons/user.png";
+import Bell from "../../icons/bell.png";
+import Search from "../../icons/search.png";
+import Publish from "../../icons/publish.png";
+import Star from "../../icons/star.png";
+
 import { Link } from "react-router-dom";
 
 export default class Nav extends Component {
@@ -8,23 +13,23 @@ export default class Nav extends Component {
     return (
       <div className="nav">
         <Link className="nav-item" to="/main">
-          <img src={Circle} alt="img" style={{ height: "40px" }} />
+          <img src={Search} alt="img" style={{ height: "40px" }} />
           <p>Search</p>
         </Link>
         <Link className="nav-item" to="/main/myjobs">
-          <img src={Circle} alt="img" style={{ height: "40px" }} />
+          <img src={Star} alt="img" style={{ height: "40px" }} />
           <p>My Jobs</p>
         </Link>
         <Link className="nav-item" to="/main/jobs">
-          <img src={Circle} alt="img" style={{ height: "40px" }} />
+          <img src={Publish} alt="img" style={{ height: "40px" }} />
           <p>Publish & Manage</p>
         </Link>
         <Link className="nav-item" to="/main/profile">
-          <img src={Circle} alt="img" style={{ height: "40px" }} />
+          <img src={User} alt="img" style={{ height: "40px" }} />
           <p>Profile</p>
         </Link>
         <Link className="nav-item" to="/main/notifications">
-          <img src={Circle} alt="img" style={{ height: "40px" }} />
+          <img src={Bell} alt="img" style={{ height: "40px" }} />
           <p>Notifications</p>
         </Link>
       </div>

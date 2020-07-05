@@ -9,6 +9,9 @@ export default class Search extends Component {
           <p>Jobs</p>
           <p>Volunteer</p>
         </div>
+        <br />
+        <br />
+        <br />
         <div className="jobs-card">
           <div className="jobs-card-title">
             <p>deliver food to various companies</p>

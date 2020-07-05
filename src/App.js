@@ -1,6 +1,7 @@
 import React from "react";
 import Signin from "./components/sign/Signin";
 import Signup from "./components/sign/Signup";
+import Signup2 from "./components/sign/Signup2";
 import Header from "./components/Main/Header";
 import Nav from "./components/Main/Nav";
 import Search from "./components/search/Search";
@@ -15,6 +16,7 @@ function App() {
     <Router>
       <Route path="/" exact component={Signin} />
       <Route path="/signup" exact component={Signup} />
+      <Route path="/signup2" exact component={Signup2} />
       <Route path="/main" component={Header} />
       <Route path="/main" component={Nav} />
       <Route path="/main/" exact component={Search} />
