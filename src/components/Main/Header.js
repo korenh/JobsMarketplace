@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Main.css";
 import Menu from "../../icons/menu.png";
-import Bell from "../../icons/bell.png";
+import Bell from "../../icons/bell2.png";
 import Altro from "../../icons/altro.png";
 
 export default class Header extends Component {

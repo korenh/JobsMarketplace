@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Jobs.css";
-import firebase from "../../protected/Firebase";
+import firebase from "../protected/Firebase";
 
 export default class Jobs extends Component {
   state = {
