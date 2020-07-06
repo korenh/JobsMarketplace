@@ -17,7 +17,7 @@ export default class Search extends Component {
       .firestore()
       .collection("jobs")
       .orderBy("dateCreated", "desc")
-      .limit(5)
+      .limit(10)
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
@@ -37,10 +37,6 @@ export default class Search extends Component {
   render() {
     return (
       <div className="jobs">
-        <div className="jobs-filter">
-          <p>Jobs</p>
-          <p>Volunteer</p>
-        </div>
         <br />
         <br />
         <br />

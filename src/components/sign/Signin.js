@@ -1,12 +1,29 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Altro from "../../icons/altro2.png";
+import Altro from "../../icons/altro.png";
 import Facebook from "../../icons/facebook.png";
 import Google from "../../icons/google.png";
-
+import firebase from "../protected/Firebase";
 import "./Signin.css";
 
 export default class Signin extends Component {
+  handleLogin = (e) => {
+    e.preventDefault();
+    let email = e.target.elements.email.value;
+    let password = e.target.elements.password.value;
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        sessionStorage.setItem("id", email);
+        this.props.history.push("/main");
+      })
+      .catch(function (error) {
+        var errorMessage = error.message;
+        alert(errorMessage);
+      });
+  };
+
   render() {
     return (
       <div className="signin">
@@ -16,16 +33,25 @@ export default class Signin extends Component {
             Single jobs for everyone , <br /> by everyone
           </p>
         </div>
-        <div className="signin-body">
+        <div className="signin-body"></div>
+        <form className="login-form" onSubmit={this.handleLogin}>
           <h2>Sign in</h2>
-          <input type="text" placeholder="Email" className="signin-input" />
+          <input
+            type="text"
+            placeholder="Email"
+            className="signin-input"
+            name="email"
+          />
           <br />
-          <input type="text" placeholder="Password" className="signin-input" />
+          <input
+            type="text"
+            placeholder="Password"
+            className="signin-input"
+            name="password"
+          />
           <br />
-          <Link to="/main">
-            <button className="signin-button">Sign in</button>
-          </Link>
-        </div>
+          <button className="signin-button">Sign in</button>
+        </form>
         <div className="signin-footer">
           <div className="signin-footer-top">
             <span>Dont have an acoount? </span>

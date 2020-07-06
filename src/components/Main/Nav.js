@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Main.css";
-import User from "../../icons/user.png";
-import Bell from "../../icons/bell.png";
+
 import Search from "../../icons/search.png";
 import Publish from "../../icons/publish.png";
 import Star from "../../icons/star.png";
@@ -22,15 +21,7 @@ export default class Nav extends Component {
         </Link>
         <Link className="nav-item" to="/main/jobs">
           <img src={Publish} alt="img" style={{ height: "30px" }} />
-          <p>Publish & Manage</p>
-        </Link>
-        <Link className="nav-item" to="/main/profile">
-          <img src={User} alt="img" style={{ height: "30px" }} />
-          <p>Profile</p>
-        </Link>
-        <Link className="nav-item" to="/main/notifications">
-          <img src={Bell} alt="img" style={{ height: "30px" }} />
-          <p>Notifications</p>
+          <p>Publish</p>
         </Link>
       </div>
     );

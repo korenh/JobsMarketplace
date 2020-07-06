@@ -5,10 +5,6 @@ export default class Myjobs extends Component {
   render() {
     return (
       <div className="jobs">
-        <div className="jobs-filter">
-          <p>Saved</p>
-          <p>Going</p>
-        </div>
         <br />
         <br />
         <br />
