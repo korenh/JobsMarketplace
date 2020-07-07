@@ -137,7 +137,6 @@ export default class Search extends Component {
             </div>
           )
         )}
-        <button className="search-filter-button">Filter</button>
       </div>
     );
   }

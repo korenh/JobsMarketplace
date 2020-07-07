@@ -17,7 +17,7 @@ function App() {
       <Route path="/signup" exact component={Signup} />
       <Route path="/main" component={Header} />
       <Route path="/main" component={Nav} />
-      <Route path="/main/" exact component={Search} />
+      <Route path="/main/search" exact component={Search} />
       <Route path="/main/jobs" exact component={Jobs} />
       <Route path="/main/myjobs" exact component={Myjobs} />
       <Route path="/main/profile" exact component={Profile} />
