@@ -3,7 +3,7 @@ import Signin from "./components/sign/Signin";
 import Signup from "./components/sign/Signup";
 import Header from "./components/Main/Header";
 import Nav from "./components/Main/Nav";
-import Search from "./components/search/Search";
+import Search from "./components/jobs/Search";
 import Jobs from "./components/jobs/Jobs";
 import Notifications from "./components/notifications/Notifications";
 import Profile from "./components/profile/Profile";

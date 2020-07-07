@@ -22,9 +22,9 @@
 .nav {
   position: fixed;
   z-index: 1;
-  top: 75px;
+  top: 70px;
   background: rgb(250, 250, 250);
-  width: 300px;
+  width: 250px;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -38,15 +38,15 @@
 }
 
 .nav-item {
-  width: 60px;
+  width: 50px;
   margin-top: 10px;
   text-decoration: none;
   color: rgb(180, 180, 180);
 }
 
 .header-icon {
-  margin: 1.8em 1em;
-  height: 25px;
+  margin: 1.5em 1em;
+  height: 22px;
   cursor: pointer;
 }
 
@@ -57,9 +57,9 @@
 }
 
 .header-icon3 {
-  margin: 0.5em 2em;
-  height: 40px;
-  width: 40px;
+  margin: 5px 2em;
+  height: 30px;
+  width: 30px;
   cursor: pointer;
   border-radius: 50%;
   margin-bottom: 0;

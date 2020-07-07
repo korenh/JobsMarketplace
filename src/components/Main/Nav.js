@@ -13,15 +13,15 @@ export default class Nav extends Component {
       <div className="nav">
         <Link className="nav-item" to="/main">
           <img src={Search} alt="img" style={{ height: "30px" }} />
-          <p>Search</p>
+          <p style={{ lineHeight: "0" }}>Search</p>
         </Link>
         <Link className="nav-item" to="/main/myjobs">
           <img src={Star} alt="img" style={{ height: "30px" }} />
-          <p>My Jobs</p>
+          <p style={{ lineHeight: "0" }}>My Jobs</p>
         </Link>
         <Link className="nav-item" to="/main/jobs">
           <img src={Publish} alt="img" style={{ height: "30px" }} />
-          <p>Publish</p>
+          <p style={{ lineHeight: "0" }}>Publish</p>
         </Link>
       </div>
     );
