@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../protected/Firebase";
-import ReactMapGL from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 
 export default class Search extends Component {
   state = {
