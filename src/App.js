@@ -3,7 +3,7 @@ import Signin from "./components/sign/Signin";
 import Signup from "./components/sign/Signup";
 import Header from "./components/Main/Header";
 import Nav from "./components/Main/Nav";
-import Search from "./components/jobs/Search";
+//import Search from "./components/jobs/Search";
 import Jobs from "./components/jobs/Jobs";
 import Notifications from "./components/notifications/Notifications";
 import Profile from "./components/profile/Profile";
@@ -17,7 +17,6 @@ function App() {
       <Route path="/signup" exact component={Signup} />
       <Route path="/main" component={Header} />
       <Route path="/main" component={Nav} />
-      <Route path="/main/" exact component={Search} />
       <Route path="/main/jobs" exact component={Jobs} />
       <Route path="/main/myjobs" exact component={Myjobs} />
       <Route path="/main/profile" exact component={Profile} />
