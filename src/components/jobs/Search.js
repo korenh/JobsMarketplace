@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase from "../protected/Firebase";
-import ReactMapGL, { Marker } from "react-map-gl";
 
 export default class Search extends Component {
   state = {
@@ -94,11 +93,6 @@ export default class Search extends Component {
               key={job.description}
               onClick={() => this.jobPopUp(job)}
             >
-              <ReactMapGL
-                {...this.state.viewport}
-                mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
-                mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
-              ></ReactMapGL>
               <div className="jobs-selected-card-body">
                 <div>
                   <div className="jobs-card-title">
