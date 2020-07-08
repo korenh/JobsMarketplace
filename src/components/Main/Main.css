@@ -38,6 +38,7 @@
 }
 
 .nav-item {
+  outline: none;
   width: 50px;
   margin-top: 10px;
   text-decoration: none;
@@ -66,5 +67,13 @@
 }
 
 .nav-item-active {
+  outline: none;
+  transition: 0.5s;
   color: var(--main2);
+}
+
+.nav-item-active img {
+  outline: none;
+  transition: 0.5s;
+  filter: sepia(30%) hue-rotate(190deg) saturate(1000%);
 }
