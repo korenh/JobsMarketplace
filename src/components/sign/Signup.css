@@ -16,6 +16,7 @@
   background: rgb(240, 240, 240);
   font-size: 16px;
   width: 250px;
+  font-family: "Roboto", sans-serif;
 }
 
 .signup-textarea {
@@ -26,6 +27,7 @@
   background: rgb(240, 240, 240);
   font-size: 16px;
   width: 250px;
+  font-family: "Roboto", sans-serif;
   max-width: 250px;
 }
 

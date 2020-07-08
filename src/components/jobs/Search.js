@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import firebase from "../protected/Firebase";
 import ReactMapGL from "react-map-gl";
+import Filter from "../../icons/filter.png";
+import Map from "../../icons/map.png";
 
 export default class Search extends Component {
   state = {
@@ -65,6 +67,12 @@ export default class Search extends Component {
         <br />
         <br />
         <br />
+        <button className="job-filter-button">
+          <img src={Filter} className="job-img-button2" />
+        </button>
+        <button className="job-mapview-button">
+          <img src={Map} className="job-img-button" />
+        </button>
         {this.state.jobs.map((job) =>
           this.state.job.id !== job.id ? (
             <div
@@ -100,7 +108,7 @@ export default class Search extends Component {
                 mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
               ></ReactMapGL>
               <div className="jobs-selected-card-body">
-                <div>
+                <div className="jobs-selected-card-body-left">
                   <div className="jobs-card-title">
                     <p>{job.description}</p>
                     <h3>${job.payment}</h3>
