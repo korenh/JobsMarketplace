@@ -68,10 +68,10 @@ export default class Search extends Component {
         <br />
         <br />
         <button className="job-filter-button">
-          <img src={Filter} className="job-img-button2" />
+          <img src={Filter} className="job-img-button2" alt="img" />
         </button>
         <button className="job-mapview-button">
-          <img src={Map} className="job-img-button" />
+          <img src={Map} className="job-img-button" alt="img" />
         </button>
         {this.state.jobs.map((job) =>
           this.state.job.id !== job.id ? (
