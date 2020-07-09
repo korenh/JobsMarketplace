@@ -130,6 +130,7 @@ export default class Jobs extends Component {
               onClick={() => this.setState({ popUp: false, popUp2: false })}
               className="newjob-close-btn"
               src={Close}
+              alt="img"
             />
             <h2>New Job</h2>
             <input
@@ -276,6 +277,7 @@ export default class Jobs extends Component {
               onClick={() => this.setState({ popUp: true, popUp2: false })}
               className="newjob-back-btn"
               src={Arrow}
+              alt="img"
             />
             <h2>Confirm detailes</h2>
             <p>
