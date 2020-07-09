@@ -8,31 +8,61 @@ import firebase from "../protected/Firebase";
 
 export default class Signup extends Component {
   state = {
-    startDate: new Date(),
+    userDate: new Date(),
+    name: "",
+    isBusiness: false,
+    isVerified: false,
+    description: [],
+    birthDate: [],
   };
 
   handleRegister = (e) => {
     e.preventDefault();
     let email = e.target.elements.email.value;
     let password = e.target.elements.password.value;
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        alert("Signed up");
-        this.props.history.push("/");
-      })
-      .catch(function (error) {
-        var errorMessage = error.message;
-        alert(errorMessage);
-      });
+    let confirm = e.target.elements.confirm.value;
+    if (password !== confirm) {
+      alert("Passwords do not match");
+    } else {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((response) => {
+          this.setState({ popUp2: false });
+          firebase
+            .firestore()
+            .collection("korentest")
+            .add({
+              uid: "3b21jkb32jk1b",
+              name: "koren",
+              profileImageURL:
+                "https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a",
+              isBusiness: false,
+              isVerified: false,
+              employeeRating: {},
+              employerRating: {},
+              saved: [],
+              description: [],
+              birthDate: [],
+              fcmToken: "",
+            })
+            .then((ref) => {
+              alert("signed up!");
+            });
+          this.props.history.push("/");
+        })
+        .catch(function (error) {
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+    }
   };
 
   handleChange = (date) => {
     this.setState({
-      startDate: date,
+      userDate: date,
     });
-    console.log(this.state.startDate);
+    console.log(this.state.userDate);
   };
 
   render() {
@@ -57,12 +87,16 @@ export default class Signup extends Component {
             name="password"
           />
           <br />
-          <input className="signup-input" placeholder="Confirm Password" />
+          <input
+            className="signup-input"
+            placeholder="Confirm Password"
+            name="confirm"
+          />
           <br /> <input className="signup-input" placeholder="Phone Number" />
           <br /> <input className="signup-input" placeholder="Business Name" />
           <br />
           <DatePicker
-            selected={this.state.startDate}
+            selected={this.state.userDate}
             onChange={this.handleChange}
             className="signup-input"
           />
