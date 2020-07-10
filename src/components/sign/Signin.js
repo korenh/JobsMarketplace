@@ -15,8 +15,21 @@ export default class Signin extends Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        sessionStorage.setItem("uid", response.user.uid);
         this.props.history.push("/main/search");
+        firebase
+          .firestore()
+          .collection("users")
+          .where("uid", "==", response.user.uid)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              sessionStorage.setItem("uid", doc.data().uid);
+              sessionStorage.setItem("name", doc.data().name);
+              sessionStorage.setItem("url", doc.data().profileImageURL);
+              sessionStorage.setItem("saved", doc.data().saved);
+              sessionStorage.setItem("description", doc.data().description);
+            });
+          });
       })
       .catch(function (error) {
         var errorMessage = error.message;
