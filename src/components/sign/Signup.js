@@ -8,12 +8,13 @@ import firebase from "../protected/Firebase";
 
 export default class Signup extends Component {
   state = {
+    asa: ["Individual", "Business"],
+    asastate: "Business",
     userDate: new Date(),
     name: "",
-    isBusiness: false,
+    isBusiness: true,
     isVerified: false,
     description: [],
-    birthDate: [],
   };
 
   handleRegister = (e) => {
@@ -21,40 +22,47 @@ export default class Signup extends Component {
     let email = e.target.elements.email.value;
     let password = e.target.elements.password.value;
     let confirm = e.target.elements.confirm.value;
+    let name = e.target.elements.name.value;
+    let description = e.target.elements.description.value;
+
     if (password !== confirm) {
       alert("Passwords do not match");
     } else {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((response) => {
-          this.setState({ popUp2: false });
-          firebase
-            .firestore()
-            .collection("korentest")
-            .add({
-              uid: response.user.uid,
-              name: "koren",
-              profileImageURL:
-                "https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a",
-              isBusiness: false,
-              isVerified: false,
-              employeeRating: {},
-              employerRating: {},
-              saved: [],
-              description: [],
-              birthDate: [],
-              fcmToken: "",
-            })
-            .then((ref) => {
-              alert("signed up!");
-            });
-          this.props.history.push("/");
-        })
-        .catch(function (error) {
-          var errorMessage = error.message;
-          alert(errorMessage);
-        });
+      if (name === "" || description === "") {
+        alert("Fill all fields");
+      } else {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((response) => {
+            this.setState({ popUp2: false });
+            firebase
+              .firestore()
+              .collection("users")
+              .add({
+                uid: response.user.uid,
+                name,
+                profileImageURL:
+                  "https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a",
+                isBusiness: this.state.isBusiness,
+                isVerified: false,
+                employeeRating: { numberOfRatings: 0, averageRating: 0 },
+                employerRating: { numberOfRatings: 0, averageRating: 0 },
+                saved: [],
+                description,
+                birthDate: this.state.userDate,
+                fcmToken: "",
+              })
+              .then((ref) => {
+                alert("signed up!");
+              });
+            this.props.history.push("/");
+          })
+          .catch(function (error) {
+            var errorMessage = error.message;
+            alert(errorMessage);
+          });
+      }
     }
   };
 
@@ -62,7 +70,6 @@ export default class Signup extends Component {
     this.setState({
       userDate: date,
     });
-    console.log(this.state.userDate);
   };
 
   render() {
@@ -74,13 +81,38 @@ export default class Signup extends Component {
         <form className="signup-form" onSubmit={this.handleRegister}>
           <h2>Sign up</h2>
           <p> i will be primarily using Altro as a...</p>
+          <div className="signup-type-list">
+            {this.state.asa.map((tag) =>
+              tag === this.state.asastate ? (
+                <span
+                  key={tag}
+                  className="signup-hours-list-item2"
+                  onClick={() =>
+                    this.setState({ isBusiness: true, asastate: tag })
+                  }
+                >
+                  {tag}
+                </span>
+              ) : (
+                <span
+                  key={tag}
+                  className="signup-hours-list-item"
+                  onClick={() =>
+                    this.setState({ isBusiness: false, asastate: tag })
+                  }
+                >
+                  {tag}
+                </span>
+              )
+            )}
+          </div>
           <br />
           <input type="file" />
           <br />
           <p>Add your profile picture(optional)</p>
-          <br />{" "}
+          <br />
           <input className="signup-input" placeholder="email" name="email" />
-          <br />{" "}
+          <br />
           <input
             className="signup-input"
             placeholder="Password"
@@ -93,7 +125,13 @@ export default class Signup extends Component {
             name="confirm"
           />
           <br /> <input className="signup-input" placeholder="Phone Number" />
-          <br /> <input className="signup-input" placeholder="Business Name" />
+          <br />{" "}
+          <input
+            className="signup-input"
+            placeholder="Name/Business Name"
+            type="text"
+            name="name"
+          />
           <br />
           <DatePicker
             selected={this.state.userDate}
@@ -102,8 +140,10 @@ export default class Signup extends Component {
           />
           <br />
           <textarea
-            placeholder="Write about your business"
+            placeholder="Write about your self/business"
             className="signup-textarea"
+            type="text"
+            name="description"
           />
           <br />
           <br /> <span>Already have an acoount?</span>

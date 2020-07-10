@@ -47,7 +47,7 @@
 .signup-link {
   color: var(--main2);
   text-decoration: none;
-  font-weight: bold;
+  font-size: 18px;
   margin-left: 10px;
 }
 
@@ -55,4 +55,33 @@
   position: fixed;
   left: 1em;
   height: 40px;
+}
+
+.signup-type-list {
+  background: rgb(235, 235, 235);
+  padding: 0.5em;
+  width: 250px;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+.signup-hours-list-item {
+  padding: 0.2em;
+  margin: 0.2em;
+  transition: 0.5s;
+  cursor: pointer;
+  outline: none;
+  margin-left: 10px;
+}
+
+.signup-hours-list-item2 {
+  padding: 0.2em;
+  margin: 0.2em;
+  outline: none;
+  transition: 0.5s;
+  background: var(--main2);
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px;
 }

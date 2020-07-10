@@ -15,7 +15,7 @@ export default class Signin extends Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        sessionStorage.setItem("id", email);
+        sessionStorage.setItem("uid", response.user.uid);
         this.props.history.push("/main/search");
       })
       .catch(function (error) {
