@@ -54,13 +54,14 @@ export default class Jobs extends Component {
     this.getData();
   }
 
-  getData = (async) => {
+  getData = () => {
     const allData = [];
     firebase
       .firestore()
       .collection("jobs")
       .orderBy("dateCreated", "desc")
       .limit(10)
+      .where("creatingUserId", "==", sessionStorage.getItem("uid"))
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
@@ -82,10 +83,10 @@ export default class Jobs extends Component {
     this.setState({ popUp2: false });
     firebase
       .firestore()
-      .collection("korentest")
+      .collection("jobs")
       .add({
         id: "2hg32h1jg321",
-        creatingUserId: "hudsa213hiuhun",
+        creatingUserId: sessionStorage.getItem("uid"),
         dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
         title: this.state.title,
         description: this.state.description,

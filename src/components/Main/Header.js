@@ -19,7 +19,9 @@ export default class Header extends Component {
               alt="img"
               className="header-icon3"
             />
-            <p className="header-profile-name">Hi , koren </p>
+            <p className="header-profile-name">
+              {sessionStorage.getItem("name")}
+            </p>
           </div>
           <img src={Bell} alt="img" className="header-icon" />
           <img
