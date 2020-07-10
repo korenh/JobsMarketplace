@@ -131,6 +131,21 @@
   max-width: 80%;
 }
 
+.jobs-selected-flex {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.jobs-selected-flex div {
+  margin-top: 1em;
+  width: 70px;
+  text-align: center;
+}
+
+.jobs-selected-flex-img {
+  width: 35px;
+}
+
 /*------------------new job----------------*/
 
 .new-job {

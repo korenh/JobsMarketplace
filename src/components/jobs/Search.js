@@ -3,6 +3,9 @@ import firebase from "../protected/Firebase";
 import ReactMapGL from "react-map-gl";
 import Filter from "../../icons/filter.png";
 import Map from "../../icons/map.png";
+import Time from "../../icons/time.png";
+import Car from "../../icons/car.png";
+import Man from "../../icons/man.png";
 
 export default class Search extends Component {
   state = {
@@ -33,12 +36,20 @@ export default class Search extends Component {
         snapshot.docs.forEach((doc) => {
           const data = {
             id: doc.id,
+            title: doc.data().title,
             geo: doc.data().location,
             description: doc.data().description,
+            dateCreated: doc.data().dateCreated,
             payment: doc.data().payment,
             startDate: doc.data().startDate,
             location: doc.data().location,
             categories: doc.data().categories,
+            isPaymentPerHour: doc.data().isPaymentPerHour,
+            duration: doc.data().duration,
+            requiredEmployees: doc.data().requiredEmployees,
+            isPayingForTransportation: doc.data().isPayingForTransportation,
+            numberOfSaves: doc.data().numberOfSaves,
+            numberOfViews: doc.data().numberOfViews,
           };
           allData.push(data);
         });
@@ -110,7 +121,7 @@ export default class Search extends Component {
               <div className="jobs-selected-card-body">
                 <div className="jobs-selected-card-body-left">
                   <div className="jobs-card-title">
-                    <p>{job.description}</p>
+                    <p>{job.title}</p>
                     <h3>${job.payment}</h3>
                   </div>
                   <div className="jobs-card-info">
@@ -123,6 +134,25 @@ export default class Search extends Component {
                         {tag}
                       </p>
                     ))}
+                  </div>
+                  <p>{job.description}</p>
+                  <div className="jobs-selected-flex">
+                    <div>
+                      <img src={Time} className="jobs-selected-flex-img" />
+                      <p>{job.duration}</p>
+                    </div>
+                    <div>
+                      <img src={Man} className="jobs-selected-flex-img" />
+                      <p>{job.requiredEmployees}</p>
+                    </div>
+                    <div>
+                      <img src={Car} className="jobs-selected-flex-img" />
+                      <p>
+                        {job.isPayingForTransportation
+                          ? "covering transportation"
+                          : "not covering transportation"}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className="jobs-selected-card-body-right">
