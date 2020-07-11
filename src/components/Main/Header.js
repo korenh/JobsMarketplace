@@ -1,10 +1,23 @@
 import React, { Component } from "react";
 import "./Main.css";
+import $ from "jquery";
+import { findDOMNode } from "react-dom";
 import Menu from "../../icons/menu.png";
 import Bell from "../../icons/bell2.png";
 import Altro from "../../icons/altro.png";
+import Notifications from "../notifications/Notifications";
 
 export default class Header extends Component {
+  jqueryUp = () => {
+    const obj = findDOMNode(this.refs.noti);
+    $(obj).slideUp();
+  };
+
+  jqueryDown = () => {
+    const obj = findDOMNode(this.refs.noti);
+    $(obj).slideDown();
+  };
+
   state = {
     popup: false,
   };
@@ -23,13 +36,26 @@ export default class Header extends Component {
               {sessionStorage.getItem("name")}
             </p>
           </div>
-          <img src={Bell} alt="img" className="header-icon" />
+          <img
+            src={Bell}
+            alt="img"
+            className="header-icon"
+            onClick={this.jqueryDown}
+          />
           <img
             src={Menu}
             alt="img"
             className="header-icon"
             onClick={() => alert("menu popup")}
           />
+        </div>
+        <div
+          ref="noti"
+          style={{ display: "none" }}
+          onClick={this.jqueryUp}
+          className="notifications-slide"
+        >
+          <Notifications />
         </div>
       </div>
     );

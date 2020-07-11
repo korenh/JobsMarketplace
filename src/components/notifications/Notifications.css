@@ -58,3 +58,11 @@
   margin: auto 3em;
   height: 50px;
 }
+
+.notifications-slide {
+  background: rgb(255, 255, 255);
+  position: fixed;
+  box-shadow: 0px 0px 20px 1px rgb(212, 212, 212);
+  margin-top: 70px;
+  width: 300px;
+}
