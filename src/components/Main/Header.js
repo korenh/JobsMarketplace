@@ -38,6 +38,11 @@ export default class Header extends Component {
     });
   };
 
+  logout = () => {
+    sessionStorage.clear();
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <div className="header">
@@ -90,7 +95,12 @@ export default class Header extends Component {
                 <br />
                 <button className="header-menu-share">Share the App</button>
                 <br />
-                <button className="header-menu-logout">Logout </button>
+                <button
+                  className="header-menu-logout"
+                  onClick={() => this.logout()}
+                >
+                  Logout
+                </button>
               </div>
             </div>
           ) : (

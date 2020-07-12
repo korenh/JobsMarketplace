@@ -15,7 +15,8 @@
 }
 
 .header-profile-name {
-  line-height: 0;
+  line-height: 1px;
+  font-size: 14px;
   color: white;
 }
 
@@ -58,7 +59,7 @@
 }
 
 .header-icon3 {
-  margin: 5px 2em;
+  margin: 10px 2em;
   height: 30px;
   width: 30px;
   cursor: pointer;

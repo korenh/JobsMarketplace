@@ -63,39 +63,7 @@ export default class Search extends Component {
       });
   };
 
-  saveJob = (job) => {
-    if (sessionStorage.getItem("saved") === null) {
-      sessionStorage.setItem("saved", []);
-    }
-    var res = sessionStorage.getItem("saved").split(",");
-    let saved = res;
-    if (saved.includes(job.id)) {
-      alert("job already saved");
-      return;
-    }
-    if (saved.length > 9) {
-      alert("cannot saved more them 10 jobs");
-      return;
-    }
-    saved.push(job.id);
-    sessionStorage.setItem("saved", saved);
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(sessionStorage.getItem("uid"))
-      .update({
-        saved,
-      })
-      .then(function () {
-        console.log("updated");
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
   jobPopUp = (job) => {
-    console.log(job.geo);
     this.setState({ job });
     this.setState({
       viewport: {
@@ -106,6 +74,37 @@ export default class Search extends Component {
         zoom: 10,
       },
     });
+  };
+
+  applyJob = (job) => {
+    let docRef = firebase.firestore().collection("jobs").doc(job.id);
+    docRef.get().then(function (doc) {
+      sessionStorage.setItem("acceptedIds", doc.data().acceptedIds);
+    });
+    let acceptedIds = sessionStorage.getItem("acceptedIds").split(",");
+    if (acceptedIds.includes(sessionStorage.getItem("uid"))) {
+      alert("Request already sent");
+      return;
+    }
+    acceptedIds.push(sessionStorage.getItem("uid"));
+    firebase.firestore().collection("jobs").doc(job.id).update({ acceptedIds });
+    alert("Request sent");
+  };
+
+  saveJob = (job) => {
+    sessionStorage.setItem("savedIds", []);
+    let docRef = firebase.firestore().collection("jobs").doc(job.id);
+    docRef.get().then(function (doc) {
+      sessionStorage.setItem("savedIds", doc.data().savedIds);
+    });
+    let savedIds = sessionStorage.getItem("savedIds").split(",");
+    if (savedIds.includes(sessionStorage.getItem("uid"))) {
+      alert("Job already saved");
+      return;
+    }
+    savedIds.push(sessionStorage.getItem("uid"));
+    firebase.firestore().collection("jobs").doc(job.id).update({ savedIds });
+    alert("Job saved");
   };
 
   render() {
@@ -213,7 +212,10 @@ export default class Search extends Component {
                         Save job
                       </button>
                       <br />
-                      <button className="jobs-selected-apply-button">
+                      <button
+                        className="jobs-selected-apply-button"
+                        onClick={() => this.applyJob(job)}
+                      >
                         Apply to job
                       </button>
                     </div>

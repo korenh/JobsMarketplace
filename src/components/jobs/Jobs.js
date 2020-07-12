@@ -66,7 +66,7 @@ export default class Jobs extends Component {
       .firestore()
       .collection("jobs")
       .orderBy("dateCreated", "desc")
-      .limit(10)
+      .limit(20)
       .where("creatingUserId", "==", sessionStorage.getItem("uid"))
       .get()
       .then((snapshot) => {
