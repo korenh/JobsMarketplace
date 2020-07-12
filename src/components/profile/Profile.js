@@ -28,10 +28,56 @@ export default class Profile extends Component {
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
             History
           </p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>Jobs Completed:</p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>Monthly Jobs:</p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>Per Job:</p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>Total Earned:</p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>
+            Jobs Completed
+            <span
+              style={{
+                fontSize: "15px",
+                fontWeight: "bold",
+                marginLeft: "10px",
+              }}
+            >
+              18
+            </span>
+          </p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>
+            Monthly Jobs{" "}
+            <span
+              style={{
+                fontSize: "15px",
+                fontWeight: "bold",
+                marginLeft: "10px",
+              }}
+            >
+              2
+            </span>
+          </p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>
+            Per Job{" "}
+            <span
+              style={{
+                fontSize: "15px",
+                fontWeight: "bold",
+                marginLeft: "10px",
+                color: "rgb(103, 201, 108)",
+              }}
+            >
+              32$
+            </span>
+          </p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>
+            Total Earned{" "}
+            <span
+              style={{
+                fontSize: "15px",
+                fontWeight: "bold",
+                marginLeft: "10px",
+                color: "rgb(103, 201, 108)",
+              }}
+            >
+              428$
+            </span>
+          </p>
         </div>
       </div>
     );
