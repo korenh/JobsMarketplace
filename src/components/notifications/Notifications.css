@@ -1,6 +1,7 @@
 .notifications {
   margin-top: 1em;
   text-align: center;
+  font-size: 14px;
 }
 
 .card-accepted {
@@ -34,7 +35,6 @@
 }
 
 .notifications-status {
-  font-size: 15px;
   font-weight: bold;
   line-height: 0;
 }

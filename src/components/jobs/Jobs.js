@@ -6,9 +6,15 @@ import Plus from "../../icons/plus.png";
 import DatePicker from "react-datepicker";
 import Close from "../../icons/close.png";
 import Arrow from "../../icons/arrow.png";
+import ReactMapGL from "react-map-gl";
+import Time from "../../icons/time.png";
+import Car from "../../icons/car.png";
+import Man from "../../icons/man.png";
 
 export default class Jobs extends Component {
   state = {
+    job: {},
+
     tags: [
       { id: 1, name: "human" },
       { id: 2, name: "men" },
@@ -115,6 +121,19 @@ export default class Jobs extends Component {
         });
         this.getData();
       });
+  };
+
+  jobPopUp = (job) => {
+    this.setState({ job });
+    this.setState({
+      viewport: {
+        latitude: 31.952110800000003,
+        longitude: 34.906551,
+        width: "100%",
+        height: "40vh",
+        zoom: 10,
+      },
+    });
   };
 
   render() {
@@ -342,25 +361,126 @@ export default class Jobs extends Component {
         ) : (
           ""
         )}
-        {this.state.jobs.map((job) => (
-          <div className="jobs-card" key={job.id}>
-            <div className="jobs-card-title">
-              <p className="jobs-card-description">{job.description}</p>
-              <h3>${job.payment}</h3>
+        {this.state.jobs.map((job) =>
+          this.state.job.id !== job.id ? (
+            <div
+              className="jobs-card"
+              key={job.id}
+              onClick={() => this.jobPopUp(job)}
+            >
+              <div className="jobs-card-title">
+                <p className="jobs-card-description">{job.description}</p>
+                <h3>${job.payment}</h3>
+              </div>
+              <div className="jobs-card-info">
+                <p>Today , 6:30pm </p>
+                <p>Tel Aviv , 2.6 km</p>
+              </div>
+              <div className="jobs-card-tags">
+                {job.categories.map((tag) => (
+                  <p className="jobs-card-tags-item" key={tag}>
+                    {tag}
+                  </p>
+                ))}
+              </div>
             </div>
-            <div className="jobs-card-info">
-              <p>Today , 6:30pm </p>
-              <p>Tel Aviv , 2.6 km</p>
+          ) : (
+            <div
+              className="jobs-selected-card"
+              key={job.description}
+              onClick={() => this.jobPopUp(job)}
+            >
+              <ReactMapGL
+                {...this.state.viewport}
+                mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
+                mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
+              ></ReactMapGL>
+              <div className="jobs-selected-card-body">
+                <div className="jobs-selected-card-body-left">
+                  <div className="jobs-card-title">
+                    <p>{job.title}</p>
+                    <h3>${job.payment}</h3>
+                  </div>
+                  <div className="jobs-card-info">
+                    <p>Today , 6:30pm </p>
+                    <p>Tel Aviv , 2.6 km</p>
+                  </div>
+                  <div className="jobs-card-tags">
+                    {job.categories.map((tag) => (
+                      <p className="jobs-selected-card-tag-item" key={tag}>
+                        {tag}
+                      </p>
+                    ))}
+                  </div>
+                  <p>{job.description}</p>
+                  <div className="jobs-selected-flex">
+                    <div>
+                      <img
+                        src={Time}
+                        className="jobs-selected-flex-img"
+                        alt="img"
+                      />
+                      <p>{job.duration}</p>
+                    </div>
+                    <div>
+                      <img
+                        src={Man}
+                        className="jobs-selected-flex-img"
+                        alt="img"
+                      />
+                      <p>{job.requiredEmployees}</p>
+                    </div>
+                    <div>
+                      <img
+                        src={Car}
+                        className="jobs-selected-flex-img"
+                        alt="img"
+                      />
+                      <p>
+                        {job.isPayingForTransportation
+                          ? "covering transportation"
+                          : "not covering transportation"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="jobs-selected-card-body-right">
+                  <div className="jobs-selected-bottom-line">
+                    <p style={{ lineHeight: "0" }}>Manage your job</p>
+                    <br />
+                    <button className="jobs-selected-boost-button">
+                      Boost
+                    </button>
+                    <br />
+                    <button className="jobs-selected-save-button">
+                      Manage
+                    </button>
+                    <br />
+                    <button className="jobs-selected-save-button">Edit</button>
+                    <br />
+                    <button className="jobs-selected-save-button">Chat</button>
+                    <br />
+                    <button className="jobs-selected-finish-button">
+                      Finish Job
+                    </button>
+                    <br />
+                    <button className="jobs-selected-delete-button">
+                      Delete Job
+                    </button>
+                  </div>
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a"
+                    alt="img"
+                    className="jobs-selected-profile"
+                  />
+                  <p style={{ lineHeight: "0" }}>
+                    {sessionStorage.getItem("name")}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="jobs-card-tags">
-              {job.categories.map((tag) => (
-                <p className="jobs-card-tags-item" key={tag}>
-                  {tag}
-                </p>
-              ))}
-            </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
     );
   }

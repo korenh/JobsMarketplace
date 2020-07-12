@@ -106,7 +106,6 @@ export default class Search extends Component {
         zoom: 10,
       },
     });
-    console.log(this.state.job);
   };
 
   render() {
@@ -223,6 +222,7 @@ export default class Search extends Component {
                       alt="img"
                       className="jobs-selected-profile"
                     />
+                    <p>{sessionStorage.getItem("name")}</p>
                   </div>
                 </div>
               </div>

@@ -11,8 +11,27 @@ export default class Profile extends Component {
             alt="img"
             className="profile-pic"
           />
-          <h3>Koren Hamra</h3>
+          <p style={{ lineHeight: "0", fontSize: "17px" }}>
+            {sessionStorage.getItem("name")}
+          </p>
           <button className="profile-button">Edit Profile</button>
+          <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
+            About me
+          </p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>
+            {sessionStorage.getItem("description")}
+          </p>
+          <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
+            Rating
+          </p>
+          <p>(293)</p>
+          <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
+            History
+          </p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>Jobs Completed:</p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>Monthly Jobs:</p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>Per Job:</p>
+          <p style={{ fontSize: "14px", textAlign: "left" }}>Total Earned:</p>
         </div>
       </div>
     );
