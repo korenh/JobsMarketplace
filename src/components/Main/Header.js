@@ -1,26 +1,24 @@
 import React, { Component } from "react";
 import "./Main.css";
-import $ from "jquery";
-import { findDOMNode } from "react-dom";
 import Menu from "../../icons/menu.png";
 import Bell from "../../icons/bell2.png";
 import Altro from "../../icons/altro.png";
 import Notifications from "../notifications/Notifications";
 
 export default class Header extends Component {
-  jqueryUp = () => {
-    const obj = findDOMNode(this.refs.noti);
-    $(obj).slideUp();
-  };
-
-  jqueryDown = () => {
-    const obj = findDOMNode(this.refs.noti);
-    $(obj).slideDown();
-  };
-
   state = {
     popup: false,
+    notification: false,
   };
+
+  notificationDown = () => {
+    this.setState({ notification: true });
+  };
+
+  notificationUp = () => {
+    this.setState({ notification: false });
+  };
+
   render() {
     return (
       <div className="header">
@@ -40,7 +38,7 @@ export default class Header extends Component {
             src={Bell}
             alt="img"
             className="header-icon"
-            onClick={this.jqueryDown}
+            onClick={this.notificationDown}
           />
           <img
             src={Menu}
@@ -48,14 +46,13 @@ export default class Header extends Component {
             className="header-icon"
             onClick={() => alert("menu popup")}
           />
-        </div>
-        <div
-          ref="noti"
-          style={{ display: "none" }}
-          onClick={this.jqueryUp}
-          className="notifications-slide"
-        >
-          <Notifications />
+          {this.state.notification ? (
+            <div onClick={this.notificationUp} className="notifications-slide">
+              <Notifications />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

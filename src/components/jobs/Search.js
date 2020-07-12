@@ -9,6 +9,7 @@ import Man from "../../icons/man.png";
 
 export default class Search extends Component {
   state = {
+    limit: 10,
     jobs: [],
     job: {},
     viewport: {
@@ -18,6 +19,11 @@ export default class Search extends Component {
       height: "40vh",
       zoom: 10,
     },
+  };
+
+  loadMore = () => {
+    this.setState({ limit: this.state.limit + 10 });
+    this.getData();
   };
 
   componentDidMount() {
@@ -30,7 +36,7 @@ export default class Search extends Component {
       .firestore()
       .collection("jobs")
       .orderBy("dateCreated", "desc")
-      .limit(10)
+      .limit(this.state.limit)
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
@@ -67,6 +73,10 @@ export default class Search extends Component {
       alert("job already saved");
       return;
     }
+    if (saved.length > 9) {
+      alert("cannot saved more them 10 jobs");
+      return;
+    }
     saved.push(job.id);
     sessionStorage.setItem("saved", saved);
     firebase
@@ -101,122 +111,127 @@ export default class Search extends Component {
 
   render() {
     return (
-      <div className="jobs">
-        <br />
-        <br />
-        <br />
-        <button className="job-filter-button">
-          <img src={Filter} className="job-img-button2" alt="img" />
-        </button>
-        <button className="job-mapview-button">
-          <img src={Map} className="job-img-button" alt="img" />
-        </button>
-        {this.state.jobs.map((job) =>
-          this.state.job.id !== job.id ? (
-            <div
-              className="jobs-card"
-              key={job.description}
-              onClick={() => this.jobPopUp(job)}
-            >
-              <div className="jobs-card-title">
-                <p className="jobs-card-description">{job.description}</p>
-                <h3>${job.payment}</h3>
-              </div>
-              <div className="jobs-card-info">
-                <p>Today , 6:30pm </p>
-                <p>Tel Aviv , 2.6 km</p>
-              </div>
-              <div className="jobs-card-tags">
-                {job.categories.map((tag) => (
-                  <p className="jobs-card-tags-item" key={tag}>
-                    {tag}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div
-              className="jobs-selected-card"
-              key={job.description}
-              onClick={() => this.jobPopUp(job)}
-            >
-              <ReactMapGL
-                {...this.state.viewport}
-                mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
-                mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
-              ></ReactMapGL>
-              <div className="jobs-selected-card-body">
-                <div className="jobs-selected-card-body-left">
-                  <div className="jobs-card-title">
-                    <p>{job.title}</p>
-                    <h3>${job.payment}</h3>
-                  </div>
-                  <div className="jobs-card-info">
-                    <p>Today , 6:30pm </p>
-                    <p>Tel Aviv , 2.6 km</p>
-                  </div>
-                  <div className="jobs-card-tags">
-                    {job.categories.map((tag) => (
-                      <p className="jobs-selected-card-tag-item" key={tag}>
-                        {tag}
-                      </p>
-                    ))}
-                  </div>
-                  <p>{job.description}</p>
-                  <div className="jobs-selected-flex">
-                    <div>
-                      <img
-                        src={Time}
-                        className="jobs-selected-flex-img"
-                        alt="img"
-                      />
-                      <p>{job.duration}</p>
-                    </div>
-                    <div>
-                      <img
-                        src={Man}
-                        className="jobs-selected-flex-img"
-                        alt="img"
-                      />
-                      <p>{job.requiredEmployees}</p>
-                    </div>
-                    <div>
-                      <img
-                        src={Car}
-                        className="jobs-selected-flex-img"
-                        alt="img"
-                      />
-                      <p>
-                        {job.isPayingForTransportation
-                          ? "covering transportation"
-                          : "not covering transportation"}
-                      </p>
-                    </div>
-                  </div>
+      <div style={{ textAlign: "center" }}>
+        <div className="jobs">
+          <br />
+          <br />
+          <br />
+          <button className="job-filter-button">
+            <img src={Filter} className="job-img-button2" alt="img" />
+          </button>
+          <button className="job-mapview-button">
+            <img src={Map} className="job-img-button" alt="img" />
+          </button>
+          {this.state.jobs.map((job) =>
+            this.state.job.id !== job.id ? (
+              <div
+                className="jobs-card"
+                key={job.id}
+                onClick={() => this.jobPopUp(job)}
+              >
+                <div className="jobs-card-title">
+                  <p className="jobs-card-description">{job.description}</p>
+                  <h3>${job.payment}</h3>
                 </div>
-                <div className="jobs-selected-card-body-right">
-                  <div className="jobs-selected-bottom-line">
-                    <button
-                      className="jobs-selected-save-button"
-                      onClick={() => this.saveJob(job)}
-                    >
-                      Save job
-                    </button>
-                    <br />
-                    <button className="jobs-selected-apply-button">
-                      Apply to job
-                    </button>
-                  </div>
-                  <img
-                    src="https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a"
-                    alt="img"
-                    className="jobs-selected-profile"
-                  />
+                <div className="jobs-card-info">
+                  <p>Today , 6:30pm </p>
+                  <p>Tel Aviv , 2.6 km</p>
+                </div>
+                <div className="jobs-card-tags">
+                  {job.categories.map((tag) => (
+                    <p className="jobs-card-tags-item" key={tag}>
+                      {tag}
+                    </p>
+                  ))}
                 </div>
               </div>
-            </div>
-          )
-        )}
+            ) : (
+              <div
+                className="jobs-selected-card"
+                key={job.description}
+                onClick={() => this.jobPopUp(job)}
+              >
+                <ReactMapGL
+                  {...this.state.viewport}
+                  mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
+                  mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
+                ></ReactMapGL>
+                <div className="jobs-selected-card-body">
+                  <div className="jobs-selected-card-body-left">
+                    <div className="jobs-card-title">
+                      <p>{job.title}</p>
+                      <h3>${job.payment}</h3>
+                    </div>
+                    <div className="jobs-card-info">
+                      <p>Today , 6:30pm </p>
+                      <p>Tel Aviv , 2.6 km</p>
+                    </div>
+                    <div className="jobs-card-tags">
+                      {job.categories.map((tag) => (
+                        <p className="jobs-selected-card-tag-item" key={tag}>
+                          {tag}
+                        </p>
+                      ))}
+                    </div>
+                    <p>{job.description}</p>
+                    <div className="jobs-selected-flex">
+                      <div>
+                        <img
+                          src={Time}
+                          className="jobs-selected-flex-img"
+                          alt="img"
+                        />
+                        <p>{job.duration}</p>
+                      </div>
+                      <div>
+                        <img
+                          src={Man}
+                          className="jobs-selected-flex-img"
+                          alt="img"
+                        />
+                        <p>{job.requiredEmployees}</p>
+                      </div>
+                      <div>
+                        <img
+                          src={Car}
+                          className="jobs-selected-flex-img"
+                          alt="img"
+                        />
+                        <p>
+                          {job.isPayingForTransportation
+                            ? "covering transportation"
+                            : "not covering transportation"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="jobs-selected-card-body-right">
+                    <div className="jobs-selected-bottom-line">
+                      <button
+                        className="jobs-selected-save-button"
+                        onClick={() => this.saveJob(job)}
+                      >
+                        Save job
+                      </button>
+                      <br />
+                      <button className="jobs-selected-apply-button">
+                        Apply to job
+                      </button>
+                    </div>
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a"
+                      alt="img"
+                      className="jobs-selected-profile"
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          )}
+        </div>
+        <button onClick={() => this.loadMore()} className="jobs-load-more">
+          More results
+        </button>
       </div>
     );
   }

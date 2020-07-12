@@ -50,6 +50,16 @@
   display: flex;
   justify-content: space-evenly;
 }
+.jobs-load-more {
+  cursor: pointer;
+  padding: 1em;
+  border-radius: 10px;
+  color: white;
+  background: var(--main2);
+  border: none;
+  font-size: 1em;
+  margin-bottom: 5em;
+}
 
 .jobs-card-info {
   display: flex;

@@ -108,7 +108,11 @@ export default class Jobs extends Component {
         confirmedUsers: [],
         requests: [],
       })
-      .then((ref) => {
+      .then((docRef) => {
+        this.setState({ popUp2: false });
+        firebase.firestore().collection("jobs").doc(docRef.id).update({
+          id: docRef.id,
+        });
         this.getData();
       });
   };

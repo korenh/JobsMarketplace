@@ -8,9 +8,6 @@ export default class Notifications extends Component {
   render() {
     return (
       <div className="notifications">
-        <button className="notifications-clear-button">
-          Clear All Notifications
-        </button>
         <div className="card-accepted">
           <img src={Check} alt="img" className="notifications-card-img" />
           <div>

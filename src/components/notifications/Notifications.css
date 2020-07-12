@@ -1,68 +1,97 @@
 .notifications {
-  padding-top: 150px;
+  margin-top: 1em;
   text-align: center;
-  padding-bottom: 150px;
-}
-
-.notifications-clear-button {
-  margin: 1em;
-  background: none;
-  border: none;
-  border-radius: 20px;
-  box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
-  color: rgb(170, 170, 170);
-  font-weight: bold;
-  padding: 0.5em;
 }
 
 .card-accepted {
-  margin: 1em;
+  margin: 0.5em;
   background: none;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
-  padding: 5px 0;
+  padding: 2px 0;
   display: flex;
   justify-content: flex-start;
 }
 
 .card-removed {
-  margin: 1em;
+  margin: 0.5em;
   background: none;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
-  padding: 5px 0;
+  padding: 2px 0;
   display: flex;
   justify-content: flex-start;
 }
 
 .card-employee {
-  margin: 1em;
+  margin: 0.5em;
   background: none;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
-  padding: 5px 0;
+  padding: 2px 0;
   display: flex;
   justify-content: flex-start;
 }
 
 .notifications-status {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
+  line-height: 0;
 }
 
 .notifications-time {
   color: rgb(212, 212, 212);
+  line-height: 0;
 }
 
 .notifications-card-img {
-  margin: auto 3em;
-  height: 50px;
+  margin: auto 1em;
+  height: 40px;
 }
 
 .notifications-slide {
+  -webkit-animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   background: rgb(255, 255, 255);
   position: fixed;
   box-shadow: 0px 0px 20px 1px rgb(212, 212, 212);
-  margin-top: 70px;
-  width: 300px;
+  margin-top: 72px;
+  width: 250px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/**
+ * ----------------------------------------
+ * animation scale-up-ver-top
+ * ----------------------------------------
+ */
+@-webkit-keyframes scale-up-ver-top {
+  0% {
+    -webkit-transform: scaleY(0.4);
+    transform: scaleY(0.4);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+  }
+}
+@keyframes scale-up-ver-top {
+  0% {
+    -webkit-transform: scaleY(0.4);
+    transform: scaleY(0.4);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+  }
 }
