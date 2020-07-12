@@ -57,6 +57,33 @@ export default class Search extends Component {
       });
   };
 
+  saveJob = (job) => {
+    if (sessionStorage.getItem("saved") === null) {
+      sessionStorage.setItem("saved", []);
+    }
+    var res = sessionStorage.getItem("saved").split(",");
+    let saved = res;
+    if (saved.includes(job.id)) {
+      alert("job already saved");
+      return;
+    }
+    saved.push(job.id);
+    sessionStorage.setItem("saved", saved);
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(sessionStorage.getItem("uid"))
+      .update({
+        saved,
+      })
+      .then(function () {
+        console.log("updated");
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
   jobPopUp = (job) => {
     console.log(job.geo);
     this.setState({ job });
@@ -138,15 +165,27 @@ export default class Search extends Component {
                   <p>{job.description}</p>
                   <div className="jobs-selected-flex">
                     <div>
-                      <img src={Time} className="jobs-selected-flex-img" />
+                      <img
+                        src={Time}
+                        className="jobs-selected-flex-img"
+                        alt="img"
+                      />
                       <p>{job.duration}</p>
                     </div>
                     <div>
-                      <img src={Man} className="jobs-selected-flex-img" />
+                      <img
+                        src={Man}
+                        className="jobs-selected-flex-img"
+                        alt="img"
+                      />
                       <p>{job.requiredEmployees}</p>
                     </div>
                     <div>
-                      <img src={Car} className="jobs-selected-flex-img" />
+                      <img
+                        src={Car}
+                        className="jobs-selected-flex-img"
+                        alt="img"
+                      />
                       <p>
                         {job.isPayingForTransportation
                           ? "covering transportation"
@@ -157,7 +196,10 @@ export default class Search extends Component {
                 </div>
                 <div className="jobs-selected-card-body-right">
                   <div className="jobs-selected-bottom-line">
-                    <button className="jobs-selected-save-button">
+                    <button
+                      className="jobs-selected-save-button"
+                      onClick={() => this.saveJob(job)}
+                    >
                       Save job
                     </button>
                     <br />

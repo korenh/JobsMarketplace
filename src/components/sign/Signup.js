@@ -39,7 +39,8 @@ export default class Signup extends Component {
             firebase
               .firestore()
               .collection("users")
-              .add({
+              .doc(response.user.uid)
+              .set({
                 uid: response.user.uid,
                 name,
                 profileImageURL:
@@ -59,8 +60,7 @@ export default class Signup extends Component {
             this.props.history.push("/");
           })
           .catch(function (error) {
-            var errorMessage = error.message;
-            alert(errorMessage);
+            alert("somthing went wrong");
           });
       }
     }

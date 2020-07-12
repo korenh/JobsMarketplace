@@ -109,7 +109,7 @@ export default class Jobs extends Component {
         requests: [],
       })
       .then((ref) => {
-        alert("added!");
+        this.getData();
       });
   };
 
