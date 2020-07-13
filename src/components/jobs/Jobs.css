@@ -426,6 +426,12 @@
   width: 40px;
 }
 
+.dashboard-card {
+  position: fixed;
+  z-index: 3;
+  top: 73px;
+}
+
 /*------------------view on map----------------*/
 
 /*------------------filter job----------------*/

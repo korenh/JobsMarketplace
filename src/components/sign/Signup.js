@@ -5,6 +5,7 @@ import "./Signup.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import firebase from "../protected/Firebase";
+import { storage } from "../protected/Firebase";
 
 export default class Signup extends Component {
   state = {
@@ -15,6 +16,7 @@ export default class Signup extends Component {
     isBusiness: true,
     isVerified: false,
     description: [],
+    selectedfile: null,
   };
 
   handleRegister = (e) => {
@@ -24,7 +26,7 @@ export default class Signup extends Component {
     let confirm = e.target.elements.confirm.value;
     let name = e.target.elements.name.value;
     let description = e.target.elements.description.value;
-
+    let phone = e.target.elements.phone.value;
     if (password !== confirm) {
       alert("Passwords do not match");
     } else {
@@ -45,11 +47,11 @@ export default class Signup extends Component {
                 name,
                 profileImageURL:
                   "https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a",
+                phone,
                 isBusiness: this.state.isBusiness,
                 isVerified: false,
                 employeeRating: { numberOfRatings: 0, averageRating: 0 },
                 employerRating: { numberOfRatings: 0, averageRating: 0 },
-                saved: [],
                 description,
                 birthDate: this.state.userDate,
                 fcmToken: "",
@@ -70,6 +72,25 @@ export default class Signup extends Component {
     this.setState({
       userDate: date,
     });
+  };
+
+  fileselecthandler = (e) => {
+    const uploadTask = storage
+      .ref(`/users/${e.target.files[0].name}`)
+      .put(e.target.files[0]);
+    uploadTask.on(
+      "state_changed",
+      function (snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      function (error) {},
+      function () {
+        uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
+          console.log(url);
+        });
+      }
+    );
   };
 
   render() {
@@ -107,7 +128,7 @@ export default class Signup extends Component {
             )}
           </div>
           <br />
-          <input type="file" />
+          <input type="file" onChange={this.fileselecthandler} />
           <br />
           <p>Add your profile picture(optional)</p>
           <br />
@@ -124,7 +145,12 @@ export default class Signup extends Component {
             placeholder="Confirm Password"
             name="confirm"
           />
-          <br /> <input className="signup-input" placeholder="Phone Number" />
+          <br />{" "}
+          <input
+            className="signup-input"
+            placeholder="Phone Number"
+            name="phone"
+          />
           <br />{" "}
           <input
             className="signup-input"

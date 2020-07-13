@@ -77,6 +77,7 @@ export default class Search extends Component {
   };
 
   applyJob = (job) => {
+    sessionStorage.setItem("acceptedIds", []);
     let docRef = firebase.firestore().collection("jobs").doc(job.id);
     docRef.get().then(function (doc) {
       sessionStorage.setItem("acceptedIds", doc.data().acceptedIds);

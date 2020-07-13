@@ -3,8 +3,8 @@ import "./Main.css";
 import Menu from "../../icons/menu.png";
 import Bell from "../../icons/bell2.png";
 import Altro from "../../icons/altro.png";
-import Notifications from "../notifications/Notifications";
-import Profile from "../profile/Profile";
+import Notifications from "./components/Notifications";
+import Profile from "./components/Profile";
 
 export default class Header extends Component {
   state = {

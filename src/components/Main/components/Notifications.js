@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import User from "../../icons/notiuser.png";
-import Check from "../../icons/noticheck.png";
-import X from "../../icons/noticlose.png";
+import User from "../../../icons/notiuser.png";
+import Check from "../../../icons/noticheck.png";
+import X from "../../../icons/noticlose.png";
 import "./Notifications.css";
 
 export default class Notifications extends Component {

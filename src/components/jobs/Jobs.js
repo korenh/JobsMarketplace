@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./Jobs.css";
+import Dashboard from "./components/Dashboard";
+import Chat from "./components/Chat";
 import firebase from "../protected/Firebase";
 import { Link } from "react-router-dom";
 import Plus from "../../icons/plus.png";
@@ -14,7 +16,7 @@ import Man from "../../icons/man.png";
 export default class Jobs extends Component {
   state = {
     job: {},
-
+    jobdash: {},
     tags: [
       { id: 1, name: "human" },
       { id: 2, name: "men" },
@@ -42,6 +44,8 @@ export default class Jobs extends Component {
     transportation: false,
     popUp: false,
     popUp2: false,
+    jobDashboard: false,
+    jobChat: false,
   };
 
   handleEnd = (date) => {
@@ -136,11 +140,33 @@ export default class Jobs extends Component {
     });
   };
 
+  Dashboard = (job) => {
+    this.setState({ jobDashboard: !this.state.jobDashboard, jobdash: job });
+  };
+
+  Chat = (job) => {
+    this.setState({ jobChat: !this.state.jobChat, jobdash: job });
+  };
+
   render() {
     return (
       <div className="jobs">
         <br />
         <br />
+        {this.state.jobDashboard ? (
+          <div className="dashboard-card">
+            <Dashboard job={this.state.jobdash} Dashboard={this.Dashboard} />
+          </div>
+        ) : (
+          ""
+        )}
+        {this.state.jobChat ? (
+          <div className="dashboard-card">
+            <Chat job={this.state.jobdash} Chat={this.Chat} />
+          </div>
+        ) : (
+          ""
+        )}
         <button
           onClick={() => this.setState({ popUp: true, popUp2: false })}
           className="job-add-button"
@@ -452,13 +478,21 @@ export default class Jobs extends Component {
                       Boost
                     </button>
                     <br />
-                    <button className="jobs-selected-save-button">
+                    <button
+                      className="jobs-selected-save-button"
+                      onClick={() => this.Dashboard(job)}
+                    >
                       Manage
                     </button>
                     <br />
                     <button className="jobs-selected-save-button">Edit</button>
                     <br />
-                    <button className="jobs-selected-save-button">Chat</button>
+                    <button
+                      className="jobs-selected-save-button"
+                      onClick={() => this.Chat(job)}
+                    >
+                      Chat
+                    </button>
                     <br />
                     <button className="jobs-selected-finish-button">
                       Finish Job

@@ -1,0 +1,52 @@
+.chat-main {
+  -webkit-animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  z-index: 3;
+  background: rgb(243, 243, 243);
+  position: fixed;
+  height: 80vh;
+  width: 300px;
+  left: 0;
+  overflow-y: auto;
+  right: 0;
+  margin: 0;
+  border-radius: 20px;
+  margin: 1em;
+  padding: 1em;
+  box-shadow: 0px 0px 15px 2px gainsboro;
+}
+
+.chat-bottom input {
+  outline: none;
+  font-size: 1em;
+  padding: 1em;
+  border-radius: 5px;
+  border: none;
+  background: rgb(243, 243, 243);
+  width: 80%;
+  margin: 1em;
+}
+
+.chat-bottom {
+  display: flex;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1em 0;
+  height: 50px;
+  background: rgb(210, 210, 210);
+}
+
+.chat-plane {
+  height: 30px;
+  margin: 1em;
+  margin-left: 0.1em;
+}
+
+.chat-top {
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid white;
+}

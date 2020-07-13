@@ -15,20 +15,11 @@ export default class Myjobs extends Component {
     this.getData();
   }
   getData = (async) => {
-    let docRef = firebase
-      .firestore()
-      .collection("users")
-      .doc(sessionStorage.getItem("uid"));
-    docRef.get().then(function (doc) {
-      sessionStorage.setItem("saved", doc.data().saved);
-    });
-
-    let list = sessionStorage.getItem("saved").split(",");
     const allData = [];
     firebase
       .firestore()
       .collection("jobs")
-      .where("id", "in", list)
+      .where("savedIds", "array-contains", sessionStorage.getItem("uid"))
       .orderBy("dateCreated", "desc")
       .limit(20)
       .get()
