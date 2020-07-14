@@ -41,7 +41,10 @@ export default class Mapview extends Component {
             latitude={parseInt(sessionStorage.getItem("lat"))}
             longitude={parseInt(sessionStorage.getItem("lng"))}
           >
-            <img src=" https://img.icons8.com/color/48/000000/marker.png" />
+            <img
+              src=" https://img.icons8.com/color/48/000000/marker.png"
+              alt="img"
+            />
           </Marker>
         </ReactMapGL>
       </div>

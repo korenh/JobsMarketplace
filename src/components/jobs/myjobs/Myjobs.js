@@ -114,7 +114,10 @@ export default class Myjobs extends Component {
                   latitude={job.geo.Ba}
                   longitude={job.geo.Oa}
                 >
-                  <img src=" https://img.icons8.com/color/48/000000/marker.png" />
+                  <img
+                    src=" https://img.icons8.com/color/48/000000/marker.png"
+                    alt="img"
+                  />
                 </Marker>
               </ReactMapGL>
               <div className="jobs-selected-card-body">
