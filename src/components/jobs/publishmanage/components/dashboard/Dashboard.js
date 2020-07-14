@@ -87,6 +87,7 @@ export default class Dashboard extends Component {
             onClick={() =>
               this.setState({ manageEmplyees: !this.state.manageEmplyees })
             }
+            className="jobs-selected-finish-button"
           >
             View All
           </button>

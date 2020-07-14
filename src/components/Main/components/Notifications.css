@@ -55,8 +55,8 @@
   animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   background: rgb(255, 255, 255);
   position: fixed;
-  box-shadow: 0px 0px 20px 1px rgb(212, 212, 212);
-  margin-top: 72px;
+  box-shadow: 0px 10px 20px 1px rgb(212, 212, 212);
+  margin-top: 73px;
   width: 220px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
