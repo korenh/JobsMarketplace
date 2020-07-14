@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Job.css";
+import Mapview from "../map/Mapview";
 import firebase from "../../protected/Firebase";
 import ReactMapGL, { Marker } from "react-map-gl";
 import Filter from "../../../icons/filter.png";
@@ -13,14 +14,8 @@ export default class Search extends Component {
     limit: 10,
     jobs: [],
     job: {},
-    viewport: {
-      latitude: 31.952110800000003,
-      longitude: 34.906551,
-      width: "100%",
-      height: "40vh",
-      zoom: 10,
-    },
     filterpop: false,
+    mappop: false,
   };
 
   loadMore = () => {
@@ -63,6 +58,13 @@ export default class Search extends Component {
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
+            viewport: {
+              latitude: doc.data().location.Ba,
+              longitude: doc.data().location.Oa,
+              width: "100%",
+              height: "40vh",
+              zoom: 10,
+            },
           };
           allData.push(data);
         });
@@ -116,7 +118,11 @@ export default class Search extends Component {
   };
 
   setFilter = () => {
-    this.setState({ filterpop: !this.state.filterpop });
+    this.setState({ filterpop: !this.state.filterpop, mappop: false });
+  };
+
+  setMap = () => {
+    this.setState({ mappop: !this.state.mappop, filterpop: false });
   };
 
   calcCrow(lat2, lon2) {
@@ -170,11 +176,18 @@ export default class Search extends Component {
         ) : (
           ""
         )}
-
+        {this.state.mappop ? (
+          <div className="map-card-main">
+            <Mapview setMap={this.setMap} />
+          </div>
+        ) : (
+          ""
+        )}
         <div className="jobs">
           <br />
           <br />
           <br />
+
           <button className="job-filter-button">
             <img
               src={Filter}
@@ -184,7 +197,12 @@ export default class Search extends Component {
             />
           </button>
           <button className="job-mapview-button">
-            <img src={Map} className="job-img-button" alt="img" />
+            <img
+              src={Map}
+              className="job-img-button"
+              alt="img"
+              onClick={() => this.setMap()}
+            />
           </button>
           {this.state.jobs.map((job) =>
             this.state.job.id !== job.id ? (
@@ -216,15 +234,15 @@ export default class Search extends Component {
                 onClick={() => this.jobPopUp(job)}
               >
                 <ReactMapGL
-                  {...this.state.viewport}
+                  {...job.viewport}
                   mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                   mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
                 >
                   <Marker
                     offsetTop={-48}
                     offsetLeft={-24}
-                    latitude={31.952110800000003}
-                    longitude={34.906551}
+                    latitude={job.geo.Ba}
+                    longitude={job.geo.Oa}
                   >
                     <img src=" https://img.icons8.com/color/48/000000/marker.png" />
                   </Marker>

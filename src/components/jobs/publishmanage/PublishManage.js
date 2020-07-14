@@ -5,11 +5,11 @@ import Chat from "./components/chat/Chat";
 import Editjob from "./components/editjob/Editjob";
 import firebase from "../../protected/Firebase";
 import { Link } from "react-router-dom";
+import ReactMapGL, { Marker } from "react-map-gl";
 import Plus from "../../../icons/plus.png";
 import DatePicker from "react-datepicker";
 import Close from "../../../icons/close.png";
 import Arrow from "../../../icons/arrow.png";
-import ReactMapGL from "react-map-gl";
 import Time from "../../../icons/time.png";
 import Car from "../../../icons/car.png";
 import Man from "../../../icons/man.png";
@@ -80,11 +80,19 @@ export default class Jobs extends Component {
           const data = {
             id: doc.id,
             title: doc.data().title,
+            geo: doc.data().location,
             description: doc.data().description,
             payment: doc.data().payment,
             startDate: doc.data().startDate,
             location: doc.data().location,
             categories: doc.data().categories,
+            viewport: {
+              latitude: doc.data().location.Ba,
+              longitude: doc.data().location.Oa,
+              width: "100%",
+              height: "40vh",
+              zoom: 10,
+            },
           };
           allData.push(data);
         });
@@ -450,10 +458,21 @@ export default class Jobs extends Component {
               onClick={() => this.jobPopUp(job)}
             >
               <ReactMapGL
-                {...this.state.viewport}
+                {...job.viewport}
+                // center={[32.958984, -5.353521]}
+                // fitBounds={[[32.958984, -5.353521], [43.50585, 5.615985]]}}
                 mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                 mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
-              ></ReactMapGL>
+              >
+                <Marker
+                  offsetTop={-48}
+                  offsetLeft={-24}
+                  latitude={job.geo.Ba}
+                  longitude={job.geo.Oa}
+                >
+                  <img src=" https://img.icons8.com/color/48/000000/marker.png" />
+                </Marker>
+              </ReactMapGL>
               <div className="jobs-selected-card-body">
                 <div className="jobs-selected-card-body-left">
                   <div className="jobs-card-title">

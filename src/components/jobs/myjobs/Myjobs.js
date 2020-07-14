@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../protected/Firebase";
 import "../Jobs.css";
-import ReactMapGL from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 import Time from "../../../icons/time.png";
 import Car from "../../../icons/car.png";
 import Man from "../../../icons/man.png";
@@ -41,6 +41,13 @@ export default class Myjobs extends Component {
             isPayingForTransportation: doc.data().isPayingForTransportation,
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
+            viewport: {
+              latitude: doc.data().location.Ba,
+              longitude: doc.data().location.Oa,
+              width: "100%",
+              height: "40vh",
+              zoom: 10,
+            },
           };
           allData.push(data);
         });
@@ -97,10 +104,19 @@ export default class Myjobs extends Component {
               onClick={() => this.jobPopUp()}
             >
               <ReactMapGL
-                {...this.state.viewport}
+                {...job.viewport}
                 mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                 mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
-              ></ReactMapGL>
+              >
+                <Marker
+                  offsetTop={-48}
+                  offsetLeft={-24}
+                  latitude={job.geo.Ba}
+                  longitude={job.geo.Oa}
+                >
+                  <img src=" https://img.icons8.com/color/48/000000/marker.png" />
+                </Marker>
+              </ReactMapGL>
               <div className="jobs-selected-card-body">
                 <div className="jobs-selected-card-body-left">
                   <div className="jobs-card-title">
