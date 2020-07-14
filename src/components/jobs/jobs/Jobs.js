@@ -24,7 +24,7 @@ export default class Search extends Component {
   };
 
   loadMore = () => {
-    this.setState({ limit: this.state.limit + 10 });
+    this.setState({ limit: this.state.limit + 9 });
     this.getData();
   };
 
