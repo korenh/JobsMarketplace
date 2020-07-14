@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Job.css";
 import firebase from "../../protected/Firebase";
-import ReactMapGL from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 import Filter from "../../../icons/filter.png";
 import Map from "../../../icons/map.png";
 import Time from "../../../icons/time.png";
@@ -219,7 +219,16 @@ export default class Search extends Component {
                   {...this.state.viewport}
                   mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                   mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
-                ></ReactMapGL>
+                >
+                  <Marker
+                    offsetTop={-48}
+                    offsetLeft={-24}
+                    latitude={31.952110800000003}
+                    longitude={34.906551}
+                  >
+                    <img src=" https://img.icons8.com/color/48/000000/marker.png" />
+                  </Marker>
+                </ReactMapGL>
                 <div className="jobs-selected-card-body">
                   <div className="jobs-selected-card-body-left">
                     <div className="jobs-card-title">
