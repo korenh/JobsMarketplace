@@ -194,6 +194,10 @@
   width: 35px;
 }
 
+.jobs-selected-desc {
+  word-wrap: break-word;
+}
+
 /*------------------new job----------------*/
 
 .new-job {

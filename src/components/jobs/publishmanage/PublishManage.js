@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import "./Jobs.css";
-import Dashboard from "./components/Dashboard";
-import Chat from "./components/Chat";
-import firebase from "../protected/Firebase";
+import "../Jobs.css";
+import Dashboard from "./components/dashboard/Dashboard";
+import Chat from "./components/chat/Chat";
+import Editjob from "./components/editjob/Editjob";
+import firebase from "../../protected/Firebase";
 import { Link } from "react-router-dom";
-import Plus from "../../icons/plus.png";
+import Plus from "../../../icons/plus.png";
 import DatePicker from "react-datepicker";
-import Close from "../../icons/close.png";
-import Arrow from "../../icons/arrow.png";
+import Close from "../../../icons/close.png";
+import Arrow from "../../../icons/arrow.png";
 import ReactMapGL from "react-map-gl";
-import Time from "../../icons/time.png";
-import Car from "../../icons/car.png";
-import Man from "../../icons/man.png";
+import Time from "../../../icons/time.png";
+import Car from "../../../icons/car.png";
+import Man from "../../../icons/man.png";
 
 export default class Jobs extends Component {
   state = {
@@ -46,6 +47,7 @@ export default class Jobs extends Component {
     popUp2: false,
     jobDashboard: false,
     jobChat: false,
+    editJob: false,
   };
 
   handleEnd = (date) => {
@@ -77,6 +79,7 @@ export default class Jobs extends Component {
         snapshot.docs.forEach((doc) => {
           const data = {
             id: doc.id,
+            title: doc.data().title,
             description: doc.data().description,
             payment: doc.data().payment,
             startDate: doc.data().startDate,
@@ -108,7 +111,10 @@ export default class Jobs extends Component {
         duration: 3,
         numberOfSaves: 0,
         numberOfViews: 0,
-        location: new firebase.firestore.GeoPoint(37.33028312, 122.02805328),
+        location: new firebase.firestore.GeoPoint(
+          parseInt(sessionStorage.getItem("lat")),
+          parseInt(sessionStorage.getItem("lng"))
+        ),
         shouldUseCustomTime: true,
         startDate: this.state.startDate,
         endDate: this.state.endDate,
@@ -148,14 +154,41 @@ export default class Jobs extends Component {
     this.setState({ jobChat: !this.state.jobChat, jobdash: job });
   };
 
+  Editjob = (job) => {
+    this.setState({ editJob: !this.state.editJob, jobdash: job });
+  };
+
+  deleteJob = (job) => {
+    firebase.firestore().collection("jobs").doc(job.id).delete();
+    alert("deleted");
+    this.setState({ jobDashboard: false });
+    this.getData();
+  };
+
   render() {
     return (
       <div className="jobs">
         <br />
         <br />
+        {this.state.editJob ? (
+          <div className="dashboard-card">
+            <Editjob
+              job={this.state.jobdash}
+              Editjob={this.Editjob}
+              getData={this.getData}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         {this.state.jobDashboard ? (
           <div className="dashboard-card">
-            <Dashboard job={this.state.jobdash} Dashboard={this.Dashboard} />
+            <Dashboard
+              job={this.state.jobdash}
+              jobDashboard={this.state.jobDashboard}
+              Dashboard={this.Dashboard}
+              deleteJob={this.deleteJob}
+            />
           </div>
         ) : (
           ""
@@ -395,7 +428,7 @@ export default class Jobs extends Component {
               onClick={() => this.jobPopUp(job)}
             >
               <div className="jobs-card-title">
-                <p className="jobs-card-description">{job.description}</p>
+                <p className="jobs-card-description">{job.title}</p>
                 <h3>${job.payment}</h3>
               </div>
               <div className="jobs-card-info">
@@ -438,7 +471,7 @@ export default class Jobs extends Component {
                       </p>
                     ))}
                   </div>
-                  <p>{job.description}</p>
+                  <p className="jobs-selected-desc">{job.description}</p>
                   <div className="jobs-selected-flex">
                     <div>
                       <img
@@ -485,7 +518,12 @@ export default class Jobs extends Component {
                       Manage
                     </button>
                     <br />
-                    <button className="jobs-selected-save-button">Edit</button>
+                    <button
+                      className="jobs-selected-save-button"
+                      onClick={() => this.Editjob(job)}
+                    >
+                      Edit
+                    </button>
                     <br />
                     <button
                       className="jobs-selected-save-button"
@@ -498,7 +536,10 @@ export default class Jobs extends Component {
                       Finish Job
                     </button>
                     <br />
-                    <button className="jobs-selected-delete-button">
+                    <button
+                      className="jobs-selected-delete-button"
+                      onClick={() => this.deleteJob(job)}
+                    >
                       Delete Job
                     </button>
                   </div>

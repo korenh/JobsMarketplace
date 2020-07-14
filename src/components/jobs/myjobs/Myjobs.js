@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import firebase from "../protected/Firebase";
-import "./Jobs.css";
+import firebase from "../../protected/Firebase";
+import "../Jobs.css";
 import ReactMapGL from "react-map-gl";
-import Time from "../../icons/time.png";
-import Car from "../../icons/car.png";
-import Man from "../../icons/man.png";
+import Time from "../../../icons/time.png";
+import Car from "../../../icons/car.png";
+import Man from "../../../icons/man.png";
 
 export default class Myjobs extends Component {
   state = {
@@ -75,7 +75,7 @@ export default class Myjobs extends Component {
               onClick={() => this.jobPopUp(job)}
             >
               <div className="jobs-card-title">
-                <p className="jobs-card-description">{job.description}</p>
+                <p className="jobs-card-description">{job.title}</p>
                 <h3>${job.payment}</h3>
               </div>
               <div className="jobs-card-info">
@@ -118,7 +118,7 @@ export default class Myjobs extends Component {
                       </p>
                     ))}
                   </div>
-                  <p>{job.description}</p>
+                  <p className="jobs-selected-desc">{job.description}</p>
                   <div className="jobs-selected-flex">
                     <div>
                       <img

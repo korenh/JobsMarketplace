@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Chat.css";
-import Arrow from "../../../icons/arrow.png";
-import Plane from "../../../icons/plane.png";
+import Arrow from "../../../../../icons/arrow.png";
+import Plane from "../../../../../icons/plane.png";
 
 export default class Chat extends Component {
   render() {

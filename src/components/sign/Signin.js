@@ -15,7 +15,7 @@ export default class Signin extends Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        this.props.history.push("/main/search");
+        this.props.history.push("/main/jobs");
         firebase
           .firestore()
           .collection("users")

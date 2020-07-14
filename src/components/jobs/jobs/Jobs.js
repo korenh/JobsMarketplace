@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import firebase from "../protected/Firebase";
+import "./Job.css";
+import firebase from "../../protected/Firebase";
 import ReactMapGL from "react-map-gl";
-import Filter from "../../icons/filter.png";
-import Map from "../../icons/map.png";
-import Time from "../../icons/time.png";
-import Car from "../../icons/car.png";
-import Man from "../../icons/man.png";
+import Filter from "../../../icons/filter.png";
+import Map from "../../../icons/map.png";
+import Time from "../../../icons/time.png";
+import Car from "../../../icons/car.png";
+import Man from "../../../icons/man.png";
 
 export default class Search extends Component {
   state = {
@@ -19,6 +20,7 @@ export default class Search extends Component {
       height: "40vh",
       zoom: 10,
     },
+    filterpop: false,
   };
 
   loadMore = () => {
@@ -27,6 +29,10 @@ export default class Search extends Component {
   };
 
   componentDidMount() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      sessionStorage.setItem("lat", position.coords.latitude);
+      sessionStorage.setItem("lng", position.coords.longitude);
+    });
     this.getData();
   }
 
@@ -56,6 +62,7 @@ export default class Search extends Component {
             isPayingForTransportation: doc.data().isPayingForTransportation,
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
+            km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
           };
           allData.push(data);
         });
@@ -108,15 +115,73 @@ export default class Search extends Component {
     alert("Job saved");
   };
 
+  setFilter = () => {
+    this.setState({ filterpop: !this.state.filterpop });
+  };
+
+  calcCrow(lat2, lon2) {
+    var lat1 = sessionStorage.getItem("lat");
+    var lon1 = sessionStorage.getItem("lng");
+    var dLat = (lat2 - lat1) * (Math.PI / 180);
+    var dLon = (lon2 - lon1) * (Math.PI / 180);
+    lat1 = lat1 * (Math.PI / 180);
+    lat2 = lat2 * (Math.PI / 180);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = 6371 * c;
+    return d;
+  }
+
   render() {
     return (
       <div style={{ textAlign: "center" }}>
+        {this.state.filterpop ? (
+          <div className="filter-card-main">
+            <div className="filter-card-main-inner">
+              <h3>Job filter</h3>
+              <p>How far can you go?</p>
+              <div className="filter-card-flex">
+                <p>5 km</p>
+                <p>15 km</p>
+                <p>25 km</p>
+                <p>50 km</p>
+                <p>100 km</p>
+              </div>
+              <p>When?</p>
+              <div className="filter-card-flex">
+                <p>Today</p>
+                <p>Tomorrow</p>
+                <p>This week</p>
+                <p>Next week</p>
+              </div>
+            </div>
+            <div className="filter-card-flex2">
+              <button
+                className="filter-card-cancel"
+                onClick={() => this.setFilter()}
+              >
+                Cancel
+              </button>
+              <button className="filter-card-search">Search</button>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="jobs">
           <br />
           <br />
           <br />
           <button className="job-filter-button">
-            <img src={Filter} className="job-img-button2" alt="img" />
+            <img
+              src={Filter}
+              className="job-img-button2"
+              alt="img"
+              onClick={() => this.setFilter()}
+            />
           </button>
           <button className="job-mapview-button">
             <img src={Map} className="job-img-button" alt="img" />
@@ -129,12 +194,12 @@ export default class Search extends Component {
                 onClick={() => this.jobPopUp(job)}
               >
                 <div className="jobs-card-title">
-                  <p className="jobs-card-description">{job.description}</p>
+                  <p className="jobs-card-description">{job.title}</p>
                   <h3>${job.payment}</h3>
                 </div>
                 <div className="jobs-card-info">
                   <p>Today , 6:30pm </p>
-                  <p>Tel Aviv , 2.6 km</p>
+                  <p> {Math.round(job.km)} km</p>
                 </div>
                 <div className="jobs-card-tags">
                   {job.categories.map((tag) => (
@@ -172,7 +237,7 @@ export default class Search extends Component {
                         </p>
                       ))}
                     </div>
-                    <p>{job.description}</p>
+                    <p className="jobs-selected-desc">{job.description}</p>
                     <div className="jobs-selected-flex">
                       <div>
                         <img

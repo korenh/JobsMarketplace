@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import "./Dashboard.css";
-import Arrow from "../../../icons/arrow.png";
+import Arrow from "../../../../../icons/arrow.png";
 
 export default class Dashboard extends Component {
   state = {
     manageEmplyees: false,
   };
-
-  componentDidMount() {
-    console.log(this.props.job);
-  }
 
   render() {
     return (
@@ -67,7 +63,12 @@ export default class Dashboard extends Component {
           <button className="jobs-selected-save-button">Chat</button>
           <br />
           <button className="jobs-selected-finish-button">Finish Job</button>
-          <button className="jobs-selected-delete-button">Delete Job</button>
+          <button
+            className="jobs-selected-delete-button"
+            onClick={() => this.props.deleteJob(this.props.job)}
+          >
+            Delete Job
+          </button>
         </div>
         <div className="dashboard-manage">
           <p>Manage Employees</p>

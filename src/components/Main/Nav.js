@@ -14,7 +14,7 @@ export default class Nav extends Component {
         <NavLink
           className="nav-item"
           activeClassName="nav-item-active"
-          to="/main/search"
+          to="/main/jobs"
         >
           <img src={Search} alt="img" style={{ height: "30px" }} />
           <p style={{ lineHeight: "0" }}>Search</p>
@@ -29,7 +29,7 @@ export default class Nav extends Component {
         </NavLink>
         <NavLink
           className="nav-item"
-          to="/main/jobs"
+          to="/main/publishmanage"
           activeClassName="nav-item-active"
         >
           <img src={Publish} alt="img" style={{ height: "30px" }} />
