@@ -3,8 +3,6 @@ import "./Job.css";
 import Mapview from "../map/Mapview";
 import firebase from "../../protected/Firebase";
 import ReactMapGL, { Marker } from "react-map-gl";
-import Filter from "../../../icons/filter.png";
-import Map from "../../../icons/map.png";
 import Time from "../../../icons/time.png";
 import Car from "../../../icons/car.png";
 import Man from "../../../icons/man.png";
@@ -153,6 +151,22 @@ export default class Search extends Component {
   render() {
     return (
       <div style={{ textAlign: "center" }}>
+        <div className="myjobs-main-head-flex">
+          <p
+            className="job-top-flex-p"
+            onClick={() => this.setFilter()}
+            style={{ color: "rgb(45, 123, 212)" }}
+          >
+            Filter
+          </p>
+          <p
+            className="job-top-flex-p"
+            onClick={() => this.setMap()}
+            style={{ color: "rgb(45, 123, 212)" }}
+          >
+            MapView
+          </p>
+        </div>
         {this.state.filterpop ? (
           <div className="filter-card-main">
             <div className="filter-card-main-inner">
@@ -194,26 +208,6 @@ export default class Search extends Component {
           ""
         )}
         <div className="jobs">
-          <br />
-          <br />
-          <br />
-
-          <button className="job-filter-button">
-            <img
-              src={Filter}
-              className="job-img-button2"
-              alt="img"
-              onClick={() => this.setFilter()}
-            />
-          </button>
-          <button className="job-mapview-button">
-            <img
-              src={Map}
-              className="job-img-button"
-              alt="img"
-              onClick={() => this.setMap()}
-            />
-          </button>
           {this.state.jobs.map((job) =>
             this.state.job.id !== job.id ? (
               <div
