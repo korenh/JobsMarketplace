@@ -106,7 +106,7 @@ export default class Myjobs extends Component {
   };
 
   Chat = (job) => {
-    this.setState({ jobChat: !this.state.jobChat });
+    this.setState({ jobChat: !this.state.jobChat, jobdash: job });
   };
 
   unsaveJob = (job) => {
@@ -124,6 +124,30 @@ export default class Myjobs extends Component {
       });
     this.getData();
   };
+
+  toconfirmedUsers = (job) => {
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(job.id)
+      .get()
+      .then((doc) => {
+        let confirmedIds = doc.data().confirmedIds;
+        let confirmedUsers = doc.data().confirmedUsers;
+        this.removeA(confirmedIds, sessionStorage.getItem("uid"));
+        confirmedUsers.push({
+          confirmingUserId: sessionStorage.getItem("uid"),
+          dateConfirmed: firebase.firestore.Timestamp.fromDate(new Date()),
+        });
+        firebase.firestore().collection("jobs").doc(job.id).update({
+          confirmedIds,
+          confirmedUsers,
+        });
+        this.getData();
+      });
+  };
+
+  confirmes;
 
   render() {
     return (
@@ -401,7 +425,10 @@ export default class Myjobs extends Component {
                             Chat
                           </button>
                           <br />
-                          <button className="jobs-selected-finish-button">
+                          <button
+                            className="jobs-selected-finish-button"
+                            onClick={() => this.toconfirmedUsers(job)}
+                          >
                             Confirm
                           </button>
                           <br />

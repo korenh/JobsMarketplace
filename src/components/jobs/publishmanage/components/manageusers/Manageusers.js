@@ -37,8 +37,9 @@ export default class Manageusers extends Component {
     docRef.get().then((doc) => {
       let acceptedIds = doc.data().acceptedIds;
       let confirmedIds = doc.data().confirmedIds;
-      let acceptedUsers = doc.data().acceptedUsers;
-      this.setState({ acceptedIds, confirmedIds, acceptedUsers });
+      let confirmedUsers = doc.data().confirmedUsers;
+      this.setState({ acceptedIds, confirmedIds, confirmedUsers });
+      console.log(this.state.confirmedUsers);
     });
   };
 
@@ -104,7 +105,7 @@ export default class Manageusers extends Component {
                 background: this.state.Requests ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Requests
+              Requests({this.state.acceptedIds.length})
             </p>
             <p
               className="manage-employees-flex-item"
@@ -119,7 +120,7 @@ export default class Manageusers extends Component {
                 background: this.state.Accepted ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Accepted
+              Accepted({this.state.confirmedIds.length})
             </p>
             <p
               className="manage-employees-flex-item"
@@ -134,7 +135,7 @@ export default class Manageusers extends Component {
                 background: this.state.Confirmed ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Confirmed
+              Confirm
             </p>
           </div>
           <br />
@@ -188,8 +189,6 @@ export default class Manageusers extends Component {
                     />
                     <div className="dashboard-card-person-info">
                       <p>{v}</p>
-                      <p>Accepted on may 3</p>
-                      <p>(293)</p>
                     </div>
                   </div>
                   <div className="manageusers-button-flex">
@@ -209,8 +208,8 @@ export default class Manageusers extends Component {
           {this.state.Confirmed ? (
             <div>
               <p>Confirmed</p>
-              {this.state.acceptedIds.map((v) => (
-                <div key={v} className="manageusers-user-card">
+              {this.state.confirmedUsers.map((v) => (
+                <div key={v.confirmingUserId} className="manageusers-user-card">
                   <div className="dashboard-card-person-flex">
                     <img
                       alt="img"
@@ -218,23 +217,16 @@ export default class Manageusers extends Component {
                       style={{ height: "50px", borderRadius: "50%" }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{v}</p>
-                      <p>Accepted on may 3</p>
-                      <p>(293)</p>
+                      <p>{v.confirmingUserId}</p>
+                      <p>{v.dateConfirmed.toString()}</p>
                     </div>
                   </div>
                   <div className="manageusers-button-flex">
                     <p
-                      onClick={() => this.toconfirmedIds(v)}
-                      className="manageusers-button-confirm"
-                    >
-                      V
-                    </p>
-                    <p
                       onClick={() => this.deleteacceptedIds(v)}
                       className="manageusers-button-delete"
                     >
-                      X
+                      Remove
                     </p>
                   </div>
                 </div>

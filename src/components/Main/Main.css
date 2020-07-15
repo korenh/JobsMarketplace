@@ -7,7 +7,7 @@
   text-align: center;
   display: flex;
   justify-content: space-evenly;
-  z-index: 2;
+  z-index: 3;
 }
 
 .header-flex {
