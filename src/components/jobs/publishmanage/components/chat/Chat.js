@@ -63,14 +63,14 @@ export default class Chat extends Component {
             message.from === sessionStorage.getItem("uid") ? (
               <div key={message.dateSent} className="chat-each-message">
                 <p className="chat-each-date">
-                  {new Date(message.dateSent).toISOString()}
+                  {new Date(message.dateSent).toUTCString()}
                 </p>
                 <p>{message.message}</p>
               </div>
             ) : (
               <div key={message.dateSent} className="chat-each-message2">
                 <p className="chat-each-date">
-                  {new Date(message.dateSent).toISOString()}
+                  {new Date(message.dateSent).toUTCString()}
                 </p>
                 <p>{message.message}</p>
               </div>

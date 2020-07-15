@@ -50,6 +50,7 @@
 }
 
 .chat-form button {
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   padding: 0.5em 1em;
   background: var(--main2);
@@ -60,6 +61,7 @@
 }
 
 .chat-form input {
+  font-family: "Roboto", sans-serif;
   outline: none;
   width: 100%;
   border-radius: 5px;

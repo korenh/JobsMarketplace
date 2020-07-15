@@ -28,56 +28,60 @@ export default class Profile extends Component {
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
             History
           </p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>
-            Jobs Completed
-            <span
-              style={{
-                fontSize: "15px",
-                fontWeight: "bold",
-                marginLeft: "10px",
-              }}
-            >
-              18
-            </span>
-          </p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>
-            Monthly Jobs{" "}
-            <span
-              style={{
-                fontSize: "15px",
-                fontWeight: "bold",
-                marginLeft: "10px",
-              }}
-            >
-              2
-            </span>
-          </p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>
-            Per Job{" "}
-            <span
-              style={{
-                fontSize: "15px",
-                fontWeight: "bold",
-                marginLeft: "10px",
-                color: "rgb(103, 201, 108)",
-              }}
-            >
-              32$
-            </span>
-          </p>
-          <p style={{ fontSize: "14px", textAlign: "left" }}>
-            Total Earned{" "}
-            <span
-              style={{
-                fontSize: "15px",
-                fontWeight: "bold",
-                marginLeft: "10px",
-                color: "rgb(103, 201, 108)",
-              }}
-            >
-              428$
-            </span>
-          </p>
+          <div className="profile-flex-info">
+            <div>
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                }}
+              >
+                18
+              </p>
+              <p style={{ fontSize: "12px" }}>Jobs Completed</p>
+            </div>
+            <div>
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                }}
+              >
+                2
+              </p>
+              <p style={{ fontSize: "12px" }}>Monthly Jobs </p>
+            </div>
+          </div>
+          <div className="profile-flex-info">
+            <div>
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                  color: "rgb(103, 201, 108)",
+                }}
+              >
+                32$
+              </p>
+              <p style={{ fontSize: "12px" }}>Per Job</p>
+            </div>
+            <div>
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                  color: "rgb(103, 201, 108)",
+                }}
+              >
+                428$
+              </p>
+              <p style={{ fontSize: "12px" }}>Total Earned</p>
+            </div>
+          </div>
         </div>
       </div>
     );
