@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Dashboard.css";
 import Arrow from "../../../../../icons/arrow.png";
+import Manageusers from "../manageusers/Manageusers";
 
 export default class Dashboard extends Component {
   state = {
@@ -11,33 +12,7 @@ export default class Dashboard extends Component {
     return (
       <div className="dashboard">
         {this.state.manageEmplyees ? (
-          <div className="manage-employees">
-            <img
-              onClick={() => this.props.Dashboard()}
-              className="newjob-back-btn"
-              src={Arrow}
-              alt="img"
-            />
-            <h3>Manage Employees</h3>
-            <div className="manage-employees-flex">
-              <p>Requests</p>
-              <p>Accepted</p>
-              <p>Confirmed</p>
-            </div>
-            <br />
-            <br />
-            <div className="dashboard-card-person">
-              <div className="dashboard-card-person-flex">
-                <img alt="img" />
-                <div className="dashboard-card-person-info">
-                  <p>Koren Hamra</p>
-                  <p>Accepted on may 3</p>
-                  <p>(293)</p>
-                </div>
-              </div>
-              <button>submit</button>
-            </div>
-          </div>
+          <Manageusers Dashboard={this.props.Dashboard} job={this.props.job} />
         ) : (
           ""
         )}

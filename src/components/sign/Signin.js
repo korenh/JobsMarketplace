@@ -26,7 +26,6 @@ export default class Signin extends Component {
               sessionStorage.setItem("uid", doc.data().uid);
               sessionStorage.setItem("name", doc.data().name);
               sessionStorage.setItem("url", doc.data().profileImageURL);
-              sessionStorage.setItem("saved", doc.data().saved);
               sessionStorage.setItem("description", doc.data().description);
             });
           });

@@ -16,20 +16,26 @@ export default class Search extends Component {
     job: {},
     filterpop: false,
     mappop: false,
+    acceptedIds: [],
+    savedIds: [],
   };
 
   loadMore = () => {
-    this.setState({ limit: this.state.limit + 9 });
+    this.setState({ limit: this.state.limit + 10 });
     this.getData();
   };
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(function (position) {
+    this.getCoord();
+    this.getData();
+  }
+
+  getCoord = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
     });
-    this.getData();
-  }
+  };
 
   getData = (async) => {
     const allData = [];
@@ -86,35 +92,39 @@ export default class Search extends Component {
   };
 
   applyJob = (job) => {
-    sessionStorage.setItem("acceptedIds", []);
     let docRef = firebase.firestore().collection("jobs").doc(job.id);
-    docRef.get().then(function (doc) {
-      sessionStorage.setItem("acceptedIds", doc.data().acceptedIds);
+    docRef.get().then((doc) => {
+      this.setState({ acceptedIds: doc.data().acceptedIds });
     });
-    let acceptedIds = sessionStorage.getItem("acceptedIds").split(",");
-    if (acceptedIds.includes(sessionStorage.getItem("uid"))) {
+    if (this.state.acceptedIds.includes(sessionStorage.getItem("uid"))) {
       alert("Request already sent");
       return;
     }
-    acceptedIds.push(sessionStorage.getItem("uid"));
-    firebase.firestore().collection("jobs").doc(job.id).update({ acceptedIds });
+    this.state.acceptedIds.push(sessionStorage.getItem("uid"));
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(job.id)
+      .update({ acceptedIds: this.state.acceptedIds });
     alert("Request sent");
   };
 
   saveJob = (job) => {
-    sessionStorage.setItem("savedIds", []);
     let docRef = firebase.firestore().collection("jobs").doc(job.id);
-    docRef.get().then(function (doc) {
-      sessionStorage.setItem("savedIds", doc.data().savedIds);
+    docRef.get().then((doc) => {
+      this.setState({ savedIds: doc.data().savedIds });
     });
-    let savedIds = sessionStorage.getItem("savedIds").split(",");
-    if (savedIds.includes(sessionStorage.getItem("uid"))) {
-      alert("Job already saved");
+    if (this.state.savedIds.includes(sessionStorage.getItem("uid"))) {
+      alert("Request already sent");
       return;
     }
-    savedIds.push(sessionStorage.getItem("uid"));
-    firebase.firestore().collection("jobs").doc(job.id).update({ savedIds });
-    alert("Job saved");
+    this.state.savedIds.push(sessionStorage.getItem("uid"));
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(job.id)
+      .update({ savedIds: this.state.savedIds });
+    alert("Request sent");
   };
 
   setFilter = () => {
@@ -327,9 +337,13 @@ export default class Search extends Component {
             )
           )}
         </div>
-        <button onClick={() => this.loadMore()} className="jobs-load-more">
-          More results
-        </button>
+        {this.state.jobs.length > 9 ? (
+          <button onClick={() => this.loadMore()} className="jobs-load-more">
+            More results
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
