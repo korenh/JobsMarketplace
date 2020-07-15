@@ -87,8 +87,8 @@ export default class Jobs extends Component {
             location: doc.data().location,
             categories: doc.data().categories,
             viewport: {
-              latitude: doc.data().location.Ba,
-              longitude: doc.data().location.Oa,
+              latitude: 32.12257459473794,
+              longitude: 34.8154874641065,
               width: "100%",
               height: "40vh",
               zoom: 10,
@@ -120,9 +120,10 @@ export default class Jobs extends Component {
         numberOfSaves: 0,
         numberOfViews: 0,
         location: new firebase.firestore.GeoPoint(
-          parseInt(sessionStorage.getItem("lat")),
-          parseInt(sessionStorage.getItem("lng"))
+          32.12257459473794,
+          34.8154874641065
         ),
+
         shouldUseCustomTime: true,
         startDate: this.state.startDate,
         endDate: this.state.endDate,
@@ -145,8 +146,8 @@ export default class Jobs extends Component {
     this.setState({ job });
     this.setState({
       viewport: {
-        latitude: 31.952110800000003,
-        longitude: 34.906551,
+        latitude: 32.12257459473794,
+        longitude: 34.8154874641065,
         width: "100%",
         height: "40vh",
         zoom: 10,
@@ -467,8 +468,8 @@ export default class Jobs extends Component {
                 <Marker
                   offsetTop={-48}
                   offsetLeft={-24}
-                  latitude={job.geo.Ba}
-                  longitude={job.geo.Oa}
+                  latitude={32.12257459473794}
+                  longitude={34.8154874641065}
                 >
                   <img
                     src=" https://img.icons8.com/color/48/000000/marker.png"

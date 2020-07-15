@@ -25,8 +25,8 @@ export default class Search extends Component {
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(function (position) {
-      sessionStorage.setItem("lat", position.coords.latitude);
-      sessionStorage.setItem("lng", position.coords.longitude);
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
     });
     this.getData();
   }
@@ -59,8 +59,8 @@ export default class Search extends Component {
             numberOfViews: doc.data().numberOfViews,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
             viewport: {
-              latitude: doc.data().location.Ba,
-              longitude: doc.data().location.Oa,
+              latitude: 32.12257459473794,
+              longitude: 34.8154874641065,
               width: "100%",
               height: "40vh",
               zoom: 10,
@@ -126,8 +126,8 @@ export default class Search extends Component {
   };
 
   calcCrow(lat2, lon2) {
-    var lat1 = sessionStorage.getItem("lat");
-    var lon1 = sessionStorage.getItem("lng");
+    var lat1 = 32;
+    var lon1 = 32;
     var dLat = (lat2 - lat1) * (Math.PI / 180);
     var dLon = (lon2 - lon1) * (Math.PI / 180);
     lat1 = lat1 * (Math.PI / 180);
@@ -241,8 +241,8 @@ export default class Search extends Component {
                   <Marker
                     offsetTop={-48}
                     offsetLeft={-24}
-                    latitude={job.geo.Ba}
-                    longitude={job.geo.Oa}
+                    latitude={32.12257459473794}
+                    longitude={34.8154874641065}
                   >
                     <img
                       src=" https://img.icons8.com/color/48/000000/marker.png"

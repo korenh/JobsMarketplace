@@ -7,8 +7,8 @@ export default class Mapview extends Component {
     lat: 0,
     lng: 0,
     viewport: {
-      latitude: parseInt(sessionStorage.getItem("lat")),
-      longitude: parseInt(sessionStorage.getItem("lng")),
+      latitude: 32.12257459473794,
+      longitude: 34.8154874641065,
       width: "100%",
       height: "80vh",
       zoom: 10,
@@ -38,8 +38,8 @@ export default class Mapview extends Component {
           <Marker
             offsetTop={-48}
             offsetLeft={-24}
-            latitude={parseInt(sessionStorage.getItem("lat"))}
-            longitude={parseInt(sessionStorage.getItem("lng"))}
+            latitude={32.12257459473794}
+            longitude={34.8154874641065}
           >
             <img
               src=" https://img.icons8.com/color/48/000000/marker.png"
