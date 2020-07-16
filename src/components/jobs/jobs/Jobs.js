@@ -9,12 +9,23 @@ import Man from "../../../icons/man.png";
 
 export default class Search extends Component {
   state = {
+    hours: [
+      { id: 1, name: "< 3hrs" },
+      { id: 2, name: "< 6hrs" },
+      { id: 3, name: "< 12hrs" },
+      { id: 4, name: "< 1d" },
+      { id: 5, name: "1d +" },
+    ],
+    Filter: [5, 15, 25, 50, 100],
+    kmFilter: 100000,
     limit: 10,
     jobs: [],
     job: {},
     filterpop: false,
     mappop: false,
     acceptedIds: [],
+    lat: undefined,
+    lng: undefined,
     savedIds: [],
   };
 
@@ -30,8 +41,8 @@ export default class Search extends Component {
 
   getCoord = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords.latitude);
-      console.log(position.coords.longitude);
+      this.setState({ lat: position.coords.latitude });
+      this.setState({ lng: position.coords.longitude });
     });
   };
 
@@ -63,8 +74,8 @@ export default class Search extends Component {
             numberOfViews: doc.data().numberOfViews,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
             viewport: {
-              latitude: 32.12257459473794,
-              longitude: 34.8154874641065,
+              latitude: doc.data().location.Oa,
+              longitude: doc.data().location.Ba,
               width: "100%",
               height: "40vh",
               zoom: 10,
@@ -133,19 +144,18 @@ export default class Search extends Component {
     this.setState({ mappop: !this.state.mappop, filterpop: false });
   };
 
-  calcCrow(lat2, lon2) {
-    var lat1 = 32;
-    var lon1 = 32;
-    var dLat = (lat2 - lat1) * (Math.PI / 180);
-    var dLon = (lon2 - lon1) * (Math.PI / 180);
-    lat1 = lat1 * (Math.PI / 180);
-    lat2 = lat2 * (Math.PI / 180);
-    var a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = 6371 * c;
-    return d;
+  calcCrow(lon2, lat2, unit) {
+    var radlat1 = (Math.PI * this.state.lat) / 180;
+    var radlat2 = (Math.PI * lat2) / 180;
+    var theta = this.state.lng - lon2;
+    var radtheta = (Math.PI * theta) / 180;
+    var dist =
+      Math.sin(radlat1) * Math.sin(radlat2) +
+      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist);
+    dist = (dist * 180) / Math.PI;
+    dist = dist * 60 * 1.1515;
+    return dist;
   }
 
   render() {
@@ -172,13 +182,7 @@ export default class Search extends Component {
             <div className="filter-card-main-inner">
               <h3>Job filter</h3>
               <p>How far can you go?</p>
-              <div className="filter-card-flex">
-                <p>5 km</p>
-                <p>15 km</p>
-                <p>25 km</p>
-                <p>50 km</p>
-                <p>100 km</p>
-              </div>
+              <FilterCard />
               <p>When?</p>
               <div className="filter-card-flex">
                 <p>Today</p>
@@ -202,7 +206,11 @@ export default class Search extends Component {
         )}
         {this.state.mappop ? (
           <div className="map-card-main">
-            <Mapview setMap={this.setMap} />
+            <Mapview
+              setMap={this.setMap}
+              lat={this.state.lat}
+              lng={this.state.lng}
+            />
           </div>
         ) : (
           ""
@@ -245,8 +253,8 @@ export default class Search extends Component {
                   <Marker
                     offsetTop={-48}
                     offsetLeft={-24}
-                    latitude={32.12257459473794}
-                    longitude={34.8154874641065}
+                    latitude={job.geo.Oa}
+                    longitude={job.geo.Ba}
                   >
                     <img
                       src=" https://img.icons8.com/color/48/000000/marker.png"
@@ -262,7 +270,7 @@ export default class Search extends Component {
                     </div>
                     <div className="jobs-card-info">
                       <p>Today , 6:30pm </p>
-                      <p>Tel Aviv , 2.6 km</p>
+                      <p>Tel Aviv , {Math.round(job.km)} km</p>
                     </div>
                     <div className="jobs-card-tags">
                       {job.categories.map((tag) => (
@@ -279,7 +287,12 @@ export default class Search extends Component {
                           className="jobs-selected-flex-img"
                           alt="img"
                         />
-                        <p>{job.duration}</p>
+                        <p>
+                          {
+                            this.state.hours.find((o) => o.id === job.duration)
+                              .name
+                          }
+                        </p>
                       </div>
                       <div>
                         <img
@@ -342,3 +355,15 @@ export default class Search extends Component {
     );
   }
 }
+
+const FilterCard = () => {
+  return (
+    <div className="filter-card-flex">
+      <p onClick={console.log("hello")}>5 km</p>
+      <p>15 km</p>
+      <p>25 km</p>
+      <p>50 km</p>
+      <p>100 km</p>
+    </div>
+  );
+};

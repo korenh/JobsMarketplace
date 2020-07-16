@@ -5,15 +5,16 @@ import Arrow from "../../../../../icons/arrow.png";
 
 export default class Editjob extends Component {
   state = {
-    title: "",
-    description: "",
+    payment: this.props.job.payment,
+    title: this.props.job.title,
+    description: this.props.job.description,
   };
   Update = () => {
-    firebase
-      .firestore()
-      .collection("jobs")
-      .doc(this.props.job.id)
-      .update({ description: this.state.description, title: this.state.title });
+    firebase.firestore().collection("jobs").doc(this.props.job.id).update({
+      description: this.state.description,
+      title: this.state.title,
+      payment: this.state.payment,
+    });
     this.props.getData();
     this.props.Editjob();
   };
@@ -28,14 +29,38 @@ export default class Editjob extends Component {
           alt="img"
         />
         <br />
+        <div className="newjob-number-flex">
+          <p
+            className="newjob-plus-button"
+            onClick={() =>
+              this.setState({
+                payment: this.state.payment + 5,
+              })
+            }
+          >
+            +
+          </p>
+          <p className="newjob-required">{this.state.payment}$</p>
+          <p
+            className="newjob-minus-button"
+            onClick={() =>
+              this.setState({
+                payment: this.state.payment - 5,
+              })
+            }
+          >
+            -
+          </p>
+        </div>
+        <br />
         <input
-          defaultValue={this.props.job.title}
+          value={this.state.title}
           onChange={(e) => this.setState({ title: e.target.value })}
           className="new-job-input"
         />
         <br />
         <textarea
-          defaultValue={this.props.job.description}
+          value={this.state.description}
           onChange={(e) => this.setState({ description: e.target.value })}
           className="new-job-textarea"
         />

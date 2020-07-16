@@ -4,19 +4,13 @@ import Close from "../../../icons/close.png";
 
 export default class Mapview extends Component {
   state = {
-    lat: 0,
-    lng: 0,
     viewport: {
-      latitude: 32.12257459473794,
-      longitude: 34.8154874641065,
+      latitude: this.props.lat,
+      longitude: this.props.lng,
       width: "100%",
       height: "80vh",
       zoom: 10,
     },
-  };
-
-  dosome = (lat, lng) => {
-    this.setState({ lat, lng });
   };
 
   componentDidMount() {}
@@ -38,8 +32,8 @@ export default class Mapview extends Component {
           <Marker
             offsetTop={-48}
             offsetLeft={-24}
-            latitude={32.12257459473794}
-            longitude={34.8154874641065}
+            latitude={this.props.lat}
+            longitude={this.props.lng}
           >
             <img
               src=" https://img.icons8.com/color/48/000000/marker.png"

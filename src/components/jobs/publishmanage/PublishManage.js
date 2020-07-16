@@ -47,6 +47,8 @@ export default class Jobs extends Component {
     jobDashboard: false,
     jobChat: false,
     editJob: false,
+    lat: undefined,
+    lng: undefined,
   };
 
   handleEnd = (date) => {
@@ -61,8 +63,16 @@ export default class Jobs extends Component {
     });
   };
 
+  getCoord = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({ lat: position.coords.latitude });
+      this.setState({ lng: position.coords.longitude });
+    });
+  };
+
   componentDidMount() {
     this.getData();
+    this.getCoord();
   }
 
   getData = () => {
@@ -81,13 +91,15 @@ export default class Jobs extends Component {
             title: doc.data().title,
             geo: doc.data().location,
             description: doc.data().description,
+            duration: doc.data().duration,
+            requiredEmployees: doc.data().requiredEmployees,
             payment: doc.data().payment,
             startDate: doc.data().startDate,
             location: doc.data().location,
             categories: doc.data().categories,
             viewport: {
-              latitude: 32.12257459473794,
-              longitude: 34.8154874641065,
+              latitude: doc.data().location.Oa,
+              longitude: doc.data().location.Ba,
               width: "100%",
               height: "40vh",
               zoom: 10,
@@ -115,12 +127,12 @@ export default class Jobs extends Component {
         isPaymentPerHour: this.state.hourly,
         isPayingForTransportation: this.state.transportation,
         requiredEmployees: this.state.numberRequired,
-        duration: 3,
+        duration: this.state.hour.id,
         numberOfSaves: 0,
         numberOfViews: 0,
         location: new firebase.firestore.GeoPoint(
-          32.12257459473794,
-          34.8154874641065
+          this.state.lat,
+          this.state.lng
         ),
 
         shouldUseCustomTime: true,
@@ -168,9 +180,22 @@ export default class Jobs extends Component {
 
   deleteJob = (job) => {
     firebase.firestore().collection("jobs").doc(job.id).delete();
-    alert("deleted");
-    this.setState({ jobDashboard: false });
-    this.getData();
+    setInterval(() => {
+      this.setState({ jobDashboard: false });
+      this.getData();
+    }, 100);
+  };
+
+  FinishJob = (job) => {
+    let docRef = firebase.firestore().collection("jobs").doc(job.id);
+    docRef.get().then((doc) => {
+      firebase.firestore().collection("jobs").doc(job.id).delete();
+      firebase.firestore().collection("archive").add(doc.data());
+      setInterval(() => {
+        this.setState({ jobDashboard: false });
+        this.getData();
+      }, 100);
+    });
   };
 
   render() {
@@ -475,8 +500,8 @@ export default class Jobs extends Component {
                   <Marker
                     offsetTop={-48}
                     offsetLeft={-24}
-                    latitude={32.12257459473794}
-                    longitude={34.8154874641065}
+                    latitude={job.geo.Oa}
+                    longitude={job.geo.Ba}
                   >
                     <img
                       src=" https://img.icons8.com/color/48/000000/marker.png"
@@ -509,7 +534,12 @@ export default class Jobs extends Component {
                           className="jobs-selected-flex-img"
                           alt="img"
                         />
-                        <p>{job.duration}</p>
+                        <p>
+                          {
+                            this.state.hours.find((o) => o.id === job.duration)
+                              .name
+                          }
+                        </p>
                       </div>
                       <div>
                         <img
@@ -562,7 +592,10 @@ export default class Jobs extends Component {
                         Chat
                       </button>
                       <br />
-                      <button className="jobs-selected-finish-button">
+                      <button
+                        className="jobs-selected-finish-button"
+                        onClick={() => this.FinishJob(job)}
+                      >
                         Finish Job
                       </button>
                       <br />
