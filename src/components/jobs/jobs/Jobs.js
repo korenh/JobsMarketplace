@@ -182,7 +182,13 @@ export default class Search extends Component {
             <div className="filter-card-main-inner">
               <h3>Job filter</h3>
               <p>How far can you go?</p>
-              <FilterCard />
+              <div className="filter-card-flex">
+                <p onClick={console.log("5km")}>5 km</p>
+                <p onClick={console.log("15km")}>15 km</p>
+                <p onClick={console.log("25km")}>25 km</p>
+                <p onClick={console.log("50km")}>50 km</p>
+                <p onClick={console.log("100km")}>100 km</p>
+              </div>
               <p>When?</p>
               <div className="filter-card-flex">
                 <p>Today</p>
@@ -355,15 +361,3 @@ export default class Search extends Component {
     );
   }
 }
-
-const FilterCard = () => {
-  return (
-    <div className="filter-card-flex">
-      <p onClick={console.log("hello")}>5 km</p>
-      <p>15 km</p>
-      <p>25 km</p>
-      <p>50 km</p>
-      <p>100 km</p>
-    </div>
-  );
-};

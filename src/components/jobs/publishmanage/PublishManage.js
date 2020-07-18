@@ -4,6 +4,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Chat from "./components/chat/Chat";
 import Editjob from "./components/editjob/Editjob";
 import firebase from "../../protected/Firebase";
+import { addNotification } from "../../functions/helper";
 import { Link } from "react-router-dom";
 import ReactMapGL, { Marker } from "react-map-gl";
 import DatePicker from "react-datepicker";
@@ -42,6 +43,7 @@ export default class Jobs extends Component {
     time: "null",
     hourly: false,
     transportation: false,
+    agree: false,
     popUp: false,
     popUp2: false,
     jobDashboard: false,
@@ -68,6 +70,19 @@ export default class Jobs extends Component {
       this.setState({ lat: position.coords.latitude });
       this.setState({ lng: position.coords.longitude });
     });
+  };
+
+  Continue = () => {
+    if (
+      this.state.title === "" ||
+      this.state.description === "" ||
+      this.state.payment === 0 ||
+      this.state.numberRequired === 0
+    ) {
+      alert("Fill required fields");
+      return;
+    }
+    this.setState({ popUp: false, popUp2: true });
   };
 
   componentDidMount() {
@@ -112,6 +127,10 @@ export default class Jobs extends Component {
   };
 
   addJob = () => {
+    if (this.state.agree === false) {
+      alert("Please accept Terms of Services & Privacy Policy");
+      return;
+    }
     this.setState({ popUp2: false });
     firebase
       .firestore()
@@ -148,6 +167,14 @@ export default class Jobs extends Component {
         this.setState({ popUp2: false });
         firebase.firestore().collection("jobs").doc(docRef.id).update({
           id: docRef.id,
+        });
+        addNotification({
+          date: firebase.firestore.Timestamp.fromDate(new Date()),
+          fromUser: sessionStorage.getItem("uid"),
+          fromUsername: sessionStorage.getItem("name"),
+          jobId: docRef.id,
+          notificationType: "New Job created",
+          toUser: sessionStorage.getItem("uid"),
         });
         this.getData();
       });
@@ -385,10 +412,7 @@ export default class Jobs extends Component {
               <br />
               <br />
               <br />
-              <button
-                onClick={() => this.setState({ popUp: false, popUp2: true })}
-                className="signup-button"
-              >
+              <button onClick={() => this.Continue()} className="signup-button">
                 Continue
               </button>
             </div>
@@ -442,7 +466,11 @@ export default class Jobs extends Component {
                 <p>Location: </p>
               </div>
               <div>
-                <input type="checkbox" style={{ fontSize: "20px" }} />
+                <input
+                  type="checkbox"
+                  style={{ fontSize: "20px" }}
+                  onChange={(e) => this.setState({ agree: !this.state.agree })}
+                />
                 <span> I agree to Altro's </span>
                 <Link to="/" className="signup-link">
                   Terms of Services & Employment
