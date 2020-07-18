@@ -31,6 +31,18 @@
   height: 40px;
 }
 
+.notifications-delete {
+  font-family: "Roboto", sans-serif;
+  cursor: pointer;
+  color: white;
+  font-size: 15px;
+  border: none;
+  background: rgb(226, 74, 74);
+  position: absolute;
+  right: 10px;
+  border-radius: 5px;
+}
+
 .notifications-slide {
   -webkit-animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1)
     both;

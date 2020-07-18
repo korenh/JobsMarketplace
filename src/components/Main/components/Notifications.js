@@ -10,6 +10,17 @@ export default class Notifications extends Component {
     notifications: [],
   };
 
+  deleteNotification = (notification) => {
+    firebase
+      .firestore()
+      .collection("notifications")
+      .doc(notification.id)
+      .delete();
+    setInterval(() => {
+      this.getData();
+    }, 100);
+  };
+
   componentDidMount() {
     this.getData();
   }
@@ -47,6 +58,12 @@ export default class Notifications extends Component {
           <div className="card-notification" key={notification.id}>
             <img src={Check} alt="img" className="notifications-card-img" />
             <div>
+              <button
+                onClick={() => this.deleteNotification(notification)}
+                className="notifications-delete"
+              >
+                x
+              </button>
               <p className="notifications-status">
                 {notification.notificationType}
               </p>
