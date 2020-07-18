@@ -14,6 +14,7 @@
   justify-content: flex-start;
   word-wrap: break-word;
   word-break: break-word;
+  font-size: 13px;
 }
 
 .notifications-status {
@@ -23,7 +24,6 @@
 
 .notifications-time {
   color: rgb(212, 212, 212);
-  line-height: 0;
 }
 
 .notifications-card-img {

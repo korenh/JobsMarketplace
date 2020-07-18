@@ -234,7 +234,7 @@ export default class Search extends Component {
                   <h3>${job.payment}</h3>
                 </div>
                 <div className="jobs-card-info">
-                  <p>Today , 6:30pm </p>
+                  <p>{job.dateCreated.toDate().toDateString()}</p>
                   <p> {Math.round(job.km)} km</p>
                 </div>
                 <div className="jobs-card-tags">
@@ -275,7 +275,13 @@ export default class Search extends Component {
                       <h3>${job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
-                      <p>Today , 6:30pm </p>
+                      <p>
+                        {job.dateCreated.toDate().toDateString() +
+                          " " +
+                          job.dateCreated
+                            .toDate()
+                            .toLocaleTimeString("en-US")}{" "}
+                      </p>
                       <p>Tel Aviv , {Math.round(job.km)} km</p>
                     </div>
                     <div className="jobs-card-tags">

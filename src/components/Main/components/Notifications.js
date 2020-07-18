@@ -38,7 +38,10 @@ export default class Notifications extends Component {
         snapshot.docs.forEach((doc) => {
           const data = {
             id: doc.id,
-            date: doc.data().date,
+            date:
+              doc.data().date.toDate().toDateString() +
+              " " +
+              doc.data().date.toDate().toLocaleTimeString("en-US"),
             fromUser: doc.data().fromUser,
             fromUsername: doc.data().fromUsername,
             jobId: doc.data().jobId,
@@ -72,7 +75,7 @@ export default class Notifications extends Component {
               <p className="notifications-name">
                 by {notification.fromUsername}
               </p>
-              <p className="notifications-time">May 16th , 18:32</p>
+              <p className="notifications-time">{notification.date}</p>
             </div>
           </div>
         ))}
