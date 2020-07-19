@@ -10,6 +10,7 @@ import Man from "../../../icons/man.png";
 export default class Myjobs extends Component {
   state = {
     jobs: [],
+    confirmedUsers: [],
     job: {},
     saved: true,
     going: false,
@@ -71,7 +72,7 @@ export default class Myjobs extends Component {
             payment: doc.data().payment,
             startDate: doc.data().startDate,
             location: doc.data().location,
-            categories: doc.data().categories,
+            categories: doc.data().stringCategories,
             isPaymentPerHour: doc.data().isPaymentPerHour,
             duration: doc.data().duration,
             requiredEmployees: doc.data().requiredEmployees,

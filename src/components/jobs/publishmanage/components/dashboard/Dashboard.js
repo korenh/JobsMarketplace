@@ -47,17 +47,7 @@ export default class Dashboard extends Component {
         </div>
         <div className="dashboard-manage">
           <p>Manage Employees</p>
-          <div style={{ display: "flex" }}>
-            <div>
-              <p>Requests</p>
-            </div>
-            <div>
-              <p>Accepted</p>
-            </div>
-            <div>
-              <p>Confirmed</p>
-            </div>
-          </div>
+
           <button
             onClick={() =>
               this.setState({ manageEmplyees: !this.state.manageEmplyees })

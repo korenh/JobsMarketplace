@@ -35,8 +35,12 @@ export default class Search extends Component {
   };
 
   componentDidMount() {
-    this.getCoord();
-    this.getData();
+    setInterval(() => {
+      this.getCoord();
+    }, 100);
+    setInterval(() => {
+      this.getData();
+    }, 100);
   }
 
   getCoord = () => {
@@ -65,7 +69,7 @@ export default class Search extends Component {
             payment: doc.data().payment,
             startDate: doc.data().startDate,
             location: doc.data().location,
-            categories: doc.data().categories,
+            categories: doc.data().stringCategories,
             isPaymentPerHour: doc.data().isPaymentPerHour,
             duration: doc.data().duration,
             requiredEmployees: doc.data().requiredEmployees,

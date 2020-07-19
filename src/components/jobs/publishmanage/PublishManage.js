@@ -111,7 +111,7 @@ export default class Jobs extends Component {
             payment: doc.data().payment,
             startDate: doc.data().startDate,
             location: doc.data().location,
-            categories: doc.data().categories,
+            categories: doc.data().stringCategories,
             viewport: {
               latitude: doc.data().location.Oa,
               longitude: doc.data().location.Ba,
@@ -141,7 +141,7 @@ export default class Jobs extends Component {
         dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
         title: this.state.title,
         description: this.state.description,
-        categories: ["backend", "science", "developer", "network"],
+        stringCategories: ["backend", "science", "developer", "network"],
         payment: this.state.payment,
         isPaymentPerHour: this.state.hourly,
         isPayingForTransportation: this.state.transportation,
