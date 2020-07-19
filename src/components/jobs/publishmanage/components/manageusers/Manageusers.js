@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Arrow from "../../../../../icons/arrow.png";
 import firebase from "../../../../protected/Firebase";
+import { addNotification } from "../../../../functions/helper";
+
 import "./Manageusers.css";
 
 export default class Manageusers extends Component {
@@ -69,6 +71,14 @@ export default class Manageusers extends Component {
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
       confirmedIds,
+    });
+    addNotification({
+      date: firebase.firestore.Timestamp.fromDate(new Date()),
+      fromUser: sessionStorage.getItem("uid"),
+      fromUsername: sessionStorage.getItem("name"),
+      jobId: this.props.job.id,
+      notificationType: "Accepted to job",
+      toUser: v,
     });
     this.getData();
   };
