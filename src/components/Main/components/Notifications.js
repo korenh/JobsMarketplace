@@ -59,16 +59,11 @@ export default class Notifications extends Component {
       <div className="notifications">
         {this.state.notifications.map((notification) => (
           <div className="card-notification" key={notification.id}>
-            <div>
-              <button
-                onClick={() => this.deleteNotification(notification)}
-                className="notifications-delete"
-              >
-                x
-              </button>
-              <img src={Check} alt="img" className="notifications-card-img" />
-            </div>
-            <div>
+            <img src={Check} alt="img" className="notifications-card-img" />
+            <div
+              style={{ marginLeft: "5px" }}
+              className="notifications-div-info"
+            >
               <p className="notifications-status">
                 {notification.notificationType}
               </p>
@@ -76,6 +71,12 @@ export default class Notifications extends Component {
                 by {notification.fromUsername}
               </p>
               <p className="notifications-time">{notification.date}</p>
+              <button
+                onClick={() => this.deleteNotification(notification)}
+                className="notifications-delete"
+              >
+                x
+              </button>
             </div>
           </div>
         ))}

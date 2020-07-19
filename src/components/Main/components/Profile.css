@@ -30,10 +30,26 @@
 }
 
 .profile-flex-info div {
-  text-align: center;
+  text-align: left;
   border-radius: 5px;
   width: 100px;
   margin: 0.5em;
   padding: 0.5em;
   box-shadow: 0px 0px 5px 1px rgb(230, 230, 230);
+}
+
+.profile-slide {
+  -webkit-animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  background: rgb(255, 255, 255);
+  position: fixed;
+  box-shadow: 0px 10px 20px 1px rgb(212, 212, 212);
+  margin: 73px auto 0 auto;
+  width: 100%;
+  left: 0;
+  right: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 2;
 }

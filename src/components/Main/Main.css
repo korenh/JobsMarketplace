@@ -85,8 +85,10 @@
 }
 
 .header-menu button {
+  cursor: pointer;
   background: none;
   font-size: 15px;
+  padding: 0.5em;
   border: none;
 }
 

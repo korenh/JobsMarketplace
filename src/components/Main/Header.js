@@ -71,14 +71,14 @@ export default class Header extends Component {
             onClick={this.menu}
           />
           {this.state.notification ? (
-            <div className="notifications-slide">
+            <div className="profile-slide">
               <Notifications />
             </div>
           ) : (
             ""
           )}
           {this.state.profile ? (
-            <div className="notifications-slide">
+            <div className="profile-slide">
               <Profile />
             </div>
           ) : (
