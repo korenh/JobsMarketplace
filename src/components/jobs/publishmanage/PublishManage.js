@@ -207,10 +207,8 @@ export default class Jobs extends Component {
 
   deleteJob = (job) => {
     firebase.firestore().collection("jobs").doc(job.id).delete();
-    setInterval(() => {
-      this.setState({ jobDashboard: false });
-      this.getData();
-    }, 100);
+    this.setState({ jobDashboard: false });
+    this.getData();
   };
 
   FinishJob = (job) => {
@@ -218,10 +216,8 @@ export default class Jobs extends Component {
     docRef.get().then((doc) => {
       firebase.firestore().collection("jobs").doc(job.id).delete();
       firebase.firestore().collection("archive").add(doc.data());
-      setInterval(() => {
-        this.setState({ jobDashboard: false });
-        this.getData();
-      }, 100);
+      this.setState({ jobDashboard: false });
+      this.getData();
     });
   };
 

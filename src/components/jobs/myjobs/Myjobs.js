@@ -31,16 +31,12 @@ export default class Myjobs extends Component {
 
   setSaved = () => {
     this.setState({ saved: true, going: false });
-    setInterval(() => {
-      this.getData();
-    }, 100);
+    this.getData();
   };
 
   setGoing = () => {
     this.setState({ saved: false, going: true });
-    setInterval(() => {
-      this.getData();
-    }, 100);
+    this.getData();
   };
 
   componentDidMount() {
