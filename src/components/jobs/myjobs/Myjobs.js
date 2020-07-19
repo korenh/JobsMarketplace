@@ -10,7 +10,6 @@ import Man from "../../../icons/man.png";
 export default class Myjobs extends Component {
   state = {
     jobs: [],
-    confirmedUsers: [],
     job: {},
     saved: true,
     going: false,
