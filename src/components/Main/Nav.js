@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import "./Main.css";
 
-import Search from "../../icons/search.png";
-import Publish from "../../icons/publish.png";
-import Star from "../../icons/star.png";
-
+import SearchIcon from "@material-ui/icons/Search";
+import PublishIcon from "@material-ui/icons/Publish";
+import StarIcon from "@material-ui/icons/Star";
 import { NavLink } from "react-router-dom";
 
 export default class Nav extends Component {
@@ -16,7 +15,7 @@ export default class Nav extends Component {
           activeClassName="nav-item-active"
           to="/main/jobs"
         >
-          <img src={Search} alt="img" style={{ height: "30px" }} />
+          <SearchIcon style={{ fontSize: 30 }} />
           <p style={{ lineHeight: "0" }}>Search</p>
         </NavLink>
         <NavLink
@@ -24,7 +23,7 @@ export default class Nav extends Component {
           to="/main/myjobs"
           activeClassName="nav-item-active"
         >
-          <img src={Star} alt="img" style={{ height: "30px" }} />
+          <StarIcon style={{ fontSize: 30 }} />
           <p style={{ lineHeight: "0" }}>My Jobs</p>
         </NavLink>
         <NavLink
@@ -32,7 +31,7 @@ export default class Nav extends Component {
           to="/main/publishmanage"
           activeClassName="nav-item-active"
         >
-          <img src={Publish} alt="img" style={{ height: "30px" }} />
+          <PublishIcon style={{ fontSize: 30 }} />
           <p style={{ lineHeight: "0" }}>Publish</p>
         </NavLink>
       </div>

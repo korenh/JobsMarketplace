@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
-import Close from "../../../icons/close.png";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 export default function Mapview(props) {
   const [viewport, setViewport] = useState({
@@ -18,11 +18,15 @@ export default function Mapview(props) {
         mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
         onViewportChange={(viewport) => setViewport(viewport)}
       >
-        <img
-          src={Close}
+        <CancelIcon
           onClick={() => props.setMap()}
           alt="img"
-          style={{ cursor: "pointer", height: "40px", margin: "1em" }}
+          style={{
+            cursor: "pointer",
+            fontSize: 45,
+            margin: "5px",
+            color: "white",
+          }}
         />
         <Marker
           offsetTop={-48}
