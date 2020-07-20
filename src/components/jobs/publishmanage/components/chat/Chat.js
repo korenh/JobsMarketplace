@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./Chat.css";
-import Logout from "../../../../../icons/logout.png";
-import Info from "../../../../../icons/info.png";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import InfoIcon from "@material-ui/icons/Info";
+import SendIcon from "@material-ui/icons/Send";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 
 import axios from "axios";
 export default class Chat extends Component {
@@ -52,24 +54,27 @@ export default class Chat extends Component {
     return (
       <div className="chat-main">
         <div className="chat-top">
-          <img
-            src={Logout}
+          <ExitToAppIcon
             onClick={() => this.props.Chat()}
             alt="img"
             className="chat-top-logout"
+            style={{ color: "white", fontSize: 25 }}
           />
           <p className="chat-top-title">{this.props.job.title}</p>
-          <img
-            src={Info}
+          <InfoIcon
             onClick={() => this.props.Chat()}
             alt="img"
             className="chat-top-logout"
+            style={{ color: "white", fontSize: 25 }}
           />
         </div>
         <div className="chat-section">
           <p>'3' of '5' confirmed their participation.</p>
           <span>listofpics</span>
-          <button className="chat-confirmed">Confirm Participation</button>
+          <button className="chat-confirmed">
+            <VerifiedUserIcon style={{ color: "white", fontSize: 15 }} />
+            Confirm Participation
+          </button>
         </div>
         <div className="chat-content">
           {this.state.messages.map((message) =>
@@ -93,7 +98,9 @@ export default class Chat extends Component {
         <div className="chat-div-form">
           <form className="chat-form" onSubmit={this.AddData}>
             <input type="text" name="message" />
-            <button type="submit">Send</button>
+            <button type="submit">
+              <SendIcon style={{ color: "white", fontSize: 25 }} />
+            </button>
           </form>
         </div>
       </div>

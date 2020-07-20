@@ -21,7 +21,7 @@
 .chat-top {
   display: flex;
   justify-content: space-evenly;
-  border-bottom: 1px solid rgb(173, 171, 171);
+  border-bottom: 1px solid var(--main2);
 }
 
 .chat-content {
@@ -52,7 +52,7 @@
 .chat-form button {
   font-family: "Roboto", sans-serif;
   cursor: pointer;
-  padding: 0.5em 1em;
+  padding: 0.2em 0.5em;
   background: var(--main2);
   color: white;
   font-size: 14px;
@@ -67,6 +67,7 @@
   border-radius: 5px;
   padding: 0.5em 1em;
   background: gainsboro;
+  color: white;
   font-size: 14px;
   border: none;
 }
@@ -108,9 +109,8 @@
 
 .chat-top-logout {
   cursor: pointer;
-  height: 30px;
   background: var(--main2);
-  padding: 0.5em;
+  padding: 0.3em;
   margin: 0.3em;
   border-radius: 5px;
 }
