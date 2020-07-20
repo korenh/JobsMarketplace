@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import "./Job.css";
+import Filter from "@material-ui/icons/FilterList";
+import MapIcon from "@material-ui/icons/Map";
+import StarIcon from "@material-ui/icons/Star";
+import NearMeIcon from "@material-ui/icons/NearMe";
 import Mapview from "../map/Mapview";
 import firebase from "../../protected/Firebase";
 import ReactMapGL, { Marker } from "react-map-gl";
@@ -167,6 +171,9 @@ export default class Search extends Component {
             onClick={() => this.setFilter()}
             style={{ color: "rgb(45, 123, 212)" }}
           >
+            <Filter style={{ color: "rgb(45, 123, 212)", fontSize: 15 }}>
+              add_circle
+            </Filter>
             Filter
           </p>
           <p
@@ -174,6 +181,9 @@ export default class Search extends Component {
             onClick={() => this.setMap()}
             style={{ color: "rgb(45, 123, 212)" }}
           >
+            <MapIcon style={{ color: "rgb(45, 123, 212)", fontSize: 15 }}>
+              add_circle
+            </MapIcon>
             MapView
           </p>
         </div>
@@ -334,6 +344,9 @@ export default class Search extends Component {
                         className="jobs-selected-save-button"
                         onClick={() => this.saveJob(job)}
                       >
+                        <StarIcon
+                          style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
+                        ></StarIcon>
                         Save job
                       </button>
                       <br />
@@ -341,6 +354,9 @@ export default class Search extends Component {
                         className="jobs-selected-apply-button"
                         onClick={() => this.applyJob(job)}
                       >
+                        <NearMeIcon
+                          style={{ color: "white", fontSize: 14 }}
+                        ></NearMeIcon>
                         Apply to job
                       </button>
                     </div>

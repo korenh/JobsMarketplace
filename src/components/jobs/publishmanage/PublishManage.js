@@ -1,5 +1,13 @@
 import React, { Component } from "react";
 import "../Jobs.css";
+import ArchiveIcon from "@material-ui/icons/Archive";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ChatIcon from "@material-ui/icons/Chat";
+import DeleteIcon from "@material-ui/icons/Delete";
+import GroupIcon from "@material-ui/icons/Group";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import EditIcon from "@material-ui/icons/Edit";
 import Dashboard from "./components/dashboard/Dashboard";
 import Chat from "./components/chat/Chat";
 import Review from "./components/review/Review";
@@ -237,9 +245,13 @@ export default class Jobs extends Component {
             onClick={() => this.setState({ popUp: true, popUp2: false })}
             style={{ color: "rgb(45, 123, 212)" }}
           >
+            <AddCircleIcon
+              style={{ color: "rgb(45, 123, 212)", fontSize: 15 }}
+            />
             New Job
           </p>
           <p className="job-top-flex-p" style={{ color: "rgb(45, 123, 212)" }}>
+            <ArchiveIcon style={{ color: "rgb(45, 123, 212)", fontSize: 15 }} />
             Archive
           </p>
         </div>
@@ -609,6 +621,9 @@ export default class Jobs extends Component {
                       <p style={{ lineHeight: "0" }}>Manage your job</p>
                       <br />
                       <button className="jobs-selected-boost-button">
+                        <ArrowUpwardIcon
+                          style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
+                        />{" "}
                         Boost
                       </button>
                       <br />
@@ -616,6 +631,9 @@ export default class Jobs extends Component {
                         className="jobs-selected-save-button"
                         onClick={() => this.Dashboard(job)}
                       >
+                        <GroupIcon
+                          style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
+                        />
                         Manage
                       </button>
                       <br />
@@ -623,6 +641,9 @@ export default class Jobs extends Component {
                         className="jobs-selected-save-button"
                         onClick={() => this.Editjob(job)}
                       >
+                        <EditIcon
+                          style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
+                        />{" "}
                         Edit
                       </button>
                       <br />
@@ -630,6 +651,9 @@ export default class Jobs extends Component {
                         className="jobs-selected-save-button"
                         onClick={() => this.Chat(job)}
                       >
+                        <ChatIcon
+                          style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
+                        />{" "}
                         Chat
                       </button>
                       <br />
@@ -637,6 +661,9 @@ export default class Jobs extends Component {
                         className="jobs-selected-finish-button"
                         onClick={() => this.FinishJob(job)}
                       >
+                        <CheckCircleIcon
+                          style={{ color: "white", fontSize: 14 }}
+                        />{" "}
                         Finish Job
                       </button>
                       <br />
@@ -644,6 +671,7 @@ export default class Jobs extends Component {
                         className="jobs-selected-delete-button"
                         onClick={() => this.deleteJob(job)}
                       >
+                        <DeleteIcon style={{ color: "white", fontSize: 14 }} />
                         Delete Job
                       </button>
                     </div>

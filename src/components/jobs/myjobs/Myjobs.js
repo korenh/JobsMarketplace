@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import "../Jobs.css";
+import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
+import ChatIcon from "@material-ui/icons/Chat";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import BackspaceIcon from "@material-ui/icons/Backspace";
+import StarIcon from "@material-ui/icons/Star";
+import NearMeIcon from "@material-ui/icons/NearMe";
 import firebase from "../../protected/Firebase";
 import Chat from "../publishmanage/components/chat/Chat";
 import ReactMapGL, { Marker } from "react-map-gl";
@@ -160,6 +166,7 @@ export default class Myjobs extends Component {
               color: this.state.saved ? "white" : "gray",
             }}
           >
+            <StarIcon style={{ color: "white", fontSize: 15 }} />
             Saved
           </p>
           <p
@@ -169,6 +176,7 @@ export default class Myjobs extends Component {
               color: this.state.going ? "white" : "gray",
             }}
           >
+            <NearMeIcon style={{ color: "white", fontSize: 15 }} />
             Going
           </p>
         </div>
@@ -280,10 +288,22 @@ export default class Myjobs extends Component {
                         <div className="jobs-selected-bottom-line">
                           <br />
                           <button className="jobs-selected-save-button">
+                            <PhoneIphoneIcon
+                              style={{
+                                fontSize: 15,
+                                color: "rgb(45, 123, 212)",
+                              }}
+                            />
                             Contact
                           </button>
                           <br />
                           <button className="jobs-selected-finish-button">
+                            <CheckCircleIcon
+                              style={{
+                                fontSize: 15,
+                                color: "white",
+                              }}
+                            />
                             Apply Job
                           </button>
                           <br />
@@ -291,6 +311,12 @@ export default class Myjobs extends Component {
                             className="jobs-selected-delete-button"
                             onClick={() => this.unsaveJob(job)}
                           >
+                            <BackspaceIcon
+                              style={{
+                                fontSize: 15,
+                                color: "white",
+                              }}
+                            />
                             Unsave
                           </button>
                         </div>
@@ -415,6 +441,12 @@ export default class Myjobs extends Component {
                         <div className="jobs-selected-bottom-line">
                           <br />
                           <button className="jobs-selected-save-button">
+                            <PhoneIphoneIcon
+                              style={{
+                                fontSize: 15,
+                                color: "rgb(45, 123, 212)",
+                              }}
+                            />
                             Contact
                           </button>
                           <br />
@@ -422,6 +454,12 @@ export default class Myjobs extends Component {
                             className="jobs-selected-save-button"
                             onClick={() => this.Chat()}
                           >
+                            <ChatIcon
+                              style={{
+                                fontSize: 15,
+                                color: "rgb(45, 123, 212)",
+                              }}
+                            />
                             Chat
                           </button>
                           <br />
@@ -429,10 +467,22 @@ export default class Myjobs extends Component {
                             className="jobs-selected-finish-button"
                             onClick={() => this.toconfirmedUsers(job)}
                           >
+                            <CheckCircleIcon
+                              style={{
+                                fontSize: 15,
+                                color: "white",
+                              }}
+                            />
                             Confirm
                           </button>
                           <br />
                           <button className="jobs-selected-delete-button">
+                            <BackspaceIcon
+                              style={{
+                                fontSize: 15,
+                                color: "white",
+                              }}
+                            />
                             Abort
                           </button>
                         </div>

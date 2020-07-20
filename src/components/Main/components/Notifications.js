@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../protected/Firebase";
-import Check from "../../../icons/noticheck.png";
-//import X from "../../../icons/noticlose.png";
-//import User from "../../../icons/notiuser.png";
+import Check from "@material-ui/icons/CheckCircle";
+import ClearIcon from "@material-ui/icons/Clear";
 import "./Notifications.css";
 
 export default class Notifications extends Component {
@@ -59,7 +58,13 @@ export default class Notifications extends Component {
       <div className="notifications">
         {this.state.notifications.map((notification) => (
           <div className="card-notification" key={notification.id}>
-            <img src={Check} alt="img" className="notifications-card-img" />
+            <Check
+              style={{
+                color: "rgb(45, 123, 212)",
+                fontSize: 40,
+                margin: "auto 5px",
+              }}
+            />
             <div
               style={{ marginLeft: "5px" }}
               className="notifications-div-info"
@@ -71,12 +76,11 @@ export default class Notifications extends Component {
                 by {notification.fromUsername}
               </p>
               <p className="notifications-time">{notification.date}</p>
-              <button
+              <ClearIcon
+                style={{ fontSize: 17 }}
                 onClick={() => this.deleteNotification(notification)}
                 className="notifications-delete"
-              >
-                x
-              </button>
+              />
             </div>
           </div>
         ))}

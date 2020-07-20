@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Profile.css";
+import EditIcon from "@material-ui/icons/Edit";
 
 export default class Profile extends Component {
   render() {
@@ -14,7 +15,13 @@ export default class Profile extends Component {
           <p style={{ lineHeight: "0", fontSize: "17px" }}>
             {sessionStorage.getItem("name")}
           </p>
-          <button className="profile-button">Edit Profile</button>
+          <button className="profile-button">
+            {" "}
+            <EditIcon
+              style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
+            />{" "}
+            Edit Profile
+          </button>
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
             About me
           </p>
