@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import firebase from "../protected/Firebase";
 import { storage } from "../protected/Firebase";
+import User from "../../icons/notiuser.png";
 
 export default class Signup extends Component {
   state = {
@@ -45,8 +46,9 @@ export default class Signup extends Component {
               .set({
                 uid: response.user.uid,
                 name,
-                profileImageURL:
-                  "https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a",
+                profileImageURL: sessionStorage.getItem("imgurl")
+                  ? sessionStorage.getItem("imgurl")
+                  : "https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a",
                 phone,
                 isBusiness: this.state.isBusiness,
                 isVerified: false,
@@ -86,8 +88,8 @@ export default class Signup extends Component {
       },
       function (error) {},
       function () {
-        uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
-          console.log(url);
+        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+          sessionStorage.setItem("imgurl", url);
         });
       }
     );
@@ -128,7 +130,15 @@ export default class Signup extends Component {
             )}
           </div>
           <br />
-          <input type="file" onChange={this.fileselecthandler} />
+          <label htmlFor="file-input" style={{ cursor: "pointer" }}>
+            <img src={User} alt="img" />
+          </label>
+          <input
+            style={{ display: "none" }}
+            id="file-input"
+            type="file"
+            onChange={this.fileselecthandler}
+          />
           <br />
           <p>Add your profile picture(optional)</p>
           <br />

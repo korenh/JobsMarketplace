@@ -50,7 +50,7 @@ export default class Header extends Component {
         <div className="header-flex">
           <div onClick={this.profile}>
             <img
-              src="https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a"
+              src={sessionStorage.getItem("url")}
               alt="img"
               className="header-icon3"
             />
