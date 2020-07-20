@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./Chat.css";
 import Logout from "../../../../../icons/logout.png";
+import Info from "../../../../../icons/info.png";
+
 import axios from "axios";
 export default class Chat extends Component {
   state = {
@@ -57,6 +59,17 @@ export default class Chat extends Component {
             className="chat-top-logout"
           />
           <p className="chat-top-title">{this.props.job.title}</p>
+          <img
+            src={Info}
+            onClick={() => this.props.Chat()}
+            alt="img"
+            className="chat-top-logout"
+          />
+        </div>
+        <div className="chat-section">
+          <p>'3' of '5' confirmed their participation.</p>
+          <span>listofpics</span>
+          <button className="chat-confirmed">Confirm Participation</button>
         </div>
         <div className="chat-content">
           {this.state.messages.map((message) =>

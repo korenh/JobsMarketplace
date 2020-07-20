@@ -32,30 +32,6 @@
   cursor: pointer;
 }
 
-.siginin-button-facebook {
-  margin: 1em;
-  padding: 0.1em 1em;
-  border-radius: 50px;
-  border: none;
-  background: rgb(39, 62, 134);
-  color: white;
-  font-family: "Roboto", sans-serif;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.siginin-button-google {
-  margin: 1em;
-  padding: 0.1em 1em;
-  border-radius: 50px;
-  border: none;
-  background: rgb(219, 77, 77);
-  color: white;
-  font-family: "Roboto", sans-serif;
-  font-size: 20px;
-  cursor: pointer;
-}
-
 .signin-link {
   color: var(--main2);
   text-decoration: none;

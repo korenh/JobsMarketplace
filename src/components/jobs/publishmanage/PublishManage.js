@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../Jobs.css";
 import Dashboard from "./components/dashboard/Dashboard";
 import Chat from "./components/chat/Chat";
+import Review from "./components/review/Review";
 import Editjob from "./components/editjob/Editjob";
 import firebase from "../../protected/Firebase";
 import { addNotification } from "../../functions/helper";
@@ -49,6 +50,7 @@ export default class Jobs extends Component {
     jobDashboard: false,
     jobChat: false,
     editJob: false,
+    reviewJob: false,
     lat: undefined,
     lng: undefined,
   };
@@ -208,7 +210,9 @@ export default class Jobs extends Component {
   deleteJob = (job) => {
     firebase.firestore().collection("jobs").doc(job.id).delete();
     this.setState({ jobDashboard: false });
-    this.getData();
+    setTimeout(() => {
+      this.getData();
+    }, 1);
   };
 
   FinishJob = (job) => {
@@ -217,7 +221,10 @@ export default class Jobs extends Component {
       firebase.firestore().collection("jobs").doc(job.id).delete();
       firebase.firestore().collection("archive").add(doc.data());
       this.setState({ jobDashboard: false });
-      this.getData();
+      setTimeout(() => {
+        this.getData();
+      }, 1);
+      this.setState({ reviewJob: !this.state.reviewJob, jobdash: job });
     });
   };
 
@@ -236,7 +243,17 @@ export default class Jobs extends Component {
             Archive
           </p>
         </div>
-
+        {this.state.reviewJob ? (
+          <div className="dashboard-card">
+            <Review
+              job={this.state.jobdash}
+              getData={this.getData}
+              ReviewJob={this.ReviewJob}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <div className="jobs">
           <br />
           <br />

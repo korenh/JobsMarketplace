@@ -29,14 +29,18 @@ export default class Myjobs extends Component {
     return arr;
   }
 
-  setSaved = () => {
-    this.setState({ saved: true, going: false });
-    this.getData();
+  setSaved = (async) => {
+    setTimeout(() => {
+      this.setState({ saved: true, going: false });
+      this.getData();
+    }, 1);
   };
 
-  setGoing = () => {
-    this.setState({ saved: false, going: true });
-    this.getData();
+  setGoing = (async) => {
+    setTimeout(() => {
+      this.setState({ saved: false, going: true });
+      this.getData();
+    }, 1);
   };
 
   componentDidMount() {
@@ -308,7 +312,7 @@ export default class Myjobs extends Component {
             <div className="myjobs">
               {this.state.jobChat ? (
                 <div className="dashboard-card">
-                  <Chat job={this.state.jobdash} Chat={this.Chat} />
+                  <Chat job={this.state.job} Chat={this.Chat} />
                 </div>
               ) : (
                 ""

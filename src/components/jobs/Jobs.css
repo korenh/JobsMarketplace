@@ -28,6 +28,7 @@
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
   color: gray;
+  z-index: 0;
 }
 
 .jobs-selected-card {
@@ -45,6 +46,7 @@
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
   color: white;
+  z-index: 0;
 }
 
 .jobs-selected-card-tag-item {
