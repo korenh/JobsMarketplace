@@ -39,7 +39,9 @@ export default class Search extends Component {
   };
 
   componentDidMount() {
-    this.getCoord();
+    setInterval(() => {
+      this.getCoord();
+    }, 10);
     this.getData();
   }
 
