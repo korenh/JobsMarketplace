@@ -17,8 +17,8 @@ import { addNotification } from "../../functions/helper";
 import { Link } from "react-router-dom";
 import ReactMapGL, { Marker } from "react-map-gl";
 import DatePicker from "react-datepicker";
-import Close from "../../../icons/close.png";
-import Arrow from "../../../icons/arrow.png";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Time from "../../../icons/time.png";
 import Car from "../../../icons/car.png";
 import Man from "../../../icons/man.png";
@@ -302,11 +302,11 @@ export default class Jobs extends Component {
           <br />
           {this.state.popUp ? (
             <div className="new-job">
-              <img
+              <HighlightOffIcon
                 onClick={() => this.setState({ popUp: false, popUp2: false })}
                 className="newjob-close-btn"
-                src={Close}
                 alt="img"
+                style={{ fontSize: 40, color: "rgb(45, 123, 212)" }}
               />
               <h2>New Job</h2>
               <input
@@ -446,11 +446,11 @@ export default class Jobs extends Component {
           )}
           {this.state.popUp2 ? (
             <div className="new-job">
-              <img
+              <ChevronLeftIcon
                 onClick={() => this.setState({ popUp: true, popUp2: false })}
                 className="newjob-back-btn"
-                src={Arrow}
                 alt="img"
+                style={{ color: "white", fontSize: 40 }}
               />
               <h2>Confirm detailes</h2>
               <p>

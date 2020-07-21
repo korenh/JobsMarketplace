@@ -54,7 +54,7 @@ export default class Signin extends Component {
           />
           <br />
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className="signin-input"
             name="password"

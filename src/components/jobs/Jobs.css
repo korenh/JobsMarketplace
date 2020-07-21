@@ -366,10 +366,9 @@
 }
 
 .newjob-back-btn {
-  background: black;
   border: none;
+  background: var(--main2);
   position: relative;
-  height: 25px;
   padding: 0.5em;
   border-radius: 50%;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Arrow from "../../../../../icons/arrow.png";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import firebase from "../../../../protected/Firebase";
 import { addNotification } from "../../../../functions/helper";
 
@@ -94,11 +94,11 @@ export default class Manageusers extends Component {
     return (
       <div>
         <div className="manage-employees">
-          <img
+          <ChevronLeftIcon
             onClick={() => this.props.Dashboard()}
             className="newjob-back-btn"
-            src={Arrow}
             alt="img"
+            style={{ fontSize: 40, color: "white" }}
           />
           <h3>Manage Employees</h3>
           <div className="manage-employees-flex">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Dashboard.css";
-import Arrow from "../../../../../icons/arrow.png";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Manageusers from "../manageusers/Manageusers";
 
 export default class Dashboard extends Component {
@@ -16,11 +16,11 @@ export default class Dashboard extends Component {
         ) : (
           ""
         )}
-        <img
+        <ChevronLeftIcon
           onClick={() => this.props.Dashboard()}
           className="newjob-back-btn"
-          src={Arrow}
           alt="img"
+          style={{ color: "white", fontsize: 40 }}
         />
         <h1>Job Dashboard</h1>
         <div className="dashboard-info">

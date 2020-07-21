@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../../../protected/Firebase";
 import "./Editjob.css";
-import Arrow from "../../../../../icons/arrow.png";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 export default class Editjob extends Component {
   state = {
@@ -22,11 +22,11 @@ export default class Editjob extends Component {
   render() {
     return (
       <div className="editjob-main">
-        <img
+        <ChevronLeftIcon
           onClick={() => this.props.Editjob()}
           className="newjob-back-btn"
-          src={Arrow}
           alt="img"
+          style={{ color: "white", fontsize: 40 }}
         />
         <br />
         <div className="newjob-number-flex">
