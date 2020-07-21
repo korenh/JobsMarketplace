@@ -87,6 +87,16 @@ export default class Search extends Component {
               zoom: 10,
             },
           };
+          //get data about the Createing User
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(doc.data().creatingUserId)
+            .get()
+            .then((doc) => {
+              console.log(doc.data().profileImageURL);
+            });
+          //-----method ends here-----//
           allData.push(data);
         });
         this.setState({ jobs: allData });

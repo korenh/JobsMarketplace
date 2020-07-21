@@ -1,15 +1,31 @@
 import React, { Component } from "react";
 import "./Review.css";
+import firebase from "../../../../protected/Firebase";
 import Ok from "../../../../../icons/ok.png";
 
 export default class Review extends Component {
+  sendReview = () => {
+    firebase
+      .firestore()
+      .collection("doneDeals")
+      .doc(this.props.job.id)
+      .set({
+        jobId: this.props.job.id,
+        employerValidated: true,
+        pendingUsers: ["liron", "koren"],
+        validatedUsers: ["koren", "koral"],
+      });
+
+    this.props.ReviewJob();
+  };
+
   render() {
     return (
       <div className="review-main">
         <div className="review-head">
           <img alt="img" src={Ok} />
           <p>
-            Your marked the job 'korenjob' as <br />
+            Your marked the job {this.props.job.title} as <br />
             finished
           </p>
         </div>
@@ -35,10 +51,18 @@ export default class Review extends Component {
             typeof="text"
             className="review-textarea"
             placeholder="Write your feedback here"
+            onChange={(e) => this.setState({ texta: e.target.value })}
           />
           <br />
-          <button className="review-submit">Submit</button>
-          <button className="review-close">x</button>
+          <button className="review-submit" onClick={() => this.sendReview()}>
+            Submit
+          </button>
+          <button
+            className="review-close"
+            onClick={() => this.props.ReviewJob()}
+          >
+            x
+          </button>
         </div>
       </div>
     );

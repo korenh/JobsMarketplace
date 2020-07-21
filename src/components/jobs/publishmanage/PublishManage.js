@@ -116,6 +116,8 @@ export default class Jobs extends Component {
             title: doc.data().title,
             geo: doc.data().location,
             description: doc.data().description,
+            acceptedUsers: doc.data().acceptedUsers,
+            confirmedUsers: doc.data().confirmedUsers.confirmingUserId,
             duration: doc.data().duration,
             requiredEmployees: doc.data().requiredEmployees,
             payment: doc.data().payment,
@@ -227,13 +229,20 @@ export default class Jobs extends Component {
     let docRef = firebase.firestore().collection("jobs").doc(job.id);
     docRef.get().then((doc) => {
       firebase.firestore().collection("jobs").doc(job.id).delete();
-      firebase.firestore().collection("archive").add(doc.data());
+      firebase.firestore().collection("archive").doc(job.id).set(doc.data());
       this.setState({ jobDashboard: false });
       setTimeout(() => {
         this.getData();
       }, 1);
       this.setState({ reviewJob: !this.state.reviewJob, jobdash: job });
     });
+  };
+
+  ReviewJob = () => {
+    this.setState({ reviewJob: !this.state.reviewJob });
+    setTimeout(() => {
+      this.getData();
+    }, 1);
   };
 
   render() {
@@ -623,7 +632,7 @@ export default class Jobs extends Component {
                       <button className="jobs-selected-boost-button">
                         <ArrowUpwardIcon
                           style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
-                        />{" "}
+                        />
                         Boost
                       </button>
                       <br />
