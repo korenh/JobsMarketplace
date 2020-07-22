@@ -5,6 +5,7 @@ import Bell from "../../icons/bell2.png";
 import Altro from "../../icons/altro.png";
 import Notifications from "./components/Notifications";
 import Profile from "./components/Profile";
+import Switch from "@material-ui/core/Switch";
 
 export default class Header extends Component {
   state = {
@@ -12,6 +13,7 @@ export default class Header extends Component {
     notification: false,
     profile: false,
     menu: false,
+    toggle: false,
   };
 
   menu = () => {
@@ -43,6 +45,11 @@ export default class Header extends Component {
     this.props.history.push("/");
   };
 
+  toggleSwitch = () => {
+    this.setState({ toggle: !this.state.toggle });
+    sessionStorage.setItem("language", this.state.toggle);
+  };
+
   render() {
     return (
       <div className="header">
@@ -70,6 +77,7 @@ export default class Header extends Component {
             className="header-icon"
             onClick={this.menu}
           />
+
           {this.state.notification ? (
             <div className="profile-slide">
               <Notifications />
@@ -101,6 +109,23 @@ export default class Header extends Component {
                 >
                   Logout
                 </button>
+                <br />
+                <p
+                  style={{
+                    fontSize: "11px",
+                    color: "black",
+                    float: "right",
+                  }}
+                >
+                  <Switch
+                    color="primary"
+                    style={{ color: "rgb(45, 123, 212)" }}
+                    checked={this.state.toggle}
+                    onChange={() => this.toggleSwitch()}
+                  />
+                  <br />
+                  English/Hebrew
+                </p>
               </div>
             </div>
           ) : (

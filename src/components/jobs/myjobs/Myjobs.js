@@ -221,6 +221,8 @@ export default class Myjobs extends Component {
                       {...job.viewport}
                       mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                       mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
+                      pitch="60"
+                      bearing="-60"
                     >
                       <Marker
                         offsetTop={-48}
@@ -374,6 +376,8 @@ export default class Myjobs extends Component {
                       {...job.viewport}
                       mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                       mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
+                      pitch="60"
+                      bearing="-60"
                     >
                       <Marker
                         offsetTop={-48}

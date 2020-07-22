@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../Jobs.css";
+import Mapview2 from "../map/Mapview2";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -13,7 +14,6 @@ import Chat from "./components/chat/Chat";
 import Review from "./components/review/Review";
 import Editjob from "./components/editjob/Editjob";
 import firebase from "../../protected/Firebase";
-import { addNotification } from "../../functions/helper";
 import { Link } from "react-router-dom";
 import ReactMapGL, { Marker } from "react-map-gl";
 import DatePicker from "react-datepicker";
@@ -61,6 +61,7 @@ export default class Jobs extends Component {
     reviewJob: false,
     lat: undefined,
     lng: undefined,
+    location: [],
   };
 
   handleEnd = (date) => {
@@ -180,14 +181,7 @@ export default class Jobs extends Component {
         firebase.firestore().collection("jobs").doc(docRef.id).update({
           id: docRef.id,
         });
-        addNotification({
-          date: firebase.firestore.Timestamp.fromDate(new Date()),
-          fromUser: sessionStorage.getItem("uid"),
-          fromUsername: sessionStorage.getItem("name"),
-          jobId: docRef.id,
-          notificationType: "New Job created",
-          toUser: sessionStorage.getItem("uid"),
-        });
+
         this.getData();
       });
   };
@@ -243,6 +237,13 @@ export default class Jobs extends Component {
     setTimeout(() => {
       this.getData();
     }, 1);
+  };
+
+  parentCallback = (e) => {
+    this.setState({
+      lat: e[1],
+      lng: e[0],
+    });
   };
 
   render() {
@@ -439,6 +440,12 @@ export default class Jobs extends Component {
               />
               <span> Select Start time </span>
 
+              <Mapview2
+                lat={this.state.lat}
+                lng={this.state.lng}
+                parentCallback={this.parentCallback}
+              />
+
               <p>Where is the job taking place?</p>
               <span className="signup-link">Use my current location </span>
               <br />
@@ -558,6 +565,8 @@ export default class Jobs extends Component {
                   // fitBounds={[[32.958984, -5.353521], [43.50585, 5.615985]]}}
                   mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                   mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
+                  pitch="60"
+                  bearing="-60"
                 >
                   <Marker
                     offsetTop={-48}

@@ -10,6 +10,7 @@ export default class Manageusers extends Component {
     acceptedIds: [],
     confirmedIds: [],
     acceptedUsers: [],
+    confirmedUsers: [],
     name: "",
     Requests: true,
     Accepted: false,
@@ -47,9 +48,17 @@ export default class Manageusers extends Component {
 
   deleteacceptedIds = (v) => {
     let acceptedIds = this.state.acceptedIds;
-    this.removeA(acceptedIds, v);
+    this.removeA(acceptedIds.confirmingUserId, v);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
+    });
+    addNotification({
+      date: firebase.firestore.Timestamp.fromDate(new Date()),
+      fromUser: sessionStorage.getItem("uid"),
+      fromUsername: sessionStorage.getItem("name"),
+      jobId: this.props.job.id,
+      notificationType: "removedFromJob",
+      toUser: v,
     });
     this.getData();
   };
@@ -233,7 +242,7 @@ export default class Manageusers extends Component {
                   </div>
                   <div className="manageusers-button-flex">
                     <p
-                      onClick={() => this.deleteacceptedIds(v)}
+                      onClick={() => this.deleteacceptedIds(v.confirmingUserId)}
                       className="manageusers-button-delete"
                     >
                       Remove

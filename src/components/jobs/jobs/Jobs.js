@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { addNotification } from "../../functions/helper";
 import "./Job.css";
 import Filter from "@material-ui/icons/FilterList";
 import MapIcon from "@material-ui/icons/Map";
@@ -70,6 +71,7 @@ export default class Search extends Component {
             dateCreated: doc.data().dateCreated,
             payment: doc.data().payment,
             startDate: doc.data().startDate,
+            creatingUserId: doc.data().creatingUserId,
             location: doc.data().location,
             categories: doc.data().stringCategories,
             isPaymentPerHour: doc.data().isPaymentPerHour,
@@ -131,6 +133,14 @@ export default class Search extends Component {
       .collection("jobs")
       .doc(job.id)
       .update({ acceptedIds: this.state.acceptedIds });
+    addNotification({
+      date: firebase.firestore.Timestamp.fromDate(new Date()),
+      fromUser: sessionStorage.getItem("uid"),
+      fromUsername: sessionStorage.getItem("name"),
+      jobId: job.id,
+      notificationType: "newRequest",
+      toUser: job.creatingUserId,
+    });
     alert("Request sent");
   };
 
@@ -277,6 +287,8 @@ export default class Search extends Component {
                   {...job.viewport}
                   mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
                   mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
+                  pitch="60"
+                  bearing="-60"
                 >
                   <Marker
                     offsetTop={-48}

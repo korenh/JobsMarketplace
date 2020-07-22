@@ -47,7 +47,7 @@
 }
 
 .header-icon {
-  margin: 1.5em 1em;
+  margin: 1.5em 0.6em;
   height: 22px;
   cursor: pointer;
 }
@@ -59,9 +59,9 @@
 }
 
 .header-icon3 {
-  margin: 10px 2em;
+  margin: 7px 1em;
   height: 30px;
-  width: 40px;
+  width: 30px;
   cursor: pointer;
   border-radius: 50%;
   margin-bottom: 0;
