@@ -440,17 +440,15 @@ export default class Jobs extends Component {
               />
               <span> Select Start time </span>
 
+              <p>Where is the job taking place?</p>
+              <p>*Current location is Default</p>
+              <br />
+              <br />
               <Mapview2
                 lat={this.state.lat}
                 lng={this.state.lng}
                 parentCallback={this.parentCallback}
               />
-
-              <p>Where is the job taking place?</p>
-              <span className="signup-link">Use my current location </span>
-              <br />
-              <span className="signup-link">Do not specify location </span>
-              <br />
               <br />
               <br />
               <button onClick={() => this.Continue()} className="signup-button">
