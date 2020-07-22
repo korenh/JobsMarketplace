@@ -82,6 +82,7 @@ export default class Myjobs extends Component {
             duration: doc.data().duration,
             requiredEmployees: doc.data().requiredEmployees,
             isPayingForTransportation: doc.data().isPayingForTransportation,
+            creatingUserId: doc.data().creatingUserId,
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
             viewport: {
@@ -149,6 +150,7 @@ export default class Myjobs extends Component {
           confirmedIds,
           confirmedUsers,
         });
+
         this.getData();
       });
   };

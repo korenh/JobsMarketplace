@@ -77,7 +77,7 @@ export default class Manageusers extends Component {
       fromUser: sessionStorage.getItem("uid"),
       fromUsername: sessionStorage.getItem("name"),
       jobId: this.props.job.id,
-      notificationType: "Accepted to job",
+      notificationType: "acceptedToJob",
       toUser: v,
     });
     this.getData();
@@ -98,7 +98,7 @@ export default class Manageusers extends Component {
             onClick={() => this.props.Dashboard()}
             className="newjob-back-btn"
             alt="img"
-            style={{ fontSize: 40, color: "white" }}
+            style={{ fontSize: 25, color: "white" }}
           />
           <h3>Manage Employees</h3>
           <div className="manage-employees-flex">

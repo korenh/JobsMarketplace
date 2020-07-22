@@ -94,7 +94,7 @@ export default class Search extends Component {
             .doc(doc.data().creatingUserId)
             .get()
             .then((doc) => {
-              console.log(doc.data().profileImageURL);
+              //console.log(doc.data().profileImageURL);
             });
           //-----method ends here-----//
           allData.push(data);
