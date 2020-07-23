@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./Main.css";
-import Menu from "../../icons/menu.png";
-import Bell from "../../icons/bell2.png";
 import Altro from "../../icons/altro.png";
 import Notifications from "./components/Notifications";
 import Profile from "./components/Profile";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import MenuIcon from "@material-ui/icons/Menu";
 import Switch from "@material-ui/core/Switch";
 
 export default class Header extends Component {
@@ -65,17 +65,16 @@ export default class Header extends Component {
               {sessionStorage.getItem("name")}
             </p>
           </div>
-          <img
-            src={Bell}
-            alt="img"
+          <NotificationsNoneIcon
             className="header-icon"
             onClick={this.notification}
+            style={{ fontSize: 35 }}
           />
-          <img
-            src={Menu}
+          <MenuIcon
             alt="img"
             className="header-icon"
             onClick={this.menu}
+            style={{ fontSize: 35 }}
           />
 
           {this.state.notification ? (

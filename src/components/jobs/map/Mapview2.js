@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
-import CancelIcon from "@material-ui/icons/Cancel";
 
 export default function Mapview2(props) {
   const [mark, setMark] = useState([props.lat, props.lng]);
@@ -28,16 +27,6 @@ export default function Mapview2(props) {
         onViewportChange={(viewport) => setViewport(viewport)}
         onClick={(e) => onMarkerclick(e)}
       >
-        <CancelIcon
-          onClick={() => props.setMap()}
-          alt="img"
-          style={{
-            cursor: "pointer",
-            fontSize: 45,
-            margin: "5px",
-            color: "white",
-          }}
-        />
         <Marker
           offsetTop={-48}
           offsetLeft={-24}

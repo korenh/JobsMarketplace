@@ -47,9 +47,9 @@
 }
 
 .header-icon {
-  margin: 1.5em 0.6em;
-  height: 22px;
+  margin: 0.5em 0.2em;
   cursor: pointer;
+  color: white;
 }
 
 .header-icon2 {
