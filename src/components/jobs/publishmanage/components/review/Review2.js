@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import "./Review.css";
-import Ok from "../../../../../icons/ok.png";
 
 export default class Review2 extends Component {
   render() {
     return (
       <div className="review-main">
         <div className="review-head">
-          <img alt="img" src={Ok} />
+          <CheckCircleIcon src={Ok} style={{ fontSize: 40, color: "white" }} />
           <p>
             A job you were attending to 'jobkoren'
             <br />

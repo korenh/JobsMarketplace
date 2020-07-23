@@ -19,9 +19,9 @@ import ReactMapGL, { Marker } from "react-map-gl";
 import DatePicker from "react-datepicker";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Time from "../../../icons/time.png";
-import Car from "../../../icons/car.png";
-import Man from "../../../icons/man.png";
+import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
+import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
+import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 
 export default class Jobs extends Component {
   state = {
@@ -598,10 +598,9 @@ export default class Jobs extends Component {
                     <p className="jobs-selected-desc">{job.description}</p>
                     <div className="jobs-selected-flex">
                       <div>
-                        <img
-                          src={Time}
+                        <QueryBuilderIcon
                           className="jobs-selected-flex-img"
-                          alt="img"
+                          style={{ fontSize: 40, color: "white" }}
                         />
                         <p>
                           {
@@ -611,23 +610,21 @@ export default class Jobs extends Component {
                         </p>
                       </div>
                       <div>
-                        <img
-                          src={Man}
+                        <AccessibilityNewIcon
                           className="jobs-selected-flex-img"
-                          alt="img"
+                          style={{ fontSize: 40, color: "white" }}
                         />
                         <p>{job.requiredEmployees}</p>
                       </div>
                       <div>
-                        <img
-                          src={Car}
+                        <DirectionsCarIcon
                           className="jobs-selected-flex-img"
-                          alt="img"
+                          style={{ fontSize: 40, color: "white" }}
                         />
                         <p>
                           {job.isPayingForTransportation
-                            ? "covering transportation"
-                            : "not covering transportation"}
+                            ? "Covered"
+                            : "Not covered"}
                         </p>
                       </div>
                     </div>

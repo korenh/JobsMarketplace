@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Review.css";
 import firebase from "../../../../protected/Firebase";
-import Ok from "../../../../../icons/ok.png";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 export default class Review extends Component {
   sendReview = () => {
@@ -23,7 +23,7 @@ export default class Review extends Component {
     return (
       <div className="review-main">
         <div className="review-head">
-          <img alt="img" src={Ok} />
+          <CheckCircleIcon style={{ fontSize: 40, color: "white" }} />
           <p>
             Your marked the job {this.props.job.title} as <br />
             finished

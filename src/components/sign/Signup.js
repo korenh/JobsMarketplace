@@ -6,8 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import firebase from "../protected/Firebase";
 import { storage } from "../protected/Firebase";
-import User from "../../icons/notiuser.png";
-
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 export default class Signup extends Component {
   state = {
     asa: ["Individual", "Business"],
@@ -131,7 +130,9 @@ export default class Signup extends Component {
           </div>
           <br />
           <label htmlFor="file-input" style={{ cursor: "pointer" }}>
-            <img src={User} alt="img" />
+            <AccountCircleIcon
+              style={{ fontSize: 100, color: "rgb(45, 123, 212)" }}
+            />
           </label>
           <input
             style={{ display: "none" }}

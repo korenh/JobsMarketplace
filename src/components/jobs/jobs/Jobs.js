@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { addNotification } from "../../functions/helper";
 import "./Job.css";
 import Filter from "@material-ui/icons/FilterList";
+import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
+import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
+import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import MapIcon from "@material-ui/icons/Map";
 import StarIcon from "@material-ui/icons/Star";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import Mapview from "../map/Mapview";
 import firebase from "../../protected/Firebase";
 import ReactMapGL, { Marker } from "react-map-gl";
-import Time from "../../../icons/time.png";
-import Car from "../../../icons/car.png";
-import Man from "../../../icons/man.png";
 
 export default class Search extends Component {
   state = {
@@ -22,7 +22,7 @@ export default class Search extends Component {
       { id: 5, name: "1d +" },
     ],
     Filter: [5, 15, 25, 50, 100],
-    kmFilter: 100000,
+    kmFilter: 10000,
     limit: 10,
     jobs: [],
     job: {},
@@ -32,6 +32,8 @@ export default class Search extends Component {
     lat: undefined,
     lng: undefined,
     savedIds: [],
+    dateValue: new Date(),
+    endDateValue: new Date("2 2 2222 22:22"),
   };
 
   loadMore = () => {
@@ -58,7 +60,9 @@ export default class Search extends Component {
     firebase
       .firestore()
       .collection("jobs")
-      .orderBy("dateCreated", "desc")
+      .orderBy("endDate", "desc")
+      .where("endDate", ">=", this.state.dateValue)
+      .where("endDate", "<=", this.state.endDateValue)
       .limit(this.state.limit)
       .get()
       .then((snapshot) => {
@@ -184,6 +188,23 @@ export default class Search extends Component {
     return dist;
   }
 
+  dateFilterFunc = (v) => {
+    this.setState({
+      endDateValue: new Date(new Date().setDate(new Date().getDate() + v)),
+    });
+    setTimeout(() => {
+      this.getData();
+    }, 10);
+  };
+
+  RadiusFilterFunc = (v) => {
+    this.setState({ kmFilter: v });
+    setTimeout(() => {
+      alert(this.state.kmFilter);
+      this.getData();
+    }, 10);
+  };
+
   render() {
     return (
       <div style={{ textAlign: "center" }}>
@@ -215,18 +236,19 @@ export default class Search extends Component {
               <h3>Job filter</h3>
               <p>How far can you go?</p>
               <div className="filter-card-flex">
-                <p onClick={console.log("5km")}>5 km</p>
-                <p onClick={console.log("15km")}>15 km</p>
-                <p onClick={console.log("25km")}>25 km</p>
-                <p onClick={console.log("50km")}>50 km</p>
-                <p onClick={console.log("100km")}>100 km</p>
+                <p onClick={() => this.RadiusFilterFunc(5)}>5 km</p>
+                <p onClick={() => this.RadiusFilterFunc(15)}>15 km</p>
+                <p onClick={() => this.RadiusFilterFunc(25)}>25 km</p>
+                <p onClick={() => this.RadiusFilterFunc(50)}>50 km</p>
+                <p onClick={() => this.RadiusFilterFunc(100)}>100 km</p>
+                <p onClick={() => this.RadiusFilterFunc(10000)}>100+ km</p>
               </div>
               <p>When?</p>
               <div className="filter-card-flex">
-                <p>Today</p>
-                <p>Tomorrow</p>
-                <p>This week</p>
-                <p>Next week</p>
+                <p oonClick={() => this.dateFilterFunc(0)}>Today</p>
+                <p onClick={() => this.dateFilterFunc(1)}>Tomorrow</p>
+                <p onClick={() => this.dateFilterFunc(7)}>This week</p>
+                <p onClick={() => this.dateFilterFunc(1000)}>Next week</p>
               </div>
             </div>
             <div className="filter-card-flex2">
@@ -255,6 +277,7 @@ export default class Search extends Component {
         )}
         <div className="jobs">
           {this.state.jobs.map((job) =>
+            /*this.state.job.km < this.state.kmFilter ? diaplay : notDisplay*/
             this.state.job.id !== job.id ? (
               <div
                 className="jobs-card"
@@ -328,10 +351,9 @@ export default class Search extends Component {
                     <p className="jobs-selected-desc">{job.description}</p>
                     <div className="jobs-selected-flex">
                       <div>
-                        <img
-                          src={Time}
+                        <QueryBuilderIcon
                           className="jobs-selected-flex-img"
-                          alt="img"
+                          style={{ fontSize: 40, color: "white" }}
                         />
                         <p>
                           {
@@ -341,18 +363,16 @@ export default class Search extends Component {
                         </p>
                       </div>
                       <div>
-                        <img
-                          src={Man}
+                        <AccessibilityNewIcon
                           className="jobs-selected-flex-img"
-                          alt="img"
+                          style={{ fontSize: 40, color: "white" }}
                         />
                         <p>{job.requiredEmployees}</p>
                       </div>
                       <div>
-                        <img
-                          src={Car}
+                        <DirectionsCarIcon
                           className="jobs-selected-flex-img"
-                          alt="img"
+                          style={{ fontSize: 40, color: "white" }}
                         />
                         <p>
                           {job.isPayingForTransportation
