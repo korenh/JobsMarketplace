@@ -32,6 +32,7 @@ export default class Search extends Component {
     lat: undefined,
     lng: undefined,
     savedIds: [],
+    dateValID: 0,
     dateValue: new Date(),
     endDateValue: new Date("2 2 2222 22:22"),
   };
@@ -191,6 +192,7 @@ export default class Search extends Component {
   dateFilterFunc = (v) => {
     this.setState({
       endDateValue: new Date(new Date().setDate(new Date().getDate() + v)),
+      dateValID: v,
     });
     setTimeout(() => {
       this.getData();
@@ -245,10 +247,62 @@ export default class Search extends Component {
               </div>
               <p>When?</p>
               <div className="filter-card-flex">
-                <p oonClick={() => this.dateFilterFunc(0)}>Today</p>
-                <p onClick={() => this.dateFilterFunc(1)}>Tomorrow</p>
-                <p onClick={() => this.dateFilterFunc(7)}>This week</p>
-                <p onClick={() => this.dateFilterFunc(1000)}>Next week</p>
+                <p
+                  style={
+                    this.state.dateValID === 0
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.dateFilterFunc(0)}
+                >
+                  Today
+                </p>
+                <p
+                  style={
+                    this.state.dateValID === 1
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.dateFilterFunc(1)}
+                >
+                  Tomorrow
+                </p>
+                <p
+                  style={
+                    this.state.dateValID === 7
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.dateFilterFunc(7)}
+                >
+                  This week
+                </p>
+                <p
+                  style={
+                    this.state.dateValID === 1000
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.dateFilterFunc(1000)}
+                >
+                  Next week
+                </p>
               </div>
             </div>
             <div className="filter-card-flex2">
