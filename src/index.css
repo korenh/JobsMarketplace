@@ -15,10 +15,6 @@ body {
   --main4: skyblue;
 }
 
-code {
-  font-family: "Roboto", sans-serif;
-}
-
 .app {
   text-align: center;
   color: black;

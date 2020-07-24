@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Altro from "../../icons/altro.png";
+import Altro from "./icons/altro.png";
 import firebase from "../protected/Firebase";
 import "./Signin.css";
 

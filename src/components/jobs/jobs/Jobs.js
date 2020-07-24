@@ -43,9 +43,6 @@ export default class Search extends Component {
   };
 
   componentDidMount() {
-    setInterval(() => {
-      this.getCoord();
-    }, 10);
     this.getData();
   }
 
@@ -57,6 +54,7 @@ export default class Search extends Component {
   };
 
   getData = (async) => {
+    this.getCoord();
     const allData = [];
     firebase
       .firestore()

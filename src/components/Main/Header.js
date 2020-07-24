@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Main.css";
-import Altro from "../../icons/altro.png";
+import Altro from "../sign/icons/altro.png";
 import Notifications from "./components/Notifications";
 import Profile from "./components/Profile";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
