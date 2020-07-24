@@ -16,7 +16,7 @@ export default class Chat extends Component {
     this.getData();
   }
 
-  getData = () => {
+  getData = (async) => {
     axios
       .get(`https://altro-db7f0.firebaseio.com/chats/${this.props.job.id}.json`)
       .then((res) => {

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "../Jobs.css";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import Mapview2 from "../map/Mapview2";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -181,7 +183,8 @@ export default class Jobs extends Component {
         firebase.firestore().collection("jobs").doc(docRef.id).update({
           id: docRef.id,
         });
-
+        toast.configure();
+        toast.info("New job added!", { autoClose: 2000 });
         this.getData();
       });
   };

@@ -12,6 +12,7 @@
     "firebase": "^7.15.5",
     "jquery": "^3.5.1",
     "react": "^16.13.1",
+    "react-alert": "^7.0.2",
     "react-animated-css": "^1.2.1",
     "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
@@ -19,7 +20,8 @@
     "react-notifications": "^1.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-scroll-to-bottom": "^3.0.0"
+    "react-scroll-to-bottom": "^3.0.0",
+    "react-toastify": "^6.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

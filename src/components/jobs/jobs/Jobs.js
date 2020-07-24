@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { addNotification } from "../../functions/helper";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import "./Job.css";
 import Filter from "@material-ui/icons/FilterList";
 import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
@@ -127,7 +129,8 @@ export default class Search extends Component {
       this.setState({ acceptedIds: doc.data().acceptedIds });
     });
     if (this.state.acceptedIds.includes(sessionStorage.getItem("uid"))) {
-      alert("Request already sent");
+      toast.configure();
+      toast.warning("Already applied", { autoClose: 2000 });
       return;
     }
     this.state.acceptedIds.push(sessionStorage.getItem("uid"));
@@ -144,7 +147,8 @@ export default class Search extends Component {
       notificationType: "newRequest",
       toUser: job.creatingUserId,
     });
-    alert("Request sent");
+    toast.configure();
+    toast.info("Job apllied", { autoClose: 2000 });
   };
 
   saveJob = (job) => {
@@ -153,7 +157,8 @@ export default class Search extends Component {
       this.setState({ savedIds: doc.data().savedIds });
     });
     if (this.state.savedIds.includes(sessionStorage.getItem("uid"))) {
-      alert("Request already sent");
+      toast.configure();
+      toast.warning("Already saved", { autoClose: 2000 });
       return;
     }
     this.state.savedIds.push(sessionStorage.getItem("uid"));
@@ -162,7 +167,8 @@ export default class Search extends Component {
       .collection("jobs")
       .doc(job.id)
       .update({ savedIds: this.state.savedIds });
-    alert("Request sent");
+    toast.configure();
+    toast.info("Job saved", { autoClose: 2000 });
   };
 
   setFilter = () => {
