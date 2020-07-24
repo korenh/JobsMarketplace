@@ -34,7 +34,8 @@ export default class Search extends Component {
     lat: undefined,
     lng: undefined,
     savedIds: [],
-    dateValID: 0,
+    dateValID: 11,
+    radiusValID: 11,
     dateValue: new Date(),
     endDateValue: new Date("2 2 2222 22:22"),
   };
@@ -204,9 +205,8 @@ export default class Search extends Component {
   };
 
   RadiusFilterFunc = (v) => {
-    this.setState({ kmFilter: v });
+    this.setState({ kmFilter: v, radiusValID: v });
     setTimeout(() => {
-      alert(this.state.kmFilter);
       this.getData();
     }, 10);
   };
@@ -242,12 +242,90 @@ export default class Search extends Component {
               <h3>Job filter</h3>
               <p>How far can you go?</p>
               <div className="filter-card-flex">
-                <p onClick={() => this.RadiusFilterFunc(5)}>5 km</p>
-                <p onClick={() => this.RadiusFilterFunc(15)}>15 km</p>
-                <p onClick={() => this.RadiusFilterFunc(25)}>25 km</p>
-                <p onClick={() => this.RadiusFilterFunc(50)}>50 km</p>
-                <p onClick={() => this.RadiusFilterFunc(100)}>100 km</p>
-                <p onClick={() => this.RadiusFilterFunc(10000)}>100+ km</p>
+                <p
+                  style={
+                    this.state.radiusValID === 5
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.RadiusFilterFunc(5)}
+                >
+                  5 km
+                </p>
+                <p
+                  style={
+                    this.state.radiusValID === 15
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.RadiusFilterFunc(15)}
+                >
+                  15 km
+                </p>
+                <p
+                  style={
+                    this.state.radiusValID === 25
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.RadiusFilterFunc(25)}
+                >
+                  25 km
+                </p>
+                <p
+                  style={
+                    this.state.radiusValID === 50
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.RadiusFilterFunc(50)}
+                >
+                  50 km
+                </p>
+                <p
+                  style={
+                    this.state.radiusValID === 100
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.RadiusFilterFunc(100)}
+                >
+                  100 km
+                </p>
+                <p
+                  style={
+                    this.state.radiusValID === 10000
+                      ? {
+                          background: "rgb(45, 123, 212)",
+                          padding: "0.1em 0.5em",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  onClick={() => this.RadiusFilterFunc(10000)}
+                >
+                  100+ km
+                </p>
               </div>
               <p>When?</p>
               <div className="filter-card-flex">
