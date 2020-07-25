@@ -1,15 +1,34 @@
 import React, { Component } from "react";
 import "./Review.css";
+import firebase from "../../../../protected/Firebase";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 export default class Review2 extends Component {
+  sendReview = () => {
+    firebase
+      .firestore()
+      .collection("doneDeals")
+      .doc(this.props.job.jobId)
+      .collection(`/feedbacks`)
+      .add({
+        userId: sessionStorage.getItem("uid"),
+        message: "this is a message",
+      });
+    firebase
+      .firestore()
+      .collection("notifications")
+      .doc(this.props.job.id)
+      .delete();
+    this.props.jobFinished();
+  };
+
   render() {
     return (
       <div className="review-main">
         <div className="review-head">
           <CheckCircleIcon style={{ fontSize: 40, color: "white" }} />
           <p>
-            A job you were attending to 'jobkoren'
+            A job you were attending to {this.props.job.jobId}
             <br />
             was marked as finished by the employer.
           </p>
@@ -36,7 +55,9 @@ export default class Review2 extends Component {
             placeholder="Write your feedback here"
           />
           <br />
-          <button className="review-submit">Submit</button>
+          <button className="review-submit" onClick={() => this.sendReview()}>
+            Submit
+          </button>
           <button className="review-close">x</button>
         </div>
       </div>

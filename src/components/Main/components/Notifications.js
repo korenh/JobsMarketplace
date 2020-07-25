@@ -13,6 +13,7 @@ export default class Notifications extends Component {
   state = {
     notifications: [],
     reviewPop: false,
+    jobdata: {},
   };
 
   deleteNotification = (notification) => {
@@ -60,13 +61,20 @@ export default class Notifications extends Component {
   };
 
   jobFinished = (notification) => {
-    this.setState({ reviewPop: true });
+    this.setState({ reviewPop: !this.state.reviewPop, jobdata: notification });
+    setTimeout(() => {
+      this.getData();
+    }, 1);
   };
 
   render() {
     return (
       <div className="notifications">
-        {this.state.reviewPop ? <Review2 /> : ""}
+        {this.state.reviewPop ? (
+          <Review2 jobFinished={this.jobFinished} job={this.state.jobdata} />
+        ) : (
+          ""
+        )}
         {this.state.notifications.map((notification) =>
           /*-------------------------------------------------------------------*/ notification.notificationType ===
           "jobFinished" ? (

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Chat.css";
+import firebase from "../../../../protected/Firebase";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import InfoIcon from "@material-ui/icons/Info";
 import SendIcon from "@material-ui/icons/Send";
@@ -8,12 +9,14 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import axios from "axios";
 export default class Chat extends Component {
   state = {
+    allUsers: [],
     message: "",
     messages: [],
   };
 
   componentDidMount() {
     this.getData();
+    this.getUsers();
   }
 
   getData = (async) => {
@@ -27,6 +30,23 @@ export default class Chat extends Component {
           this.setState({ messages: [] });
         }
       });
+  };
+
+  getUsers = (async) => {
+    const users = [];
+    let docRef = firebase.firestore().collection("jobs").doc(this.props.job.id);
+    docRef.get().then((doc) => {
+      doc.data().confirmedUsers.map((v) =>
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(v.confirmingUserId)
+          .get()
+          .then((doc) => {
+            users.push(doc.data());
+          })
+      );
+    });
   };
 
   AddData = (e) => {

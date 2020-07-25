@@ -5,16 +5,12 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 export default class Review extends Component {
   sendReview = () => {
-    firebase
-      .firestore()
-      .collection("doneDeals")
-      .doc(this.props.job.id)
-      .set({
-        jobId: this.props.job.id,
-        employerValidated: true,
-        pendingUsers: ["liron", "koren"],
-        validatedUsers: ["koren", "koral"],
-      });
+    firebase.firestore().collection("doneDeals").doc(this.props.job.id).set({
+      jobId: this.props.job.id,
+      employerValidated: true,
+      pendingUsers: [],
+      validatedUsers: [],
+    });
 
     this.props.ReviewJob();
   };

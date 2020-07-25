@@ -10,7 +10,7 @@
   border-radius: 50%;
   width: 150px;
   height: 150px;
-  box-shadow: 0px 0px 10px 1px gainsboro;
+  box-shadow: 0px 0px 10px 1px rgb(220, 220, 220);
 }
 
 .profile-button {
