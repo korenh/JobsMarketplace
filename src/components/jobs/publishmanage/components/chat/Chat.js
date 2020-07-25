@@ -43,11 +43,8 @@ export default class Chat extends Component {
         }
       )
       .then((res) => {
-        return;
+        this.getData();
       });
-    setInterval(() => {
-      this.getData();
-    }, 10);
   };
 
   render() {
