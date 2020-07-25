@@ -62,7 +62,7 @@ export default class Search extends Component {
     firebase
       .firestore()
       .collection("jobs")
-      .orderBy("endDate", "desc")
+      .orderBy("endDate")
       .where("endDate", ">=", this.state.dateValue)
       .where("endDate", "<=", this.state.endDateValue)
       .limit(this.state.limit)

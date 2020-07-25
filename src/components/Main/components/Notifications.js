@@ -3,7 +3,10 @@ import firebase from "../../protected/Firebase";
 import Check from "@material-ui/icons/CheckCircle";
 import ClearIcon from "@material-ui/icons/Clear";
 import CancelIcon from "@material-ui/icons/Cancel";
+import StarsIcon from "@material-ui/icons/Stars";
 import "./Notifications.css";
+import HelpIcon from "@material-ui/icons/Help";
+
 import Review2 from "../../jobs/publishmanage/components/review/Review2";
 
 export default class Notifications extends Component {
@@ -136,6 +139,57 @@ export default class Notifications extends Component {
                 <p className="notifications-status">
                   {notification.fromUsername} has deleted a job you were
                   attending. The job is no longer available.
+                </p>
+                <p className="notifications-time">{notification.date}</p>
+                <ClearIcon
+                  style={{ fontSize: 17 }}
+                  onClick={() => this.deleteNotification(notification)}
+                  className="notifications-delete"
+                />
+              </div>
+            </div>
+          ) : /*-------------------------------------------------------------------*/
+          notification.notificationType === "newRequest" ? (
+            <div className="card-notification" key={notification.id}>
+              <HelpIcon
+                style={{
+                  color: "rgb(175, 107, 43)",
+                  fontSize: 40,
+                  margin: "auto 5px",
+                }}
+              />
+              <div
+                style={{ marginLeft: "5px" }}
+                className="notifications-div-info"
+              >
+                <p className="notifications-status">
+                  {notification.fromUsername} has requested your job
+                </p>
+                <p className="notifications-time">{notification.date}</p>
+                <ClearIcon
+                  style={{ fontSize: 17 }}
+                  onClick={() => this.deleteNotification(notification)}
+                  className="notifications-delete"
+                />
+              </div>
+            </div>
+          ) : /*-------------------------------------------------------------------*/
+          notification.notificationType === "userConfirmed" ? (
+            <div className="card-notification" key={notification.id}>
+              <StarsIcon
+                style={{
+                  color: "rgb(45, 123, 212)",
+                  fontSize: 40,
+                  margin: "auto 5px",
+                }}
+              />
+              <div
+                style={{ marginLeft: "5px" }}
+                className="notifications-div-info"
+              >
+                <p className="notifications-status">
+                  {notification.fromUsername} has confirmed his participation in
+                  your job
                 </p>
                 <p className="notifications-time">{notification.date}</p>
                 <ClearIcon
