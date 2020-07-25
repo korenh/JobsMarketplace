@@ -30,7 +30,7 @@ export default class Review2 extends Component {
           <p>
             A job you were attending to {this.props.job.jobId}
             <br />
-            was marked as finished by the employer.
+            was marked as finished by the employer .
           </p>
         </div>
         <div className="review-main-content">
