@@ -13,7 +13,6 @@ export default class Signin extends Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        this.props.history.push("/main/jobs");
         firebase
           .firestore()
           .collection("users")
@@ -27,6 +26,7 @@ export default class Signin extends Component {
               sessionStorage.setItem("description", doc.data().description);
             });
           });
+        this.props.history.push("/main/jobs");
       })
       .catch(function (error) {
         var errorMessage = error.message;

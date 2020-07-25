@@ -176,6 +176,13 @@ export default class Search extends Component {
     this.setState({ filterpop: !this.state.filterpop, mappop: false });
   };
 
+  handleSearch = () => {
+    this.setState({ filterpop: !this.state.filterpop });
+    setTimeout(() => {
+      this.getData();
+    }, 1);
+  };
+
   setMap = () => {
     this.setState({ mappop: !this.state.mappop, filterpop: false });
   };
@@ -199,16 +206,10 @@ export default class Search extends Component {
       endDateValue: new Date(new Date().setDate(new Date().getDate() + v)),
       dateValID: v,
     });
-    setTimeout(() => {
-      this.getData();
-    }, 10);
   };
 
   RadiusFilterFunc = (v) => {
     this.setState({ kmFilter: v, radiusValID: v });
-    setTimeout(() => {
-      this.getData();
-    }, 10);
   };
 
   render() {
@@ -394,7 +395,12 @@ export default class Search extends Component {
               >
                 Cancel
               </button>
-              <button className="filter-card-search">Search</button>
+              <button
+                className="filter-card-search"
+                onClick={() => this.handleSearch()}
+              >
+                Search
+              </button>
             </div>
           </div>
         ) : (

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../../../../protected/Firebase";
+import DatePicker from "react-datepicker";
 import "./Editjob.css";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
@@ -8,12 +9,29 @@ export default class Editjob extends Component {
     payment: this.props.job.payment,
     title: this.props.job.title,
     description: this.props.job.description,
+    requiredEmployees: this.props.job.requiredEmployees,
+    startDate: new Date(),
+    endDate: new Date(),
   };
+
+  handleEnd = (date) => {
+    this.setState({
+      endDate: date,
+    });
+  };
+
+  handleStart = (date) => {
+    this.setState({
+      startDate: date,
+    });
+  };
+
   Update = () => {
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       description: this.state.description,
       title: this.state.title,
       payment: this.state.payment,
+      requiredEmployees: this.state.requiredEmployees,
     });
     this.props.getData();
     this.props.Editjob();
@@ -29,6 +47,45 @@ export default class Editjob extends Component {
           style={{ color: "white", fontsize: 40 }}
         />
         <br />
+
+        <p>Title</p>
+        <input
+          value={this.state.title}
+          onChange={(e) => this.setState({ title: e.target.value })}
+          className="new-job-input"
+        />
+        <br />
+        <p>Description</p>
+        <textarea
+          value={this.state.description}
+          onChange={(e) => this.setState({ description: e.target.value })}
+          className="new-job-textarea"
+        />
+        <p>requiredEmployees</p>
+        <div className="newjob-number-flex">
+          <p
+            className="newjob-plus-button"
+            onClick={() =>
+              this.setState({
+                requiredEmployees: this.state.requiredEmployees + 1,
+              })
+            }
+          >
+            +
+          </p>
+          <p className="newjob-required">{this.state.requiredEmployees}</p>
+          <p
+            className="newjob-minus-button"
+            onClick={() =>
+              this.setState({
+                requiredEmployees: this.state.requiredEmployees - 1,
+              })
+            }
+          >
+            -
+          </p>
+        </div>
+        <p>payment</p>
         <div className="newjob-number-flex">
           <p
             className="newjob-plus-button"
@@ -52,18 +109,20 @@ export default class Editjob extends Component {
             -
           </p>
         </div>
-        <br />
-        <input
-          value={this.state.title}
-          onChange={(e) => this.setState({ title: e.target.value })}
-          className="new-job-input"
+        <DatePicker
+          selected={this.state.endDate}
+          onChange={this.handleEnd}
+          className="jobs-datepicker"
         />
+        <span> Select End date </span>
         <br />
-        <textarea
-          value={this.state.description}
-          onChange={(e) => this.setState({ description: e.target.value })}
-          className="new-job-textarea"
+        <DatePicker
+          selected={this.state.startDate}
+          onChange={this.handleStart}
+          className="jobs-datepicker"
         />
+        <span> Select Start time </span>
+        <br />
         <br />
         <button onClick={() => this.Update()} className="signup-button">
           Update
