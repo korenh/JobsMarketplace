@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Mapview2 from "../map/Mapview2";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { addNotification } from "../../functions/helper";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ChatIcon from "@material-ui/icons/Chat";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -215,16 +216,39 @@ export default class Jobs extends Component {
   };
 
   deleteJob = (job) => {
-    firebase.firestore().collection("jobs").doc(job.id).delete();
-    this.setState({ jobDashboard: false });
-    setTimeout(() => {
-      this.getData();
-    }, 1);
+    let docRef = firebase.firestore().collection("jobs").doc(job.id);
+    docRef.get().then((doc) => {
+      doc.data().confirmedUsers.forEach((id) => {
+        addNotification({
+          date: firebase.firestore.Timestamp.fromDate(new Date()),
+          fromUser: sessionStorage.getItem("uid"),
+          fromUsername: sessionStorage.getItem("name"),
+          jobId: job.id,
+          notificationType: "jobCancelled",
+          toUser: id.confirmingUserId,
+        });
+      });
+      this.setState({ jobDashboard: false });
+      firebase.firestore().collection("jobs").doc(job.id).delete();
+      setTimeout(() => {
+        this.getData();
+      }, 1);
+    });
   };
 
   FinishJob = (job) => {
     let docRef = firebase.firestore().collection("jobs").doc(job.id);
     docRef.get().then((doc) => {
+      doc.data().confirmedUsers.forEach((id) => {
+        addNotification({
+          date: firebase.firestore.Timestamp.fromDate(new Date()),
+          fromUser: sessionStorage.getItem("uid"),
+          fromUsername: sessionStorage.getItem("name"),
+          jobId: job.id,
+          notificationType: "jobFinished",
+          toUser: id.confirmingUserId,
+        });
+      });
       firebase.firestore().collection("jobs").doc(job.id).delete();
       firebase.firestore().collection("archive").doc(job.id).set(doc.data());
       this.setState({ jobDashboard: false });

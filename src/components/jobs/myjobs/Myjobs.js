@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../Jobs.css";
+import { addNotification } from "../../functions/helper";
 import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
@@ -150,7 +151,14 @@ export default class Myjobs extends Component {
           confirmedIds,
           confirmedUsers,
         });
-
+        addNotification({
+          date: firebase.firestore.Timestamp.fromDate(new Date()),
+          fromUser: sessionStorage.getItem("uid"),
+          fromUsername: sessionStorage.getItem("name"),
+          jobId: job.id,
+          notificationType: "userConfirmed",
+          toUser: job.creatingUserId,
+        });
         this.getData();
       });
   };
