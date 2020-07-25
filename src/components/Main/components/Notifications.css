@@ -2,6 +2,8 @@
   margin-top: 1em;
   text-align: center;
   font-size: 14px;
+  overflow-y: auto;
+  max-height: 70vh;
 }
 
 .card-notification {
