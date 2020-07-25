@@ -8,6 +8,8 @@
   right: 0;
   max-width: 500px;
   border-radius: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .review-head {

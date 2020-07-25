@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "./Review.css";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 export default class Review2 extends Component {
   render() {
     return (
       <div className="review-main">
         <div className="review-head">
-          <CheckCircleIcon src={Ok} style={{ fontSize: 40, color: "white" }} />
+          <CheckCircleIcon style={{ fontSize: 40, color: "white" }} />
           <p>
             A job you were attending to 'jobkoren'
             <br />
