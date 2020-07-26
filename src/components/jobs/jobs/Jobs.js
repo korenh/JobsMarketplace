@@ -38,6 +38,7 @@ export default class Search extends Component {
     radiusValID: 11,
     dateValue: new Date(),
     endDateValue: new Date("2 2 2222 22:22"),
+    locations: [],
   };
 
   loadMore = () => {
@@ -59,6 +60,7 @@ export default class Search extends Component {
   getData = (async) => {
     this.getCoord();
     const allData = [];
+    const locations = [];
     firebase
       .firestore()
       .collection("jobs")
@@ -106,8 +108,9 @@ export default class Search extends Component {
             });
           //-----method ends here-----//
           allData.push(data);
+          locations.push(doc.data().location);
         });
-        this.setState({ jobs: allData });
+        this.setState({ jobs: allData, locations });
       });
   };
 
@@ -409,6 +412,7 @@ export default class Search extends Component {
         {this.state.mappop ? (
           <div className="map-card-main">
             <Mapview
+              locations={this.state.locations}
               setMap={this.setMap}
               lat={this.state.lat}
               lng={this.state.lng}

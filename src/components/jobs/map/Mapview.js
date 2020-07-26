@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 import CancelIcon from "@material-ui/icons/Cancel";
+import WorkIcon from "@material-ui/icons/Work";
+import PersonPinCircleIcon from "@material-ui/icons/PersonPinCircle";
 
 export default function Mapview(props) {
   const [viewport, setViewport] = useState({
@@ -10,6 +12,8 @@ export default function Mapview(props) {
     height: "80vh",
     zoom: 10,
   });
+
+  const [locations, setLocations] = useState(props.locations);
 
   return (
     <div>
@@ -37,11 +41,18 @@ export default function Mapview(props) {
           latitude={props.lat}
           longitude={props.lng}
         >
-          <img
-            src=" https://img.icons8.com/color/48/000000/marker.png"
-            alt="img"
-          />
+          <PersonPinCircleIcon style={{ fontSize: 70, color: "#FF4500" }} />
         </Marker>
+        {locations.map((v) => (
+          <Marker
+            offsetTop={-48}
+            offsetLeft={-24}
+            latitude={v.Oa}
+            longitude={v.Ba}
+          >
+            <WorkIcon style={{ fontSize: 40, color: "rgb(45, 123, 212)" }} />
+          </Marker>
+        ))}
       </ReactMapGL>
     </div>
   );
