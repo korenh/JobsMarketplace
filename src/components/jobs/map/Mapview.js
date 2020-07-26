@@ -13,7 +13,7 @@ export default function Mapview(props) {
     zoom: 10,
   });
 
-  const [locations, setLocations] = useState(props.locations);
+  const [locations] = useState(props.locations);
 
   return (
     <div>
