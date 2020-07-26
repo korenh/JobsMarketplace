@@ -33,6 +33,7 @@ export default class Manageusers extends Component {
 
   componentDidMount() {
     this.getData();
+    console.log(this.getUserName("5MBcfOM8DSd1HHKrBRmnScvAdut2"));
   }
 
   getData = () => {
@@ -93,10 +94,14 @@ export default class Manageusers extends Component {
   };
 
   getUserName = (v) => {
-    var docRef = firebase.firestore().collection("users").doc(v);
-    docRef.get().then((doc) => {
-      this.setState({ name: doc.data().name });
-    });
+    return firebase
+      .firestore()
+      .collection("users")
+      .doc(v)
+      .get()
+      .then((doc) => {
+        return doc.data().name;
+      });
   };
 
   render() {

@@ -161,7 +161,7 @@ export default class Notifications extends Component {
             <div className="card-notification" key={notification.id}>
               <HelpIcon
                 style={{
-                  color: "rgb(175, 107, 43)",
+                  color: "rgb(194, 172, 48)",
                   fontSize: 40,
                   margin: "auto 5px",
                 }}
