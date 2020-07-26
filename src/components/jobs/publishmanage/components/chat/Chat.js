@@ -5,7 +5,6 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import InfoIcon from "@material-ui/icons/Info";
 import SendIcon from "@material-ui/icons/Send";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
-
 import axios from "axios";
 export default class Chat extends Component {
   state = {

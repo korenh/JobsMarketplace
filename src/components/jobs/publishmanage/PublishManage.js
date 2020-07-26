@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../Jobs.css";
+import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import Mapview2 from "../map/Mapview2";
@@ -30,13 +31,6 @@ export default class Jobs extends Component {
   state = {
     job: {},
     jobdash: {},
-    tags: [
-      { id: 1, name: "human" },
-      { id: 2, name: "men" },
-      { id: 3, name: "woman" },
-      { id: 4, name: "delivery" },
-      { id: 5, name: "sell" },
-    ],
     hours: [
       { id: 1, name: "< 3hrs" },
       { id: 2, name: "< 6hrs" },
@@ -65,6 +59,9 @@ export default class Jobs extends Component {
     lat: undefined,
     lng: undefined,
     location: [],
+    listCategories: [],
+    stringCategories: [],
+    indexCategories: [],
   };
 
   handleEnd = (date) => {
@@ -102,6 +99,13 @@ export default class Jobs extends Component {
   componentDidMount() {
     this.getData();
     this.getCoord();
+    axios
+      .get(
+        "https://altro-db7f0.firebaseio.com/1aApDYbB7SthmUtMckqzGAbiRe2mvWiN4Tu5AIOfFCuA/categories.json"
+      )
+      .then((response) => {
+        this.setState({ listCategories: response.data });
+      });
   }
 
   calcCrow(lon2, lat2, unit) {
@@ -173,7 +177,8 @@ export default class Jobs extends Component {
         dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
         title: this.state.title,
         description: this.state.description,
-        stringCategories: ["backend", "science", "developer", "network"],
+        stringCategories: this.state.stringCategories,
+        categories: this.state.indexCategories,
         payment: this.state.payment,
         isPaymentPerHour: this.state.hourly,
         isPayingForTransportation: this.state.transportation,
@@ -289,6 +294,17 @@ export default class Jobs extends Component {
     });
   };
 
+  addStringcategories = (v) => {
+    const indexCategories = this.state.indexCategories;
+    const stringCategories = this.state.stringCategories;
+    if (stringCategories.includes(v) || stringCategories.length === 5) {
+      return;
+    }
+    stringCategories.push(v.en);
+    indexCategories.push(v.index);
+    this.setState({ stringCategories, indexCategories });
+  };
+
   render() {
     return (
       <div>
@@ -361,6 +377,7 @@ export default class Jobs extends Component {
                 alt="img"
                 style={{ fontSize: 40, color: "rgb(45, 123, 212)" }}
               />
+
               <h2>New Job</h2>
               <input
                 type="text"
@@ -379,11 +396,24 @@ export default class Jobs extends Component {
               />
               <br />
               <p>Pick up to 5 categories which your job applies.</p>
-              {this.state.tags.map((tag) => (
-                <span className="newjob-tag-list-item" key={tag.id}>
-                  #{tag.name}
-                </span>
-              ))}
+              <div className="jobs-card-tags">
+                {this.state.listCategories.map((v) => (
+                  <span
+                    className="newjob-tag-list-item"
+                    key={v.index}
+                    onClick={() => this.addStringcategories(v)}
+                  >
+                    #{v.en}
+                  </span>
+                ))}
+              </div>
+              <div className="jobs-card-tags">
+                {this.state.stringCategories.map((v) => (
+                  <span className="jobs-new-card-tag-item" key={v}>
+                    #{v}
+                  </span>
+                ))}
+              </div>
               <p>How many employees requires for the job?</p>
               <div className="newjob-number-flex">
                 <p
