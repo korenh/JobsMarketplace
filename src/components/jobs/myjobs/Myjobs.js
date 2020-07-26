@@ -20,6 +20,15 @@ export default class Myjobs extends Component {
     job: {},
     saved: true,
     going: false,
+    lat: undefined,
+    lng: undefined,
+  };
+
+  getCoord = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({ lat: position.coords.latitude });
+      this.setState({ lng: position.coords.longitude });
+    });
   };
 
   removeA(arr) {
@@ -52,6 +61,7 @@ export default class Myjobs extends Component {
 
   componentDidMount() {
     this.getData();
+    this.getCoord();
   }
   getData = (async) => {
     const field = ["savedIds", "confirmedIds"];
@@ -86,6 +96,8 @@ export default class Myjobs extends Component {
             creatingUserId: doc.data().creatingUserId,
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
+            km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
+
             viewport: {
               latitude: 32.12257459473794,
               longitude: 34.8154874641065,
@@ -133,6 +145,20 @@ export default class Myjobs extends Component {
     this.getData();
   };
 
+  calcCrow(lon2, lat2, unit) {
+    var radlat1 = (Math.PI * this.state.lat) / 180;
+    var radlat2 = (Math.PI * lat2) / 180;
+    var theta = this.state.lng - lon2;
+    var radtheta = (Math.PI * theta) / 180;
+    var dist =
+      Math.sin(radlat1) * Math.sin(radlat2) +
+      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist);
+    dist = (dist * 180) / Math.PI;
+    dist = dist * 60 * 1.1515;
+    return dist;
+  }
+
   toconfirmedUsers = (job) => {
     firebase
       .firestore()
@@ -162,8 +188,6 @@ export default class Myjobs extends Component {
         this.getData();
       });
   };
-
-  confirmes;
 
   render() {
     return (
@@ -212,8 +236,8 @@ export default class Myjobs extends Component {
                       <h3>${job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
-                      <p>Today , 6:30pm </p>
-                      <p>Tel Aviv , 2.6 km</p>
+                      <p>{job.dateCreated.toDate().toDateString()}</p>
+                      <p> {Math.round(job.km)} km</p>
                     </div>
                     <div className="jobs-card-tags">
                       {job.categories.map((tag) => (
@@ -251,8 +275,8 @@ export default class Myjobs extends Component {
                           <h3>${job.payment}</h3>
                         </div>
                         <div className="jobs-card-info">
-                          <p>Today , 6:30pm </p>
-                          <p>Tel Aviv , 2.6 km</p>
+                          <p>{job.dateCreated.toDate().toDateString()}</p>
+                          <p> {Math.round(job.km)} km</p>
                         </div>
                         <div className="jobs-card-tags">
                           {job.categories.map((tag) => (
@@ -287,8 +311,8 @@ export default class Myjobs extends Component {
                             />
                             <p>
                               {job.isPayingForTransportation
-                                ? "covering transportation"
-                                : "not covering transportation"}
+                                ? "covered"
+                                : "not covered"}
                             </p>
                           </div>
                         </div>
@@ -439,8 +463,8 @@ export default class Myjobs extends Component {
                             />
                             <p>
                               {job.isPayingForTransportation
-                                ? "covering transportation"
-                                : "not covering transportation"}
+                                ? "covered"
+                                : "not covered"}
                             </p>
                           </div>
                         </div>

@@ -518,8 +518,8 @@ export default class Search extends Component {
                         />
                         <p>
                           {job.isPayingForTransportation
-                            ? "covering transportation"
-                            : "not covering transportation"}
+                            ? "covered"
+                            : "not covered"}
                         </p>
                       </div>
                     </div>

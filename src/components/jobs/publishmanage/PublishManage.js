@@ -104,6 +104,20 @@ export default class Jobs extends Component {
     this.getCoord();
   }
 
+  calcCrow(lon2, lat2, unit) {
+    var radlat1 = (Math.PI * this.state.lat) / 180;
+    var radlat2 = (Math.PI * lat2) / 180;
+    var theta = this.state.lng - lon2;
+    var radtheta = (Math.PI * theta) / 180;
+    var dist =
+      Math.sin(radlat1) * Math.sin(radlat2) +
+      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist);
+    dist = (dist * 180) / Math.PI;
+    dist = dist * 60 * 1.1515;
+    return dist;
+  }
+
   getData = () => {
     const allData = [];
     firebase
@@ -120,6 +134,7 @@ export default class Jobs extends Component {
             title: doc.data().title,
             geo: doc.data().location,
             description: doc.data().description,
+            dateCreated: doc.data().dateCreated,
             acceptedUsers: doc.data().acceptedUsers,
             confirmedUsers: doc.data().confirmedUsers.confirmingUserId,
             duration: doc.data().duration,
@@ -128,6 +143,7 @@ export default class Jobs extends Component {
             startDate: doc.data().startDate,
             location: doc.data().location,
             categories: doc.data().stringCategories,
+            km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
             viewport: {
               latitude: doc.data().location.Oa,
               longitude: doc.data().location.Ba,
@@ -567,8 +583,8 @@ export default class Jobs extends Component {
                   <h3>${job.payment}</h3>
                 </div>
                 <div className="jobs-card-info">
-                  <p>Today , 6:30pm </p>
-                  <p>Tel Aviv , 2.6 km</p>
+                  <p>{job.dateCreated.toDate().toDateString()}</p>
+                  <p> {Math.round(job.km)} km</p>
                 </div>
                 <div className="jobs-card-tags">
                   {job.categories.map((tag) => (

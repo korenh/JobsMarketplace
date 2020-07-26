@@ -15,6 +15,7 @@ export default class Manageusers extends Component {
     Requests: true,
     Accepted: false,
     Confirmed: false,
+    user: {},
   };
 
   removeA(arr) {
@@ -33,7 +34,7 @@ export default class Manageusers extends Component {
 
   componentDidMount() {
     this.getData();
-    console.log(this.getUserName("5MBcfOM8DSd1HHKrBRmnScvAdut2"));
+    this.getUser(sessionStorage.getItem("uid"));
   }
 
   getData = () => {
@@ -43,7 +44,6 @@ export default class Manageusers extends Component {
       let confirmedIds = doc.data().confirmedIds;
       let confirmedUsers = doc.data().confirmedUsers;
       this.setState({ acceptedIds, confirmedIds, confirmedUsers });
-      console.log(this.state.confirmedUsers);
     });
   };
 
@@ -93,15 +93,10 @@ export default class Manageusers extends Component {
     this.getData();
   };
 
-  getUserName = (v) => {
-    return firebase
-      .firestore()
-      .collection("users")
-      .doc(v)
-      .get()
-      .then((doc) => {
-        return doc.data().name;
-      });
+  getUser = async (v) => {
+    const doc = await firebase.firestore().collection("users").doc(v).get();
+    this.setState({ user: doc.data() });
+    console.log(this.state.user);
   };
 
   render() {
