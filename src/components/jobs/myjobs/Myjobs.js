@@ -185,7 +185,9 @@ export default class Myjobs extends Component {
           notificationType: "userConfirmed",
           toUser: job.creatingUserId,
         });
-        this.getData();
+        setTimeout(() => {
+          this.getData();
+        }, 1);
       });
   };
 
@@ -388,8 +390,8 @@ export default class Myjobs extends Component {
                       <h3>${job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
-                      <p>Today , 6:30pm </p>
-                      <p>Tel Aviv , 2.6 km</p>
+                      <p>{job.dateCreated.toDate().toDateString()}</p>
+                      <p> {Math.round(job.km)} km</p>
                     </div>
                     <div className="jobs-card-tags">
                       {job.categories.map((tag) => (
@@ -427,8 +429,8 @@ export default class Myjobs extends Component {
                           <h3>${job.payment}</h3>
                         </div>
                         <div className="jobs-card-info">
-                          <p>Today , 6:30pm </p>
-                          <p>Tel Aviv , 2.6 km</p>
+                          <p>{job.dateCreated.toDate().toDateString()}</p>
+                          <p> {Math.round(job.km)} km</p>
                         </div>
                         <div className="jobs-card-tags">
                           {job.categories.map((tag) => (

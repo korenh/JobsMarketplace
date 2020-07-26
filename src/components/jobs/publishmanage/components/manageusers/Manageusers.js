@@ -61,7 +61,9 @@ export default class Manageusers extends Component {
       notificationType: "removedFromJob",
       toUser: v,
     });
-    this.getData();
+    setTimeout(() => {
+      this.getData();
+    }, 1);
   };
 
   deleteconfirmedIds = (v) => {
@@ -70,7 +72,9 @@ export default class Manageusers extends Component {
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       confirmedIds,
     });
-    this.getData();
+    setTimeout(() => {
+      this.getData();
+    }, 1);
   };
 
   toconfirmedIds = (v) => {
@@ -90,7 +94,9 @@ export default class Manageusers extends Component {
       notificationType: "acceptedToJob",
       toUser: v,
     });
-    this.getData();
+    setTimeout(() => {
+      this.getData();
+    }, 1);
   };
 
   getUser = async (v) => {
