@@ -101,7 +101,7 @@ export default class Signup extends Component {
           <img src={Altro} alt="img" style={{ height: "40px" }} />
         </div>
         <form className="signup-form" onSubmit={this.handleRegister}>
-          <h2>Sign up</h2>
+          <br />
           <p> i will be primarily using Altro as a...</p>
           <div className="signup-type-list">
             {this.state.asa.map((tag) =>
@@ -143,42 +143,43 @@ export default class Signup extends Component {
           <br />
           <p>Add your profile picture(optional)</p>
           <br />
-          <input className="signup-input" placeholder="email" name="email" />
+          <input className="signup-inp" placeholder="   email" name="email" />
           <br />
           <input
-            className="signup-input"
-            placeholder="Password"
+            className="signup-inp"
+            placeholder="   Password"
             name="password"
           />
           <br />
           <input
-            className="signup-input"
-            placeholder="Confirm Password"
+            className="signup-inp"
+            placeholder="   Confirm Password"
             name="confirm"
           />
           <br />{" "}
           <input
-            className="signup-input"
-            placeholder="Phone Number"
+            className="signup-inp"
+            placeholder="   Phone Number"
             name="phone"
           />
           <br />{" "}
           <input
-            className="signup-input"
-            placeholder="Name/Business Name"
+            className="signup-inp"
+            placeholder="   Name/Business Name"
             type="text"
             name="name"
           />
           <br />
-          <DatePicker
-            selected={this.state.userDate}
-            onChange={this.handleChange}
-            className="signup-input"
-          />
-          <br />
+          <p className="signup-inp" style={{ padding: "0" }}>
+            <DatePicker
+              selected={this.state.userDate}
+              onChange={this.handleChange}
+              className="signup-inp2"
+            />
+          </p>
           <textarea
-            placeholder="Write about your self/business"
-            className="signup-textarea"
+            placeholder="   Write about your self/business"
+            className="signup-inp"
             type="text"
             name="description"
           />
@@ -198,7 +199,7 @@ export default class Signup extends Component {
           <Link to="/" className="signup-link">
             Privacy Policy
           </Link>
-          <br /> <button className="signup-button">Sign up</button>
+          <br /> <button className="signup-btn">Sign up</button>
         </form>
       </div>
     );

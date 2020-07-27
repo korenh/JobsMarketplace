@@ -45,36 +45,35 @@ export default class Signin extends Component {
         </div>
         <div className="signin-body"></div>
         <form className="login-form" onSubmit={this.handleLogin}>
-          <h2>Sign in</h2>
           <input
             type="text"
-            placeholder="Email"
-            className="signin-input"
+            placeholder="   Email"
+            className="signin-inp"
             name="email"
           />
           <br />
           <input
             type="password"
-            placeholder="Password"
-            className="signin-input"
+            placeholder="   Password"
+            className="signin-inp"
             name="password"
           />
           <br />
-          <button className="signin-button">Sign in</button>
-        </form>
-        <div className="signin-footer">
-          <div className="signin-footer-top">
-            <span>Dont have an acoount? </span>
-            <Link to="/signup" className="signin-link">
-              Sign up
-            </Link>
-            <br />
-            <span className="signin-or">or</span>
-            <a href="!#" className="signin-guest">
-              Continue as a guest
-            </a>
+          <button className="signin-btn">Sign in</button>
+          <div className="signin-footer">
+            <div className="signin-footer-top">
+              <span>Dont have an acoount? </span>
+              <Link to="/signup" className="signin-link">
+                Sign up
+              </Link>
+              <br />
+              <span className="signin-or">or</span>
+              <a href="!#" className="signin-guest">
+                Continue as a guest
+              </a>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     );
   }

@@ -85,3 +85,45 @@
   cursor: pointer;
   margin-left: 10px;
 }
+
+.signup-inp {
+  padding: 0.4em 0;
+  margin: 0.5em 0;
+  border-radius: 50px;
+  border: none;
+  background: rgb(240, 240, 240);
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+}
+
+.signup-inp2 {
+  padding: 0;
+  margin: 0.5em 0;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+}
+
+.signup-btn {
+  margin: 1em 0;
+  padding: 0.1em;
+  border-radius: 50px;
+  border: none;
+  background: var(--main2);
+  color: white;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.signup-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  transform: translate(-50%, -50%);
+}
