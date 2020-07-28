@@ -7,6 +7,7 @@ import "./Manageusers.css";
 
 export default class Manageusers extends Component {
   state = {
+    date: new Date(),
     acceptedIds: [],
     confirmedIds: [],
     acceptedUsers: [],
@@ -102,7 +103,6 @@ export default class Manageusers extends Component {
   getUser = async (v) => {
     const doc = await firebase.firestore().collection("users").doc(v).get();
     this.setState({ user: doc.data() });
-    console.log(this.state.user);
   };
 
   render() {
@@ -173,12 +173,15 @@ export default class Manageusers extends Component {
                     <img
                       alt="img"
                       src={sessionStorage.getItem("url")}
-                      style={{ height: "50px", borderRadius: "50%" }}
+                      style={{
+                        height: "40px",
+                        width: "40px",
+                        borderRadius: "50%",
+                      }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{v}</p>
-                      <p>Accepted on may 3</p>
-                      <p>(293)</p>
+                      <p>{this.state.user.name}</p>
+                      <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>
                   <div className="manageusers-button-flex">
@@ -210,10 +213,15 @@ export default class Manageusers extends Component {
                     <img
                       alt="img"
                       src={sessionStorage.getItem("url")}
-                      style={{ height: "50px", borderRadius: "50%" }}
+                      style={{
+                        height: "40px",
+                        width: "40px",
+                        borderRadius: "50%",
+                      }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{v}</p>
+                      <p>{this.state.user.name}</p>
+                      <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>
                   <div className="manageusers-button-flex">
@@ -239,11 +247,15 @@ export default class Manageusers extends Component {
                     <img
                       alt="img"
                       src={sessionStorage.getItem("url")}
-                      style={{ height: "50px", borderRadius: "50%" }}
+                      style={{
+                        height: "40px",
+                        width: "40px",
+                        borderRadius: "50%",
+                      }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{v.confirmingUserId}</p>
-                      <p>{v.dateConfirmed.toString()}</p>
+                      <p>{this.state.user.name}</p>
+                      <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>
                   <div className="manageusers-button-flex">
