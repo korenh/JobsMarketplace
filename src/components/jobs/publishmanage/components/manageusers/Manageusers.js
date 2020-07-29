@@ -16,7 +16,7 @@ export default class Manageusers extends Component {
     Requests: true,
     Accepted: false,
     Confirmed: false,
-    user: {},
+    userdata: {},
   };
 
   removeA(arr) {
@@ -35,7 +35,6 @@ export default class Manageusers extends Component {
 
   componentDidMount() {
     this.getData();
-    this.getUser(sessionStorage.getItem("uid"));
   }
 
   getData = () => {
@@ -102,7 +101,14 @@ export default class Manageusers extends Component {
 
   getUser = async (v) => {
     const doc = await firebase.firestore().collection("users").doc(v).get();
-    this.setState({ user: doc.data() });
+    return doc.data();
+  };
+
+  getName = (v) => {
+    this.getUser(v).then((userdata) => {
+      this.setState({ userdata });
+    });
+    return this.state.userdata.name;
   };
 
   render() {
@@ -180,7 +186,7 @@ export default class Manageusers extends Component {
                       }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{this.state.user.name}</p>
+                      <p>{this.getName(v)}</p>
                       <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>
@@ -220,7 +226,7 @@ export default class Manageusers extends Component {
                       }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{this.state.user.name}</p>
+                      <p>asdasads</p>
                       <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>

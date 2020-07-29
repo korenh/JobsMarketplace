@@ -4,6 +4,10 @@ import firebase from "../../../../protected/Firebase";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 export default class Review extends Component {
+  state = {
+    textarea: "",
+  };
+
   sendReview = () => {
     firebase.firestore().collection("doneDeals").doc(this.props.job.id).set({
       jobId: this.props.job.id,
@@ -47,7 +51,7 @@ export default class Review extends Component {
             typeof="text"
             className="review-textarea"
             placeholder="Write your feedback here"
-            onChange={(e) => this.setState({ texta: e.target.value })}
+            onChange={(e) => this.setState({ textarea: e.target.value })}
           />
           <br />
           <button className="review-submit" onClick={() => this.sendReview()}>

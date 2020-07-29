@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase from "../../../../protected/Firebase";
-import DatePicker from "react-datepicker";
 import "./Editjob.css";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
@@ -109,20 +108,6 @@ export default class Editjob extends Component {
             -
           </p>
         </div>
-        <DatePicker
-          selected={this.state.endDate}
-          onChange={this.handleEnd}
-          className="jobs-datepicker"
-        />
-        <span> Select End date </span>
-        <br />
-        <DatePicker
-          selected={this.state.startDate}
-          onChange={this.handleStart}
-          className="jobs-datepicker"
-        />
-        <span> Select Start time </span>
-        <br />
         <br />
         <button onClick={() => this.Update()} className="signup-button">
           Update
