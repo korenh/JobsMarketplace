@@ -180,7 +180,7 @@ export default class Manageusers extends Component {
                       }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{this.state.user.name}</p>
+                      <p>{v}</p>
                       <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>
@@ -220,7 +220,7 @@ export default class Manageusers extends Component {
                       }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{this.state.user.name}</p>
+                      <p>{v}</p>
                       <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>
@@ -254,7 +254,7 @@ export default class Manageusers extends Component {
                       }}
                     />
                     <div className="dashboard-card-person-info">
-                      <p>{this.state.user.name}</p>
+                      <p>{v}</p>
                       <p>{this.state.date.toISOString()}</p>
                     </div>
                   </div>
