@@ -10,3 +10,7 @@ export const addNotification = (notification) => {
     toUser: notification.toUser,
   });
 };
+
+export const GeoName = (lng, lat) => {
+  return "{Location}";
+};

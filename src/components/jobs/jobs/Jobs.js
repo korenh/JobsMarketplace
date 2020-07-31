@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { addNotification } from "../../functions/helper";
+import { addNotification, GeoName } from "../../functions/helper";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import "./Job.css";
@@ -89,6 +89,7 @@ export default class Search extends Component {
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
+            Geoname: GeoName(doc.data().location.Ba, doc.data().location.Oa),
             viewport: {
               latitude: doc.data().location.Oa,
               longitude: doc.data().location.Ba,
@@ -436,7 +437,10 @@ export default class Search extends Component {
                 </div>
                 <div className="jobs-card-info">
                   <p>{job.dateCreated.toDate().toDateString()}</p>
-                  <p> {Math.round(job.km)} km</p>
+                  <p>
+                    {" "}
+                    {Math.round(job.km)} km , {job.Geoname}
+                  </p>
                 </div>
                 <div className="jobs-card-tags">
                   {job.categories.map((tag) => (

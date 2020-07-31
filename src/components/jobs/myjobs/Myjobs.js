@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../Jobs.css";
-import { addNotification } from "../../functions/helper";
+import { addNotification, GeoName } from "../../functions/helper";
 import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
@@ -97,6 +97,7 @@ export default class Myjobs extends Component {
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
+            Geoname: GeoName(doc.data().location.Ba, doc.data().location.Oa),
 
             viewport: {
               latitude: 32.12257459473794,

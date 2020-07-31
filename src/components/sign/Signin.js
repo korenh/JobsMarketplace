@@ -46,7 +46,7 @@ export default class Signin extends Component {
         <div className="signin-body"></div>
         <form className="login-form" onSubmit={this.handleLogin}>
           <input
-            type="text"
+            type="mail"
             placeholder="   Email"
             className="signin-inp"
             name="email"
