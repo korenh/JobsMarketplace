@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { addNotification, GeoName, calcCrow } from "../../functions/helper";
+import { addNotification, GeoName } from "../../functions/helper";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import "./Job.css";
