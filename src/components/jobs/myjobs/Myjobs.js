@@ -17,6 +17,7 @@ import ReactMapGL, { Marker } from "react-map-gl";
 export default class Myjobs extends Component {
   state = {
     jobs: [],
+    jobsConfirmed: [],
     job: {},
     saved: true,
     going: false,
@@ -61,6 +62,7 @@ export default class Myjobs extends Component {
 
   componentDidMount() {
     this.getData();
+    this.getData2();
     this.getCoord();
   }
   getData = (async) => {
@@ -110,6 +112,53 @@ export default class Myjobs extends Component {
           allData.push(data);
         });
         this.setState({ jobs: allData });
+      });
+  };
+
+  getData2 = (async) => {
+    const allData = [];
+    firebase
+      .firestore()
+      .collection("jobs")
+      .where("confirmedUsers", "array-contains", {
+        confirmingUserId: sessionStorage.getItem("uid"),
+      })
+      .orderBy("dateCreated", "desc")
+      .limit(20)
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          const data = {
+            id: doc.id,
+            title: doc.data().title,
+            geo: doc.data().location,
+            description: doc.data().description,
+            dateCreated: doc.data().dateCreated,
+            payment: doc.data().payment,
+            startDate: doc.data().startDate,
+            location: doc.data().location,
+            categories: doc.data().stringCategories,
+            isPaymentPerHour: doc.data().isPaymentPerHour,
+            duration: doc.data().duration,
+            requiredEmployees: doc.data().requiredEmployees,
+            isPayingForTransportation: doc.data().isPayingForTransportation,
+            creatingUserId: doc.data().creatingUserId,
+            numberOfSaves: doc.data().numberOfSaves,
+            numberOfViews: doc.data().numberOfViews,
+            km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
+            Geoname: GeoName(doc.data().location.Ba, doc.data().location.Oa),
+
+            viewport: {
+              latitude: 32.12257459473794,
+              longitude: 34.8154874641065,
+              width: "100%",
+              height: "40vh",
+              zoom: 10,
+            },
+          };
+          allData.push(data);
+        });
+        this.setState({ jobsConfirmed: allData });
       });
   };
 
@@ -226,7 +275,11 @@ export default class Myjobs extends Component {
                 </div>
               ) : (
                 ""
+                //--------------------------------------------------------------------------------//
+                //--------------------------------------------------------------------------------//
+                //--------------------------------------------------------------------------------//
               )}
+
               {this.state.jobs.map((job) =>
                 this.state.job.id !== job.id ? (
                   <div
@@ -370,6 +423,9 @@ export default class Myjobs extends Component {
             </div>
           </div>
         ) : (
+          //--------------------------------------------------------------------------------//
+          //--------------------------------------------------------------------------------//
+          //--------------------------------------------------------------------------------//
           <div>
             <div className="myjobs">
               {this.state.jobChat ? (
@@ -533,6 +589,171 @@ export default class Myjobs extends Component {
                 )
               )}
             </div>
+            {this.state.jobChat ? (
+              <div className="dashboard-card">
+                <Chat job={this.state.job} Chat={this.Chat} />
+              </div>
+            ) : (
+              ""
+            )}
+            {
+              //--------------------------------------------------------------------------------//
+              //--------------------------------------------------------------------------------//
+              //--------------------------------------------------------------------------------//
+              this.state.jobsConfirmed.map((job) =>
+                this.state.job.id !== job.id ? (
+                  <div
+                    className="jobs-card2"
+                    key={job.id}
+                    onClick={() => this.jobPopUp(job)}
+                  >
+                    <div className="jobs-card-title">
+                      <p className="jobs-card-description">{job.title}</p>
+                      <h3>${job.payment}</h3>
+                    </div>
+                    <div className="jobs-card-info">
+                      <p>{job.dateCreated.toDate().toDateString()}</p>
+                      <p> {Math.round(job.km)} km</p>
+                    </div>
+                    <div className="jobs-card-tags">
+                      {job.categories.map((tag) => (
+                        <p className="jobs-selected-card-tag-item" key={tag}>
+                          {tag}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="jobs-selected-card" key={job.description}>
+                    <ReactMapGL
+                      {...job.viewport}
+                      mapboxApiAccessToken="pk.eyJ1Ijoia29yZW5oYW1yYSIsImEiOiJjazRscXBqeDExaWw2M2VudDU5OHFsN2tjIn0.Fl-5gMOM35kqUiLLjKNmgg"
+                      mapStyle="mapbox://styles/korenhamra/ck4lsl9kd2euf1cnruee3zfbo"
+                      pitch="60"
+                      bearing="-60"
+                    >
+                      <Marker
+                        offsetTop={-48}
+                        offsetLeft={-24}
+                        latitude={32.12257459473794}
+                        longitude={34.8154874641065}
+                      >
+                        <img
+                          src=" https://img.icons8.com/color/48/000000/marker.png"
+                          alt="img"
+                        />
+                      </Marker>
+                    </ReactMapGL>
+                    <div className="jobs-selected-card-body">
+                      <div className="jobs-selected-card-body-left">
+                        <div className="jobs-card-title">
+                          <p>{job.title}</p>
+                          <h3>${job.payment}</h3>
+                        </div>
+                        <div className="jobs-card-info">
+                          <p>{job.dateCreated.toDate().toDateString()}</p>
+                          <p> {Math.round(job.km)} km</p>
+                        </div>
+                        <div className="jobs-card-tags">
+                          {job.categories.map((tag) => (
+                            <p
+                              className="jobs-selected-card-tag-item"
+                              key={tag}
+                            >
+                              {tag}
+                            </p>
+                          ))}
+                        </div>
+                        <p className="jobs-selected-desc">{job.description}</p>
+                        <div className="jobs-selected-flex">
+                          <div>
+                            <QueryBuilderIcon
+                              className="jobs-selected-flex-img"
+                              style={{ fontSize: 40, color: "white" }}
+                            />
+                            <p>{job.duration}</p>
+                          </div>
+                          <div>
+                            <AccessibilityNewIcon
+                              className="jobs-selected-flex-img"
+                              style={{ fontSize: 40, color: "white" }}
+                            />
+                            <p>{job.requiredEmployees}</p>
+                          </div>
+                          <div>
+                            <DirectionsCarIcon
+                              className="jobs-selected-flex-img"
+                              style={{ fontSize: 40, color: "white" }}
+                            />
+                            <p>
+                              {job.isPayingForTransportation
+                                ? "covered"
+                                : "not covered"}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="jobs-selected-card-body-right">
+                        <div className="jobs-selected-bottom-line">
+                          <br />
+                          <button className="jobs-selected-save-button">
+                            <PhoneIphoneIcon
+                              style={{
+                                fontSize: 15,
+                                color: "rgb(45, 123, 212)",
+                              }}
+                            />
+                            Contact
+                          </button>
+                          <br />
+                          <button
+                            className="jobs-selected-save-button"
+                            onClick={() => this.Chat()}
+                          >
+                            <ChatIcon
+                              style={{
+                                fontSize: 15,
+                                color: "rgb(45, 123, 212)",
+                              }}
+                            />
+                            Chat
+                          </button>
+                          <br />
+                          <button
+                            className="jobs-selected-finish-button"
+                            onClick={() => this.toconfirmedUsers(job)}
+                          >
+                            <CheckCircleIcon
+                              style={{
+                                fontSize: 15,
+                                color: "white",
+                              }}
+                            />
+                            Confirm
+                          </button>
+                          <br />
+                          <button className="jobs-selected-delete-button">
+                            <BackspaceIcon
+                              style={{
+                                fontSize: 15,
+                                color: "white",
+                              }}
+                            />
+                            Abort
+                          </button>
+                        </div>
+                        <img
+                          src="https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a"
+                          alt="img"
+                          className="jobs-selected-profile"
+                        />
+                        <p>{sessionStorage.getItem("name")}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              )
+            }
           </div>
         )}
       </div>

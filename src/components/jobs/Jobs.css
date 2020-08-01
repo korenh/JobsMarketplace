@@ -8,7 +8,6 @@
 
 .myjobs {
   padding-top: 250px;
-  padding-bottom: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -28,6 +27,24 @@
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
   color: gray;
+  z-index: 0;
+  text-align: left;
+}
+
+.jobs-card2 {
+  -webkit-animation: scale-up-hor-center 0.4s
+    cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: scale-up-hor-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  background-image: linear-gradient(-90deg, var(--main1), var(--main2));
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  width: 300px;
+  padding: 1em;
+  margin: 1em auto;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px rgb(202, 202, 202);
+  color: white;
   z-index: 0;
   text-align: left;
 }

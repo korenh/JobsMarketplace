@@ -6,7 +6,6 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import StarsIcon from "@material-ui/icons/Stars";
 import "./Notifications.css";
 import HelpIcon from "@material-ui/icons/Help";
-
 import Review2 from "../../jobs/publishmanage/components/review/Review2";
 
 export default class Notifications extends Component {
@@ -14,6 +13,10 @@ export default class Notifications extends Component {
     notifications: [],
     reviewPop: false,
     jobdata: {},
+  };
+
+  deleteAllNotification = () => {
+    alert("deleteAll");
   };
 
   deleteNotification = (notification) => {
@@ -70,6 +73,12 @@ export default class Notifications extends Component {
   render() {
     return (
       <div className="notifications">
+        <button
+          className="notifications-clear-all"
+          onClick={() => this.deleteAllNotification()}
+        >
+          Clear All notification
+        </button>
         {this.state.reviewPop ? (
           <Review2 jobFinished={this.jobFinished} job={this.state.jobdata} />
         ) : (
