@@ -91,6 +91,7 @@ export default class Search extends Component {
             isPayingForTransportation: doc.data().isPayingForTransportation,
             numberOfSaves: doc.data().numberOfSaves,
             numberOfViews: doc.data().numberOfViews,
+            savedIds: doc.data().savedIds,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
             Geoname: GeoName(doc.data().location.Ba, doc.data().location.Oa),
             viewport: {

@@ -68,13 +68,29 @@ export default class Header extends Component {
           <NotificationsNoneIcon
             className="header-icon"
             onClick={this.notification}
-            style={{ fontSize: 35 }}
+            style={
+              this.state.notification
+                ? {
+                    fontSize: 35,
+                    color: "rgb(45, 123, 212)",
+                    transition: "0.5s",
+                  }
+                : { fontSize: 35, transition: "0.5s" }
+            }
           />
           <MenuIcon
             alt="img"
             className="header-icon"
             onClick={this.menu}
-            style={{ fontSize: 35 }}
+            style={
+              this.state.menu
+                ? {
+                    fontSize: 35,
+                    color: "rgb(45, 123, 212)",
+                    transition: "0.5s",
+                  }
+                : { fontSize: 35, transition: "0.5s" }
+            }
           />
 
           {this.state.notification ? (

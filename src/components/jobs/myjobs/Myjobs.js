@@ -13,6 +13,7 @@ import NearMeIcon from "@material-ui/icons/NearMe";
 import firebase from "../../protected/Firebase";
 import Chat from "../publishmanage/components/chat/Chat";
 import ReactMapGL, { Marker } from "react-map-gl";
+import StarsIcon from "@material-ui/icons/Stars";
 
 export default class Myjobs extends Component {
   state = {
@@ -323,6 +324,14 @@ export default class Myjobs extends Component {
                         </p>
                       ))}
                     </div>
+                    <StarsIcon
+                      style={{
+                        color: "rgb(45, 123, 212)",
+                        fontSize: 30,
+                        float: "right",
+                        margin: "5px",
+                      }}
+                    />
                   </div>
                 ) : (
                   <div className="jobs-selected-card" key={job.description}>

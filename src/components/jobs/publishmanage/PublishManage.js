@@ -193,6 +193,7 @@ export default class Jobs extends Component {
         duration: this.state.hour.id,
         numberOfSaves: 0,
         numberOfViews: 0,
+        savedIds: [],
         location: new firebase.firestore.GeoPoint(
           this.state.lat,
           this.state.lng
@@ -646,30 +647,44 @@ export default class Jobs extends Component {
                 </div>
                 <div
                   style={{
-                    marginTop: "20px",
+                    marginTop: "10px",
                     display: "flex",
                     justifyContent: "space-evenly",
                     lineHeight: "0",
                   }}
                 >
-                  <div
-                    style={{ textAlign: "center", color: "rgb(45, 123, 212)" }}
-                  >
-                    <SendIcon />
-                    <p>{job.requests.length}</p>
-                  </div>
-                  <div
-                    style={{ textAlign: "center", color: "rgb(45, 123, 212)" }}
-                  >
-                    <CheckCircleIcon />
-                    <p>{job.acceptedIds.length}</p>
-                  </div>
-                  <div
-                    style={{ textAlign: "center", color: "rgb(45, 123, 212)" }}
-                  >
-                    <VerifiedUserIcon />
-                    <p>{job.confirmedIds.length}</p>
-                  </div>
+                  <p>
+                    <SendIcon
+                      style={{
+                        textAlign: "center",
+                        color: "rgb(45, 123, 212)",
+                        fontSize: 25,
+                      }}
+                    />
+                    {job.requests.length}
+                  </p>
+
+                  <p>
+                    <CheckCircleIcon
+                      style={{
+                        textAlign: "center",
+                        color: "rgb(45, 123, 212)",
+                        fontSize: 25,
+                      }}
+                    />
+                    {job.acceptedIds.length}
+                  </p>
+
+                  <p>
+                    <VerifiedUserIcon
+                      style={{
+                        textAlign: "center",
+                        color: "rgb(45, 123, 212)",
+                        fontSize: 25,
+                      }}
+                    />
+                    {job.confirmedIds.length}
+                  </p>
                 </div>
               </div>
             ) : (
