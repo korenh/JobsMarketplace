@@ -9,6 +9,8 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import MapIcon from "@material-ui/icons/Map";
 import StarIcon from "@material-ui/icons/Star";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import Mapview from "../map/Mapview";
 import firebase from "../../protected/Firebase";
@@ -440,9 +442,20 @@ export default class Search extends Component {
                   <h3>${job.payment}</h3>
                 </div>
                 <div className="jobs-card-info">
-                  <p>{job.dateCreated.toDate().toDateString()}</p>
                   <p>
-                    {" "}
+                    <span>
+                      <CalendarTodayIcon
+                        style={{ fontSize: 20, margin: "0", color: "gray" }}
+                      />
+                    </span>
+                    {job.dateCreated.toDate().toDateString()}
+                  </p>
+                  <p>
+                    <span>
+                      <LocationOnIcon
+                        style={{ fontSize: 20, margin: "0", color: "gray" }}
+                      />
+                    </span>
                     {Math.round(job.km)} km , {job.Geoname}
                   </p>
                 </div>
