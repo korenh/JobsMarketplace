@@ -63,9 +63,9 @@ export default class Myjobs extends Component {
   componentDidMount() {
     this.getData();
     this.getData2();
-    this.getCoord();
   }
   getData = (async) => {
+    this.getCoord();
     const field = ["savedIds", "confirmedIds"];
     const allData = [];
     firebase
@@ -116,6 +116,7 @@ export default class Myjobs extends Component {
   };
 
   getData2 = (async) => {
+    this.getCoord();
     const allData = [];
     firebase
       .firestore()
