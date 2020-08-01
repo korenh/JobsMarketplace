@@ -47,7 +47,7 @@ export default class Header extends Component {
 
   toggleSwitch = () => {
     this.setState({ toggle: !this.state.toggle });
-    sessionStorage.setItem("language", this.state.toggle);
+    sessionStorage.setItem("language", "en");
   };
 
   render() {

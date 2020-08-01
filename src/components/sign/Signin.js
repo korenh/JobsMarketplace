@@ -24,6 +24,7 @@ export default class Signin extends Component {
               sessionStorage.setItem("name", doc.data().name);
               sessionStorage.setItem("url", doc.data().profileImageURL);
               sessionStorage.setItem("description", doc.data().description);
+              sessionStorage.setItem("language", true);
             });
           });
         this.props.history.push("/main/jobs");
