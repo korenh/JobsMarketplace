@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { addNotification, GeoName } from "../../functions/helper";
+import { addNotification, GeoName, calcCrow } from "../../functions/helper";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import "./Job.css";
@@ -36,7 +36,7 @@ export default class Search extends Component {
     savedIds: [],
     dateValID: 11,
     radiusValID: 11,
-    dateValue: new Date(),
+    dateValue: new Date(new Date().setDate(new Date().getDate() - 1)),
     endDateValue: new Date("2 2 2222 22:22"),
     locations: [],
     requests: [],

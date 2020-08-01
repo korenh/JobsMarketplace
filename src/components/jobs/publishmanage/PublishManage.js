@@ -26,6 +26,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
+import SendIcon from "@material-ui/icons/Send";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 
 export default class Jobs extends Component {
   state = {
@@ -148,6 +150,9 @@ export default class Jobs extends Component {
             location: doc.data().location,
             categories: doc.data().stringCategories,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
+            requests: doc.data().requests,
+            acceptedIds: doc.data().acceptedIds,
+            confirmedIds: doc.data().confirmedIds,
             viewport: {
               latitude: doc.data().location.Oa,
               longitude: doc.data().location.Ba,
@@ -623,6 +628,33 @@ export default class Jobs extends Component {
                     </p>
                   ))}
                 </div>
+                <div
+                  style={{
+                    marginTop: "20px",
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    lineHeight: "0",
+                  }}
+                >
+                  <div
+                    style={{ textAlign: "center", color: "rgb(45, 123, 212)" }}
+                  >
+                    <SendIcon />
+                    <p>{job.requests.length}</p>
+                  </div>
+                  <div
+                    style={{ textAlign: "center", color: "rgb(45, 123, 212)" }}
+                  >
+                    <CheckCircleIcon />
+                    <p>{job.acceptedIds.length}</p>
+                  </div>
+                  <div
+                    style={{ textAlign: "center", color: "rgb(45, 123, 212)" }}
+                  >
+                    <VerifiedUserIcon />
+                    <p>{job.confirmedIds.length}</p>
+                  </div>
+                </div>
               </div>
             ) : (
               <div
@@ -658,8 +690,8 @@ export default class Jobs extends Component {
                       <h3>${job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
-                      <p>Today , 6:30pm </p>
-                      <p>Tel Aviv , 2.6 km</p>
+                      <p>{job.dateCreated.toDate().toDateString()}</p>
+                      <p> {Math.round(job.km)} km</p>
                     </div>
                     <div className="jobs-card-tags">
                       {job.categories.map((tag) => (
