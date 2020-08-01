@@ -39,6 +39,7 @@ export default class Search extends Component {
     dateValue: new Date(),
     endDateValue: new Date("2 2 2222 22:22"),
     locations: [],
+    requests: [],
   };
 
   loadMore = () => {
@@ -129,21 +130,24 @@ export default class Search extends Component {
   };
 
   applyJob = (job) => {
-    let docRef = firebase.firestore().collection("jobs").doc(job.id);
-    docRef.get().then((doc) => {
-      this.setState({ acceptedIds: doc.data().acceptedIds });
-    });
-    if (this.state.acceptedIds.includes(sessionStorage.getItem("uid"))) {
-      toast.configure();
-      toast.warning("Already applied", { autoClose: 2000 });
-      return;
-    }
-    this.state.acceptedIds.push(sessionStorage.getItem("uid"));
     firebase
       .firestore()
       .collection("jobs")
       .doc(job.id)
-      .update({ acceptedIds: this.state.acceptedIds });
+      .get()
+      .then((doc) => {
+        this.setState({ requests: doc.data().requests });
+      });
+
+    this.state.requests.push({
+      requestingUserId: sessionStorage.getItem("uid"),
+      dateRequested: firebase.firestore.Timestamp.fromDate(new Date()),
+    });
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(job.id)
+      .update({ requests: this.state.requests });
     addNotification({
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       fromUser: sessionStorage.getItem("uid"),

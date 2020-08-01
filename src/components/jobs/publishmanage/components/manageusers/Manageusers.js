@@ -10,10 +10,9 @@ export default class Manageusers extends Component {
     date: new Date(),
     acceptedIds: [],
     confirmedIds: [],
-    acceptedUsers: [],
-    confirmedUsers: [],
+    Requests: [],
     name: "",
-    Requests: true,
+    Request: true,
     Accepted: false,
     Confirmed: false,
     user: {},
@@ -33,6 +32,14 @@ export default class Manageusers extends Component {
     return arr;
   }
 
+  removeOBJ(arr, id) {
+    for (var i = 0; i < arr.length; i++)
+      if (arr[i].requestingUserId === id) {
+        arr.splice(i, 1);
+        return arr;
+      }
+  }
+
   componentDidMount() {
     this.getData();
     this.getUser(sessionStorage.getItem("uid"));
@@ -43,16 +50,16 @@ export default class Manageusers extends Component {
     docRef.get().then((doc) => {
       let acceptedIds = doc.data().acceptedIds;
       let confirmedIds = doc.data().confirmedIds;
-      let confirmedUsers = doc.data().confirmedUsers;
-      this.setState({ acceptedIds, confirmedIds, confirmedUsers });
+      let Requests = doc.data().requests;
+      this.setState({ acceptedIds, confirmedIds, Requests });
     });
   };
 
-  deleteacceptedIds = (v) => {
-    let acceptedIds = this.state.acceptedIds;
-    this.removeA(acceptedIds.confirmingUserId, v);
+  deleteconfirmedIds = (v) => {
+    let confirmedIds = this.state.confirmedIds;
+    this.removeA(confirmedIds, v);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
-      acceptedIds,
+      confirmedIds,
     });
     addNotification({
       date: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -67,25 +74,36 @@ export default class Manageusers extends Component {
     }, 1);
   };
 
-  deleteconfirmedIds = (v) => {
-    let confirmedIds = this.state.confirmedIds;
-    this.removeA(confirmedIds, v);
+  deleteacceptedIds = (v) => {
+    let acceptedIds = this.state.acceptedIds;
+    this.removeA(acceptedIds, v);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
-      confirmedIds,
+      acceptedIds,
     });
     setTimeout(() => {
       this.getData();
     }, 1);
   };
 
-  toconfirmedIds = (v) => {
+  removeRequest = (v) => {
+    let requests = this.state.Requests;
+    requests = this.removeOBJ(requests, v.requestingUserId);
+    firebase.firestore().collection("jobs").doc(this.props.job.id).update({
+      requests,
+    });
+    setTimeout(() => {
+      this.getData();
+    }, 1);
+  };
+
+  toacceptedIds = (v) => {
+    let requests = this.state.Requests;
     let acceptedIds = this.state.acceptedIds;
-    this.removeA(acceptedIds, v);
-    let confirmedIds = this.state.confirmedIds;
-    confirmedIds.push(v);
+    acceptedIds.push(v.requestingUserId);
+    requests = this.removeOBJ(requests, v.requestingUserId);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
-      confirmedIds,
+      requests,
     });
     addNotification({
       date: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -121,22 +139,22 @@ export default class Manageusers extends Component {
               className="manage-employees-flex-item"
               onClick={() =>
                 this.setState({
-                  Requests: true,
+                  Request: true,
                   Confirmed: false,
                   Accepted: false,
                 })
               }
               style={{
-                background: this.state.Requests ? "rgb(45, 123, 212)" : "none",
+                background: this.state.Request ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Requests({this.state.acceptedIds.length})
+              Request
             </p>
             <p
               className="manage-employees-flex-item"
               onClick={() =>
                 this.setState({
-                  Requests: false,
+                  Request: false,
                   Confirmed: false,
                   Accepted: true,
                 })
@@ -145,13 +163,13 @@ export default class Manageusers extends Component {
                 background: this.state.Accepted ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Accepted({this.state.confirmedIds.length})
+              Accepted
             </p>
             <p
               className="manage-employees-flex-item"
               onClick={() =>
                 this.setState({
-                  Requests: false,
+                  Request: false,
                   Confirmed: true,
                   Accepted: false,
                 })
@@ -164,9 +182,49 @@ export default class Manageusers extends Component {
             </p>
           </div>
           <br />
-          {this.state.Requests ? (
+          {this.state.Request ? (
             <div>
-              <p>Requests</p>
+              <p>Request</p>
+              {this.state.Requests.map((v) => (
+                <div key={v.requestingUserId} className="manageusers-user-card">
+                  <div className="dashboard-card-person-flex">
+                    <img
+                      alt="img"
+                      src={sessionStorage.getItem("url")}
+                      style={{
+                        height: "40px",
+                        width: "40px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <div className="dashboard-card-person-info">
+                      <p>{v.requestingUserId}</p>
+                      <p>{this.state.date.toISOString()}</p>
+                    </div>
+                  </div>
+                  <div className="manageusers-button-flex">
+                    <p
+                      onClick={() => this.toacceptedIds(v)}
+                      className="manageusers-button-confirm"
+                    >
+                      Confirm
+                    </p>
+                    <p
+                      onClick={() => this.removeRequest(v)}
+                      className="manageusers-button-delete"
+                    >
+                      Remove
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            ""
+          )}
+          {this.state.Accepted ? (
+            <div>
+              <p>Accepted</p>
               {this.state.acceptedIds.map((v) => (
                 <div key={v} className="manageusers-user-card">
                   <div className="dashboard-card-person-flex">
@@ -186,12 +244,6 @@ export default class Manageusers extends Component {
                   </div>
                   <div className="manageusers-button-flex">
                     <p
-                      onClick={() => this.toconfirmedIds(v)}
-                      className="manageusers-button-confirm"
-                    >
-                      Confirm
-                    </p>
-                    <p
                       onClick={() => this.deleteacceptedIds(v)}
                       className="manageusers-button-delete"
                     >
@@ -204,9 +256,9 @@ export default class Manageusers extends Component {
           ) : (
             ""
           )}
-          {this.state.Accepted ? (
+          {this.state.Confirmed ? (
             <div>
-              <p>Accepted</p>
+              <p>Confirmed</p>
               {this.state.confirmedIds.map((v) => (
                 <div key={v} className="manageusers-user-card">
                   <div className="dashboard-card-person-flex">
@@ -227,40 +279,6 @@ export default class Manageusers extends Component {
                   <div className="manageusers-button-flex">
                     <p
                       onClick={() => this.deleteconfirmedIds(v)}
-                      className="manageusers-button-delete"
-                    >
-                      Remove
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            ""
-          )}
-          {this.state.Confirmed ? (
-            <div>
-              <p>Confirmed</p>
-              {this.state.confirmedUsers.map((v) => (
-                <div key={v.confirmingUserId} className="manageusers-user-card">
-                  <div className="dashboard-card-person-flex">
-                    <img
-                      alt="img"
-                      src={sessionStorage.getItem("url")}
-                      style={{
-                        height: "40px",
-                        width: "40px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <div className="dashboard-card-person-info">
-                      <p>{v}</p>
-                      <p>{this.state.date.toISOString()}</p>
-                    </div>
-                  </div>
-                  <div className="manageusers-button-flex">
-                    <p
-                      onClick={() => this.deleteacceptedIds(v.confirmingUserId)}
                       className="manageusers-button-delete"
                     >
                       Remove

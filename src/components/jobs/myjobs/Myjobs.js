@@ -66,7 +66,7 @@ export default class Myjobs extends Component {
   }
   getData = (async) => {
     this.getCoord();
-    const field = ["savedIds", "confirmedIds"];
+    const field = ["savedIds", "acceptedIds"];
     const allData = [];
     firebase
       .firestore()
@@ -121,9 +121,7 @@ export default class Myjobs extends Component {
     firebase
       .firestore()
       .collection("jobs")
-      .where("confirmedUsers", "array-contains", {
-        confirmingUserId: sessionStorage.getItem("uid"),
-      })
+      .where("confirmedIds", "array-contains", sessionStorage.getItem("uid"))
       .orderBy("dateCreated", "desc")
       .limit(20)
       .get()
@@ -148,7 +146,6 @@ export default class Myjobs extends Component {
             numberOfViews: doc.data().numberOfViews,
             km: this.calcCrow(doc.data().location.Ba, doc.data().location.Oa),
             Geoname: GeoName(doc.data().location.Ba, doc.data().location.Oa),
-
             viewport: {
               latitude: 32.12257459473794,
               longitude: 34.8154874641065,
@@ -217,16 +214,13 @@ export default class Myjobs extends Component {
       .doc(job.id)
       .get()
       .then((doc) => {
+        let acceptedIds = doc.data().acceptedIds;
         let confirmedIds = doc.data().confirmedIds;
-        let confirmedUsers = doc.data().confirmedUsers;
-        this.removeA(confirmedIds, sessionStorage.getItem("uid"));
-        confirmedUsers.push({
-          confirmingUserId: sessionStorage.getItem("uid"),
-          dateConfirmed: firebase.firestore.Timestamp.fromDate(new Date()),
-        });
+        this.removeA(acceptedIds, sessionStorage.getItem("uid"));
+        confirmedIds.push(sessionStorage.getItem("uid"));
         firebase.firestore().collection("jobs").doc(job.id).update({
+          acceptedIds,
           confirmedIds,
-          confirmedUsers,
         });
         addNotification({
           date: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -234,6 +228,32 @@ export default class Myjobs extends Component {
           fromUsername: sessionStorage.getItem("name"),
           jobId: job.id,
           notificationType: "userConfirmed",
+          toUser: job.creatingUserId,
+        });
+        setTimeout(() => {
+          this.getData();
+        }, 1);
+      });
+  };
+
+  removeConfirmed = (job) => {
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(job.id)
+      .get()
+      .then((doc) => {
+        let confirmedIds = doc.data().confirmedIds;
+        this.removeA(confirmedIds, sessionStorage.getItem("uid"));
+        firebase.firestore().collection("jobs").doc(job.id).update({
+          confirmedIds,
+        });
+        addNotification({
+          date: firebase.firestore.Timestamp.fromDate(new Date()),
+          fromUser: sessionStorage.getItem("uid"),
+          fromUsername: sessionStorage.getItem("name"),
+          jobId: job.id,
+          notificationType: "userLeft",
           toUser: job.creatingUserId,
         });
         setTimeout(() => {
@@ -720,27 +740,18 @@ export default class Myjobs extends Component {
                             Chat
                           </button>
                           <br />
+
                           <button
-                            className="jobs-selected-finish-button"
-                            onClick={() => this.toconfirmedUsers(job)}
+                            className="jobs-selected-delete-button"
+                            onClick={() => this.removeConfirmed(job)}
                           >
-                            <CheckCircleIcon
-                              style={{
-                                fontSize: 15,
-                                color: "white",
-                              }}
-                            />
-                            Confirm
-                          </button>
-                          <br />
-                          <button className="jobs-selected-delete-button">
                             <BackspaceIcon
                               style={{
                                 fontSize: 15,
                                 color: "white",
                               }}
                             />
-                            Abort
+                            Remove
                           </button>
                         </div>
                         <img
