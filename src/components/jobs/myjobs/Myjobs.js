@@ -16,6 +16,7 @@ import ReactMapGL, { Marker } from "react-map-gl";
 import StarsIcon from "@material-ui/icons/Stars";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+import Contact from "../publishmanage/components/contact/Contact";
 
 export default class Myjobs extends Component {
   state = {
@@ -26,6 +27,7 @@ export default class Myjobs extends Component {
     going: false,
     lat: undefined,
     lng: undefined,
+    ContactPopup: false,
   };
 
   getCoord = () => {
@@ -176,6 +178,10 @@ export default class Myjobs extends Component {
     });
   };
 
+  ContactPopup = (job) => {
+    this.setState({ ContactPopup: !this.state.ContactPopup, jobdash: job });
+  };
+
   Chat = (job) => {
     this.setState({ jobChat: !this.state.jobChat, jobdash: job });
   };
@@ -290,6 +296,11 @@ export default class Myjobs extends Component {
             Going
           </p>
         </div>
+        {this.state.ContactPopup ? (
+          <Contact job={this.state.jobdash} ContactPopup={this.ContactPopup} />
+        ) : (
+          ""
+        )}
         {this.state.saved ? (
           <div>
             <div className="myjobs">
@@ -422,7 +433,10 @@ export default class Myjobs extends Component {
                       <div className="jobs-selected-card-body-right">
                         <div className="jobs-selected-bottom-line">
                           <br />
-                          <button className="jobs-selected-save-button">
+                          <button
+                            className="jobs-selected-save-button"
+                            onClick={() => this.ContactPopup(job)}
+                          >
                             <PhoneIphoneIcon
                               style={{
                                 fontSize: 15,
@@ -591,7 +605,10 @@ export default class Myjobs extends Component {
                       <div className="jobs-selected-card-body-right">
                         <div className="jobs-selected-bottom-line">
                           <br />
-                          <button className="jobs-selected-save-button">
+                          <button
+                            className="jobs-selected-save-button"
+                            onClick={() => this.ContactPopup(job)}
+                          >
                             <PhoneIphoneIcon
                               style={{
                                 fontSize: 15,
@@ -778,7 +795,10 @@ export default class Myjobs extends Component {
                       <div className="jobs-selected-card-body-right">
                         <div className="jobs-selected-bottom-line">
                           <br />
-                          <button className="jobs-selected-save-button">
+                          <button
+                            className="jobs-selected-save-button"
+                            onClick={() => this.ContactPopup(job)}
+                          >
                             <PhoneIphoneIcon
                               style={{
                                 fontSize: 15,
