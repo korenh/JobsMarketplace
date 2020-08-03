@@ -12,5 +12,5 @@ export const addNotification = (notification) => {
 };
 
 export const GeoName = (lng, lat) => {
-  return "{Location}";
+  return "location";
 };

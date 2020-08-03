@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Chat.css";
+import { toast } from "react-toastify";
 import firebase from "../../../../protected/Firebase";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import InfoIcon from "@material-ui/icons/Info";
@@ -48,6 +49,13 @@ export default class Chat extends Component {
     });
   };
 
+  jobInfo = () => {
+    toast.configure();
+    toast.info("Job title :  " + this.props.job.title, {
+      autoClose: 5000,
+    });
+  };
+
   AddData = (e) => {
     e.preventDefault();
     const dateSent = Date.now();
@@ -78,7 +86,7 @@ export default class Chat extends Component {
           />
           <p className="chat-top-title">{this.props.job.title}</p>
           <InfoIcon
-            onClick={() => this.props.Chat()}
+            onClick={() => this.jobInfo()}
             alt="img"
             className="chat-top-logout"
             style={{ color: "white", fontSize: 25 }}

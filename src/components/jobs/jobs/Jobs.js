@@ -471,7 +471,7 @@ export default class Search extends Component {
             ) : (
               <div
                 className="jobs-selected-card"
-                key={job.description}
+                key={job.id}
                 onClick={() => this.jobPopUp(job)}
               >
                 <ReactMapGL
