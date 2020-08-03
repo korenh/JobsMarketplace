@@ -32,21 +32,24 @@ export default class Chat extends Component {
       });
   };
 
-  getUsers = (async) => {
-    const users = [];
-    let docRef = firebase.firestore().collection("jobs").doc(this.props.job.id);
-    docRef.get().then((doc) => {
-      doc.data().confirmedUsers.map((v) =>
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(v.confirmingUserId)
-          .get()
-          .then((doc) => {
-            users.push(doc.data());
-          })
-      );
-    });
+  getUsers = () => {
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(this.props.job.id)
+      .get()
+      .then((doc) => {
+        doc.data().confirmedIds.map((v) =>
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(v)
+            .get()
+            .then((doc) => {
+              console.log(doc.data());
+            })
+        );
+      });
   };
 
   jobInfo = () => {
