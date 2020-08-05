@@ -34,6 +34,7 @@ import StarRatingComponent from "react-star-rating-component";
 
 export default class Jobs extends Component {
   state = {
+    docState: {},
     job: {},
     jobdash: {},
     hours: [
@@ -279,13 +280,16 @@ export default class Jobs extends Component {
           toUser: id.confirmingUserId,
         });
       });
-      firebase.firestore().collection("jobs").doc(job.id).delete();
-      firebase.firestore().collection("archive").doc(job.id).set(doc.data());
-      this.setState({ jobDashboard: false });
+      this.setState({
+        reviewJob: !this.state.reviewJob,
+        jobdash: job,
+        docState: doc.data(),
+      });
       setTimeout(() => {
         this.getData();
       }, 1);
-      this.setState({ reviewJob: !this.state.reviewJob, jobdash: job });
+
+      this.setState({ jobDashboard: false });
     });
   };
 
@@ -337,6 +341,7 @@ export default class Jobs extends Component {
           <div className="dashboard-card">
             <Review
               job={this.state.jobdash}
+              doc={this.state.docState}
               getData={this.getData}
               ReviewJob={this.ReviewJob}
             />

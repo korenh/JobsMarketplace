@@ -2,17 +2,11 @@ import React, { Component } from "react";
 import "./Dashboard.css";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Manageusers from "../manageusers/Manageusers";
-import Rate from "../rate/Rate";
 
 export default class Dashboard extends Component {
   state = {
     manageEmplyees: false,
-    ratepop: false,
     job: {},
-  };
-
-  popupRate = () => {
-    this.setState({ ratepop: !this.state.ratepop });
   };
 
   render() {
@@ -29,11 +23,7 @@ export default class Dashboard extends Component {
           alt="img"
           style={{ color: "white", fontsize: 40 }}
         />
-        {this.state.ratepop ? (
-          <Rate job={this.props.job} popupRate={this.popupRate} />
-        ) : (
-          ""
-        )}
+
         <h1>Job Dashboard</h1>
         <div className="dashboard-info">
           <p>Statistics & info</p>
@@ -46,12 +36,6 @@ export default class Dashboard extends Component {
           <p>Quick Actions</p>
           <button className="jobs-selected-boost-button">Boost</button>
           <button className="jobs-selected-save-button">Manage</button>
-          <button
-            className="jobs-selected-save-button"
-            onClick={() => this.popupRate()}
-          >
-            Rate
-          </button>
           <button className="jobs-selected-save-button">Edit</button>
           <button className="jobs-selected-save-button">Chat</button>
           <br />
