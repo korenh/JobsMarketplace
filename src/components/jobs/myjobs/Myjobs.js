@@ -17,6 +17,7 @@ import StarsIcon from "@material-ui/icons/Stars";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Contact from "../publishmanage/components/contact/Contact";
+import StarRatingComponent from "react-star-rating-component";
 
 export default class Myjobs extends Component {
   state = {
@@ -475,6 +476,7 @@ export default class Myjobs extends Component {
                           className="jobs-selected-profile"
                         />
                         <p>{sessionStorage.getItem("name")}</p>
+                        <StarRatingComponent starCount={5} value={4} />
                       </div>
                     </div>
                   </div>
@@ -660,6 +662,7 @@ export default class Myjobs extends Component {
                           className="jobs-selected-profile"
                         />
                         <p>{sessionStorage.getItem("name")}</p>
+                        <StarRatingComponent starCount={5} value={4} />
                       </div>
                     </div>
                   </div>
@@ -841,6 +844,7 @@ export default class Myjobs extends Component {
                           className="jobs-selected-profile"
                         />
                         <p>{sessionStorage.getItem("name")}</p>
+                        <StarRatingComponent starCount={5} value={4} />
                       </div>
                     </div>
                   </div>

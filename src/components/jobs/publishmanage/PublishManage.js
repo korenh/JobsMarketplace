@@ -30,6 +30,7 @@ import SendIcon from "@material-ui/icons/Send";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+import StarRatingComponent from "react-star-rating-component";
 
 export default class Jobs extends Component {
   state = {
@@ -832,6 +833,7 @@ export default class Jobs extends Component {
                     <p style={{ lineHeight: "0" }}>
                       {sessionStorage.getItem("name")}
                     </p>
+                    <StarRatingComponent starCount={5} value={4} />
                   </div>
                 </div>
               </div>

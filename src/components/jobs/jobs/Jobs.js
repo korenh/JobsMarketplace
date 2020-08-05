@@ -15,6 +15,7 @@ import NearMeIcon from "@material-ui/icons/NearMe";
 import Mapview from "../map/Mapview";
 import firebase from "../../protected/Firebase";
 import ReactMapGL, { Marker } from "react-map-gl";
+import StarRatingComponent from "react-star-rating-component";
 
 export default class Search extends Component {
   state = {
@@ -578,6 +579,7 @@ export default class Search extends Component {
                       className="jobs-selected-profile"
                     />
                     <p>{sessionStorage.getItem("name")}</p>
+                    <StarRatingComponent starCount={5} value={4} />
                   </div>
                 </div>
               </div>

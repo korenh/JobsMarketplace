@@ -1,0 +1,15 @@
+.rate-main {
+  -webkit-animation: scale-up-hor-center 0.4s
+    cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: scale-up-hor-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  background: rgb(255, 255, 255);
+  position: fixed;
+  box-shadow: 0px 0px 10px 1px gainsboro;
+  left: 0;
+  right: 0;
+  margin: 1em auto;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  padding: 1em;
+}

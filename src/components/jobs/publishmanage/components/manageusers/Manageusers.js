@@ -16,6 +16,7 @@ export default class Manageusers extends Component {
     Accepted: false,
     Confirmed: false,
     user: {},
+    rating: 5,
   };
 
   removeA(arr) {
@@ -122,6 +123,10 @@ export default class Manageusers extends Component {
     const doc = await firebase.firestore().collection("users").doc(v).get();
     this.setState({ user: doc.data() });
   };
+
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({ rating: nextValue });
+  }
 
   render() {
     return (
