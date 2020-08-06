@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Profile.css";
 import firebase from "../../protected/Firebase";
 import EditIcon from "@material-ui/icons/Edit";
+import StarRatingComponent from "react-star-rating-component";
 
 export default class Profile extends Component {
   state = { user: {}, EME: undefined, EMR: undefined };
@@ -49,6 +50,12 @@ export default class Profile extends Component {
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
             Rating
           </p>
+          <StarRatingComponent
+            starCount={5}
+            value={
+              Math.round(((this.state.EME + this.state.EMR) / 2) * 10) / 10
+            }
+          />
           <div className="profile-flex-info">
             <div>
               <p
