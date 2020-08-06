@@ -77,13 +77,12 @@ export default class Review extends Component {
             });
         });
     }
-
-    /*firebase.firestore().collection("jobs").doc(this.props.job.id).delete();
+    firebase.firestore().collection("jobs").doc(this.props.job.id).delete();
     firebase
       .firestore()
       .collection("archive")
       .doc(this.props.job.id)
-      .set(this.props.doc);*/
+      .set(this.props.doc);
     this.props.ReviewJob();
   };
 
