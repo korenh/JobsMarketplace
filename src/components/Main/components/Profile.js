@@ -58,7 +58,7 @@ export default class Profile extends Component {
                   marginLeft: "10px",
                 }}
               >
-                {this.state.EME}
+                {Math.round(this.state.EME * 10) / 10}
               </p>
               <p style={{ fontSize: "12px" }}>Employee</p>
             </div>
@@ -70,7 +70,7 @@ export default class Profile extends Component {
                   marginLeft: "10px",
                 }}
               >
-                {this.state.EMR}
+                {Math.round(this.state.EMR * 10) / 10}
               </p>
               <p style={{ fontSize: "12px" }}>Employer</p>
             </div>

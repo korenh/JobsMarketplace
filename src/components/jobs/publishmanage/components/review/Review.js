@@ -44,6 +44,15 @@ export default class Review extends Component {
       pendingUsers: [],
       validatedUsers: [],
     });
+    firebase
+      .firestore()
+      .collection("doneDeals")
+      .doc(this.props.job.id)
+      .collection(`/feedbacks`)
+      .add({
+        userId: sessionStorage.getItem("uid"),
+        message: this.state.textarea,
+      });
     let array = this.state.array;
     for (let i = 0; i < array.length; i++) {
       firebase
@@ -54,7 +63,7 @@ export default class Review extends Component {
         .then((doc) => {
           const ER = doc.data().employeeRating;
           const rate =
-            (4 + ER.sumOfRatings * ER.numberOfRatings) /
+            (array[i].rate + ER.sumOfRatings * ER.numberOfRatings) /
             (ER.numberOfRatings + 1);
           firebase
             .firestore()
