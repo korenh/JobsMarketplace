@@ -1,8 +1,26 @@
 import React, { Component } from "react";
 import "./Profile.css";
+import firebase from "../../protected/Firebase";
 import EditIcon from "@material-ui/icons/Edit";
 
 export default class Profile extends Component {
+  state = { user: {}, EME: undefined, EMR: undefined };
+
+  componentDidMount() {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(sessionStorage.getItem("uid"))
+      .get()
+      .then((doc) => {
+        this.setState({
+          user: doc.data(),
+          EME: doc.data().employeeRating.sumOfRatings,
+          EMR: doc.data().employerRating.sumOfRatings,
+        });
+      });
+  }
+
   render() {
     return (
       <div className="profile">
@@ -13,7 +31,7 @@ export default class Profile extends Component {
             className="profile-pic"
           />
           <p style={{ lineHeight: "0", fontSize: "17px" }}>
-            {sessionStorage.getItem("name")}
+            {this.state.user.name}
           </p>
           <button className="profile-button">
             {" "}
@@ -26,12 +44,37 @@ export default class Profile extends Component {
             About me
           </p>
           <p style={{ fontSize: "14px", textAlign: "left" }}>
-            {sessionStorage.getItem("description")}
+            {this.state.user.description}
           </p>
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
             Rating
           </p>
-          <p>(293)</p>
+          <div className="profile-flex-info">
+            <div>
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                }}
+              >
+                {this.state.EME}
+              </p>
+              <p style={{ fontSize: "12px" }}>Employee</p>
+            </div>
+            <div>
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                }}
+              >
+                {this.state.EMR}
+              </p>
+              <p style={{ fontSize: "12px" }}>Employer</p>
+            </div>
+          </div>
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
             History
           </p>
