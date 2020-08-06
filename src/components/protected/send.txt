@@ -1,0 +1,20 @@
+curl -X POST -H "Authorization: Bearer ya29.ElqKBGN2Ri_Uz...PbJ_uNasm" -H "Content-Type: application/json" -d '{
+  "message": {
+    "notification": {
+      "title": "FCM Message",
+      "body": "This is a message from FCM"
+    },
+    "webpush": {
+      "headers": {
+        "Urgency": "high"
+      },
+      "notification": {
+        "body": "This is a message from FCM to web",
+        "requireInteraction": "true",
+        "badge": "/badge-icon.png"
+      }
+    }
+  },
+  "token": "AAAABqB26q4:APA91bFIiNjXjm7dc83rSQ1SDYfdblTKTGwHGRhP-ae4VZ1NUfke0xM9NuruqKzZYmgfJiszBTl3v_V_ZI3KO3IHaUUdHh_zjstDYuNKDVeFdSU_AqjWqsYi66LCAPUU6NR-OGozmFWk"
+  }
+}' "https://fcm.googleapis.com/v1/projects/altro-db7f0/messages:send"

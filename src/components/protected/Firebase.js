@@ -2,19 +2,9 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/storage";
+import "firebase/messaging";
 import "firebase/firestore";
 
-/*
-var firebaseConfig = {
-  apiKey: "AIzaSyBMmpzOIACFowvrlWgTDAD1ZjHMtO7kelM",
-  authDomain: "fir-adb02.firebaseapp.com",
-  databaseURL: "https://fir-adb02.firebaseio.com",
-  projectId: "fir-adb02",
-  storageBucket: "fir-adb02.appspot.com",
-  messagingSenderId: "34903447401",
-  appId: "1:34903447401:web:eba6f737ce3c7bb3660ff8",
-};
-*/
 var firebaseConfig = {
   apiKey: "AIzaSyBbxuTxDeQbqO3Q6EawvRuwoFaelZbto4E",
   authDomain: "altro-db7f0.firebaseapp.com",
@@ -28,5 +18,25 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
+
+//FCM messaging//
+const messaging = firebase.messaging();
+messaging
+  .requestPermission()
+  .then(() => {
+    console.log("have permission");
+    return messaging.getToken();
+  })
+  .then((token) => {
+    console.log(token);
+  })
+  .catch(() => {
+    console.log("error");
+  });
+
+messaging.onMessage(function (payload) {
+  console.log("onMessage", payload);
+});
+//FCM messaging//
 
 export { storage, firebase as default };
