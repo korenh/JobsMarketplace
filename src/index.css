@@ -11,11 +11,4 @@ body {
 :root {
   --main1: rgb(135, 186, 245);
   --main2: rgb(45, 123, 212);
-  --main3: skyblue;
-  --main4: skyblue;
-}
-
-.app {
-  text-align: center;
-  color: black;
 }
