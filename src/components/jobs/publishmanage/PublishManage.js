@@ -195,7 +195,7 @@ export default class Jobs extends Component {
       .firestore()
       .collection("jobs")
       .add({
-        id: "2hg32h1jg321",
+        id: "fff",
         creatingUserId: sessionStorage.getItem("uid"),
         dateCreated: firebase.firestore.Timestamp.fromDate(new Date()),
         title: this.state.title,
@@ -214,7 +214,6 @@ export default class Jobs extends Component {
           this.state.lat,
           this.state.lng
         ),
-
         shouldUseCustomTime: true,
         startDate: this.state.startDate,
         endDate: this.state.endDate,
@@ -230,8 +229,11 @@ export default class Jobs extends Component {
           id: docRef.id,
         });
         toast.configure();
+        this.setState({ agree: false });
         toast.info("New job added!", { autoClose: 2000 });
-        this.getData();
+        setTimeout(() => {
+          this.getData();
+        }, 1);
       });
   };
 
@@ -672,7 +674,7 @@ export default class Jobs extends Component {
                     justifyContent: "space-evenly",
                     lineHeight: "0",
                     background: "rgb(240,240,240)",
-                    borderRadius: "10px",
+                    borderRadius: "5px",
                   }}
                 >
                   <p>

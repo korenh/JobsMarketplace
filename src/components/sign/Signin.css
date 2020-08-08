@@ -35,20 +35,21 @@
 .signin-link {
   color: var(--main2);
   text-decoration: none;
-  font-weight: bold;
-  margin-left: 10px;
+  font-weight: 600;
+  margin-left: 5px;
 }
 
 .signin-guest {
   color: var(--main1);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .signin-or {
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 600;
   color: rgb(221, 221, 221);
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .signin-also {

@@ -232,6 +232,10 @@ export default class Myjobs extends Component {
           acceptedIds,
           confirmedIds,
         });
+        setTimeout(() => {
+          this.getData();
+          this.getData2();
+        }, 1);
         addNotification({
           date: firebase.firestore.Timestamp.fromDate(new Date()),
           fromUser: sessionStorage.getItem("uid"),
@@ -240,9 +244,6 @@ export default class Myjobs extends Component {
           notificationType: "userConfirmed",
           toUser: job.creatingUserId,
         });
-        setTimeout(() => {
-          this.getData();
-        }, 1);
       });
   };
 
@@ -258,6 +259,10 @@ export default class Myjobs extends Component {
         firebase.firestore().collection("jobs").doc(job.id).update({
           confirmedIds,
         });
+        setTimeout(() => {
+          this.getData();
+          this.getData2();
+        }, 1);
         addNotification({
           date: firebase.firestore.Timestamp.fromDate(new Date()),
           fromUser: sessionStorage.getItem("uid"),
@@ -266,9 +271,6 @@ export default class Myjobs extends Component {
           notificationType: "userLeft",
           toUser: job.creatingUserId,
         });
-        setTimeout(() => {
-          this.getData();
-        }, 1);
       });
   };
 

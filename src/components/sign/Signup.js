@@ -102,7 +102,7 @@ export default class Signup extends Component {
         </div>
         <form className="signup-form" onSubmit={this.handleRegister}>
           <br />
-          <p> i will be primarily using Altro as a...</p>
+          <p> I will be primarily using Altro as a</p>
           <div className="signup-type-list">
             {this.state.asa.map((tag) =>
               tag === this.state.asastate ? (
@@ -141,9 +141,9 @@ export default class Signup extends Component {
             onChange={this.fileselecthandler}
           />
           <br />
-          <p>Add your profile picture(optional)</p>
+          <p>Add profile picture(optional)</p>
           <br />
-          <input className="signup-inp" placeholder="   email" name="email" />
+          <input className="signup-inp" placeholder="   Email" name="email" />
           <br />
           <input
             className="signup-inp"
@@ -190,7 +190,7 @@ export default class Signup extends Component {
           </Link>
           <br />
           <br />
-          <span>i agree to Altro's</span>
+          <span>I agree to Altro's</span>
           <Link to="/" className="signup-link">
             Terms of service
           </Link>

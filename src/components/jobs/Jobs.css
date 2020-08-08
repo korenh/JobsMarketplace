@@ -152,6 +152,7 @@
   padding: 0.1em 0.5em;
   width: 120px;
   font-size: 15px;
+  outline: none;
   border: none;
   background: white;
   color: var(--main2);
@@ -160,6 +161,7 @@
 }
 
 .jobs-selected-apply-button {
+  outline: none;
   cursor: pointer;
   padding: 0.1em 0.5em;
   width: 120px;
@@ -174,6 +176,7 @@
 .jobs-selected-boost-button {
   cursor: pointer;
   padding: 0.1em 0.5em;
+  outline: none;
   width: 120px;
   font-size: 15px;
   border: none;
@@ -188,6 +191,7 @@
 }
 
 .jobs-selected-finish-button {
+  outline: none;
   cursor: pointer;
   padding: 0.1em 0.5em;
   width: 120px;
@@ -200,6 +204,7 @@
 }
 
 .jobs-selected-delete-button {
+  outline: none;
   cursor: pointer;
   padding: 0.1em 0.5em;
   width: 120px;
@@ -214,6 +219,7 @@
 .jobs-selected-card-body-right {
   border-left: 0.5px solid white;
   padding: 1em;
+  text-align: center;
 }
 
 .jobs-selected-card-body-left {
@@ -430,6 +436,7 @@
   cursor: pointer;
   filter: brightness(0) invert(1);
   height: 40px;
+  outline: none;
   width: 40px;
 }
 
