@@ -671,6 +671,8 @@ export default class Jobs extends Component {
                     display: "flex",
                     justifyContent: "space-evenly",
                     lineHeight: "0",
+                    background: "rgb(240,240,240)",
+                    borderRadius: "10px",
                   }}
                 >
                   <p>
@@ -741,8 +743,30 @@ export default class Jobs extends Component {
                       <h3>${job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
-                      <p>{job.dateCreated.toDate().toDateString()}</p>
-                      <p> {Math.round(job.km)} km</p>
+                      <p>
+                        <span>
+                          <CalendarTodayIcon
+                            style={{
+                              fontSize: 20,
+                              margin: "0",
+                              color: "white",
+                            }}
+                          />
+                        </span>
+                        {job.dateCreated.toDate().toDateString()}
+                      </p>
+                      <p>
+                        <span>
+                          <LocationOnIcon
+                            style={{
+                              fontSize: 20,
+                              margin: "0",
+                              color: "white",
+                            }}
+                          />
+                        </span>
+                        {Math.round(job.km)} km , {job.Geoname}
+                      </p>
                     </div>
                     <div className="jobs-card-tags">
                       {job.categories.map((tag) => (

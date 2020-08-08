@@ -26,7 +26,7 @@ export default class Contact extends Component {
         <img
           src={this.state.user.profileImageURL}
           alt="img"
-          className="profile-pic"
+          className="contact-me-pic"
         />
         <p>{this.state.user.name}</p>
         <p>{this.state.user.phone}</p>

@@ -502,13 +502,29 @@ export default class Search extends Component {
                     </div>
                     <div className="jobs-card-info">
                       <p>
-                        {job.dateCreated.toDate().toDateString() +
-                          " " +
-                          job.dateCreated
-                            .toDate()
-                            .toLocaleTimeString("en-US")}{" "}
+                        <span>
+                          <CalendarTodayIcon
+                            style={{
+                              fontSize: 20,
+                              margin: "0",
+                              color: "white",
+                            }}
+                          />
+                        </span>
+                        {job.dateCreated.toDate().toDateString()}
                       </p>
-                      <p>Tel Aviv , {Math.round(job.km)} km</p>
+                      <p>
+                        <span>
+                          <LocationOnIcon
+                            style={{
+                              fontSize: 20,
+                              margin: "0",
+                              color: "white",
+                            }}
+                          />
+                        </span>
+                        {Math.round(job.km)} km , {job.Geoname}
+                      </p>
                     </div>
                     <div className="jobs-card-tags">
                       {job.categories.map((tag) => (
