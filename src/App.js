@@ -6,6 +6,7 @@ import Nav from "./components/Main/Nav";
 import PublishManage from "./components/jobs/publishmanage/PublishManage";
 import Jobs from "./components/jobs/jobs/Jobs";
 import Myjobs from "./components/jobs/myjobs/Myjobs";
+import Test from "./components/functions/Test";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/main/publishmanage" exact component={PublishManage} />
       <Route path="/main/jobs" exact component={Jobs} />
       <Route path="/main/myjobs" exact component={Myjobs} />
+      <Route path="/test" exact component={Test} />
     </Router>
   );
 }

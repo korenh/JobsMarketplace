@@ -1,0 +1,8 @@
+.err-msg {
+  color: red;
+  font-size: 13px;
+  background: red;
+  color: white;
+  border-radius: 5px;
+  width: 100px;
+}
