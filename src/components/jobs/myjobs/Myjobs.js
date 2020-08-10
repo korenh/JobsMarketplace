@@ -21,6 +21,13 @@ import StarRatingComponent from "react-star-rating-component";
 
 export default class Myjobs extends Component {
   state = {
+    hours: [
+      { id: 1, name: "< 3hrs" },
+      { id: 2, name: "< 6hrs" },
+      { id: 3, name: "< 12hrs" },
+      { id: 4, name: "< 1d" },
+      { id: 5, name: "1d +" },
+    ],
     jobs: [],
     jobsConfirmed: [],
     job: {},
@@ -433,7 +440,13 @@ export default class Myjobs extends Component {
                               className="jobs-selected-flex-img"
                               style={{ fontSize: 40, color: "white" }}
                             />
-                            <p>{job.duration}</p>
+                            <p>
+                              {
+                                this.state.hours.find(
+                                  (o) => o.id === job.duration
+                                ).name
+                              }
+                            </p>
                           </div>
                           <div>
                             <AccessibilityNewIcon
@@ -447,11 +460,7 @@ export default class Myjobs extends Component {
                               className="jobs-selected-flex-img"
                               style={{ fontSize: 40, color: "white" }}
                             />
-                            <p>
-                              {job.isPayingForTransportation
-                                ? "covered"
-                                : "not covered"}
-                            </p>
+                            <p>{job.isPayingForTransportation ? "✓" : "x"}</p>
                           </div>
                         </div>
                       </div>
@@ -628,7 +637,13 @@ export default class Myjobs extends Component {
                               className="jobs-selected-flex-img"
                               style={{ fontSize: 40, color: "white" }}
                             />
-                            <p>{job.duration}</p>
+                            <p>
+                              {
+                                this.state.hours.find(
+                                  (o) => o.id === job.duration
+                                ).name
+                              }
+                            </p>
                           </div>
                           <div>
                             <AccessibilityNewIcon
@@ -642,11 +657,7 @@ export default class Myjobs extends Component {
                               className="jobs-selected-flex-img"
                               style={{ fontSize: 40, color: "white" }}
                             />
-                            <p>
-                              {job.isPayingForTransportation
-                                ? "covered"
-                                : "not covered"}
-                            </p>
+                            <p>{job.isPayingForTransportation ? "✓" : "x"}</p>
                           </div>
                         </div>
                       </div>
@@ -841,7 +852,13 @@ export default class Myjobs extends Component {
                               className="jobs-selected-flex-img"
                               style={{ fontSize: 40, color: "white" }}
                             />
-                            <p>{job.duration}</p>
+                            <p>
+                              {
+                                this.state.hours.find(
+                                  (o) => o.id === job.duration
+                                ).name
+                              }
+                            </p>
                           </div>
                           <div>
                             <AccessibilityNewIcon
@@ -855,11 +872,7 @@ export default class Myjobs extends Component {
                               className="jobs-selected-flex-img"
                               style={{ fontSize: 40, color: "white" }}
                             />
-                            <p>
-                              {job.isPayingForTransportation
-                                ? "covered"
-                                : "not covered"}
-                            </p>
+                            <p>{job.isPayingForTransportation ? "✓" : "x"}</p>
                           </div>
                         </div>
                       </div>

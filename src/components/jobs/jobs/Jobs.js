@@ -559,11 +559,7 @@ export default class Search extends Component {
                           className="jobs-selected-flex-img"
                           style={{ fontSize: 40, color: "white" }}
                         />
-                        <p>
-                          {job.isPayingForTransportation
-                            ? "covered"
-                            : "not covered"}
-                        </p>
+                        <p>{job.isPayingForTransportation ? "✓" : "x"}</p>
                       </div>
                     </div>
                   </div>

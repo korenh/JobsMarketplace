@@ -193,7 +193,7 @@ export default class Jobs extends Component {
     this.setState({ popUp2: false });
     firebase
       .firestore()
-      .collection("jobs")
+      .collection("pendingJobs")
       .add({
         id: "fff",
         creatingUserId: sessionStorage.getItem("uid"),
@@ -803,11 +803,7 @@ export default class Jobs extends Component {
                           className="jobs-selected-flex-img"
                           style={{ fontSize: 40, color: "white" }}
                         />
-                        <p>
-                          {job.isPayingForTransportation
-                            ? "Covered"
-                            : "Not covered"}
-                        </p>
+                        <p>{job.isPayingForTransportation ? "✓" : "x"}</p>
                       </div>
                     </div>
                   </div>
