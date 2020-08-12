@@ -153,7 +153,7 @@ export default class Manageusers extends Component {
                 background: this.state.Request ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Request
+              Request({this.state.Requests.length})
             </p>
             <p
               className="manage-employees-flex-item"
@@ -168,7 +168,7 @@ export default class Manageusers extends Component {
                 background: this.state.Accepted ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Accepted
+              Accepted({this.state.acceptedIds.length})
             </p>
             <p
               className="manage-employees-flex-item"
@@ -183,7 +183,7 @@ export default class Manageusers extends Component {
                 background: this.state.Confirmed ? "rgb(45, 123, 212)" : "none",
               }}
             >
-              Confirm
+              Confirm({this.state.confirmedIds.length})
             </p>
           </div>
           <br />
