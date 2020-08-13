@@ -17,6 +17,9 @@ export default class Manageusers extends Component {
     Confirmed: false,
     user: {},
     rating: 5,
+    acceptedIdsAll: [],
+    confirmedIdsAll: [],
+    RequestsAll: [],
   };
 
   removeA(arr) {
@@ -47,14 +50,70 @@ export default class Manageusers extends Component {
   }
 
   getData = () => {
-    let docRef = firebase.firestore().collection("jobs").doc(this.props.job.id);
-    docRef.get().then((doc) => {
-      let acceptedIds = doc.data().acceptedIds;
-      let confirmedIds = doc.data().confirmedIds;
-      let Requests = doc.data().requests;
-      this.setState({ acceptedIds, confirmedIds, Requests });
-    });
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(this.props.job.id)
+      .get()
+      .then((doc) => {
+        let acceptedIds = doc.data().acceptedIds;
+        let confirmedIds = doc.data().confirmedIds;
+        let Requests = doc.data().requests;
+        this.setState({ acceptedIds, confirmedIds, Requests });
+        const acceptedIdsAll = [];
+        acceptedIds.map((v) => {
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(v)
+            .get()
+            .then((doc) => {
+              acceptedIdsAll.push(doc.data());
+              this.setState({ acceptedIdsAll });
+            });
+          return "done";
+        });
+        const confirmedIdsAll = [];
+        confirmedIds.map((v) => {
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(v)
+            .get()
+            .then((doc) => {
+              confirmedIdsAll.push(doc.data());
+              this.setState({ confirmedIdsAll });
+            });
+          return "done";
+        });
+        const RequestsAll = [];
+        Requests.map((v) => {
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(v.requestingUserId)
+            .get()
+            .then((doc) => {
+              RequestsAll.push(doc.data());
+              this.setState({ RequestsAll });
+            });
+          return "done";
+        });
+      });
   };
+
+  /*
+  this.state.acceptedIds.map((v) => {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(v)
+          .get()
+          .then((doc) => {
+            acceptedIdsAll.push(doc.data());
+          });
+      });
+  */
 
   deleteconfirmedIds = (v) => {
     let confirmedIds = this.state.confirmedIds;
@@ -88,7 +147,7 @@ export default class Manageusers extends Component {
 
   removeRequest = (v) => {
     let requests = this.state.Requests;
-    requests = this.removeOBJ(requests, v.requestingUserId);
+    requests = this.removeOBJ(requests, v.uid);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       requests,
     });
@@ -100,8 +159,8 @@ export default class Manageusers extends Component {
   toacceptedIds = (v) => {
     let requests = this.state.Requests;
     let acceptedIds = this.state.acceptedIds;
-    acceptedIds.push(v.requestingUserId);
-    requests = this.removeOBJ(requests, v.requestingUserId);
+    acceptedIds.push(v.uid);
+    requests = this.removeOBJ(requests, v.uid);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
       requests,
@@ -190,37 +249,25 @@ export default class Manageusers extends Component {
           {this.state.Request ? (
             <div>
               <p>Request</p>
-              {this.state.Requests.map((v) => (
-                <div key={v.requestingUserId} className="manageusers-user-card">
-                  <div className="dashboard-card-person-flex">
-                    <img
-                      alt="img"
-                      src={sessionStorage.getItem("url")}
-                      style={{
-                        height: "40px",
-                        width: "40px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <div className="dashboard-card-person-info">
-                      <p>{v.requestingUserId}</p>
-                      <p>{this.state.date.toISOString()}</p>
-                    </div>
+              {this.state.RequestsAll.map((v) => (
+                <div key={v.uid} className="manageusers-user-card">
+                  <img alt="img" src={v.profileImageURL} />
+                  <div>
+                    <p>{v.name}</p>
+                    <p>{v.phone}</p>
                   </div>
-                  <div className="manageusers-button-flex">
-                    <p
-                      onClick={() => this.toacceptedIds(v)}
-                      className="manageusers-button-confirm"
-                    >
-                      Confirm
-                    </p>
-                    <p
-                      onClick={() => this.removeRequest(v)}
-                      className="manageusers-button-delete"
-                    >
-                      Remove
-                    </p>
-                  </div>
+                  <p
+                    onClick={() => this.toacceptedIds(v)}
+                    className="manageusers-button-confirm"
+                  >
+                    ✓
+                  </p>
+                  <p
+                    onClick={() => this.removeRequest(v)}
+                    className="manageusers-button-delete"
+                  >
+                    x
+                  </p>
                 </div>
               ))}
             </div>
@@ -230,31 +277,19 @@ export default class Manageusers extends Component {
           {this.state.Accepted ? (
             <div>
               <p>Accepted</p>
-              {this.state.acceptedIds.map((v) => (
-                <div key={v} className="manageusers-user-card">
-                  <div className="dashboard-card-person-flex">
-                    <img
-                      alt="img"
-                      src={sessionStorage.getItem("url")}
-                      style={{
-                        height: "40px",
-                        width: "40px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <div className="dashboard-card-person-info">
-                      <p>{v}</p>
-                      <p>{this.state.date.toISOString()}</p>
-                    </div>
+              {this.state.acceptedIdsAll.map((v) => (
+                <div key={v.uid} className="manageusers-user-card">
+                  <img alt="img" src={v.profileImageURL} />
+                  <div>
+                    <p>{v.name}</p>
+                    <p>{v.phone}</p>
                   </div>
-                  <div className="manageusers-button-flex">
-                    <p
-                      onClick={() => this.deleteacceptedIds(v)}
-                      className="manageusers-button-delete"
-                    >
-                      Remove
-                    </p>
-                  </div>
+                  <p
+                    onClick={() => this.deleteacceptedIds(v.uid)}
+                    className="manageusers-button-delete"
+                  >
+                    x
+                  </p>
                 </div>
               ))}
             </div>
@@ -264,31 +299,19 @@ export default class Manageusers extends Component {
           {this.state.Confirmed ? (
             <div>
               <p>Confirmed</p>
-              {this.state.confirmedIds.map((v) => (
-                <div key={v} className="manageusers-user-card">
-                  <div className="dashboard-card-person-flex">
-                    <img
-                      alt="img"
-                      src={sessionStorage.getItem("url")}
-                      style={{
-                        height: "40px",
-                        width: "40px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <div className="dashboard-card-person-info">
-                      <p>{v}</p>
-                      <p>{this.state.date.toISOString()}</p>
-                    </div>
+              {this.state.confirmedIdsAll.map((v) => (
+                <div key={v.uid} className="manageusers-user-card">
+                  <img alt="img" src={v.profileImageURL} />
+                  <div>
+                    <p>{v.name}</p>
+                    <p>{v.phone}</p>
                   </div>
-                  <div className="manageusers-button-flex">
-                    <p
-                      onClick={() => this.deleteconfirmedIds(v)}
-                      className="manageusers-button-delete"
-                    >
-                      Remove
-                    </p>
-                  </div>
+                  <p
+                    onClick={() => this.deleteconfirmedIds(v.uid)}
+                    className="manageusers-button-delete"
+                  >
+                    x
+                  </p>
                 </div>
               ))}
             </div>
