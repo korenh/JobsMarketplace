@@ -265,14 +265,14 @@ export default class Jobs extends Component {
   deleteJob = (job) => {
     let docRef = firebase.firestore().collection("jobs").doc(job.id);
     docRef.get().then((doc) => {
-      doc.data().confirmedUsers.forEach((id) => {
+      doc.data().confirmedIds.forEach((id) => {
         addNotification({
           date: firebase.firestore.Timestamp.fromDate(new Date()),
           fromUser: sessionStorage.getItem("uid"),
           fromUsername: sessionStorage.getItem("name"),
           jobId: job.id,
           notificationType: "jobCancelled",
-          toUser: id.confirmingUserId,
+          toUser: id,
         });
       });
       this.setState({ jobDashboard: false });

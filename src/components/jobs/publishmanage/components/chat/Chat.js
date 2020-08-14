@@ -131,7 +131,7 @@ export default class Chat extends Component {
             message.from === sessionStorage.getItem("uid") ? (
               <div key={message.dateSent} className="chat-each-message">
                 <p className="chat-each-date">
-                  {new Date(message.dateSent).toLocaleDateString()}
+                  {new Date(message.dateSent).toUTCString()}
                 </p>
                 <div className="chat-each-flex">
                   <img
@@ -148,7 +148,7 @@ export default class Chat extends Component {
             ) : (
               <div key={message.dateSent} className="chat-each-message2">
                 <p className="chat-each-date">
-                  {new Date(message.dateSent).toLocaleDateString()}
+                  {new Date(message.dateSent).toUTCString()}
                 </p>
                 <div className="chat-each-flex">
                   <img

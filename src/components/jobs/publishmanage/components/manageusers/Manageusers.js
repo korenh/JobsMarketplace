@@ -109,10 +109,11 @@ export default class Manageusers extends Component {
   };
 
   deleteconfirmedIds = (v) => {
+    console.log(v);
     let confirmedIdsAll = this.state.confirmedIdsAll;
     let confirmedIds = this.state.confirmedIds;
-    this.removeA(confirmedIds, v);
-    this.removeOBJuid(confirmedIds, v.uid);
+    this.removeA(confirmedIds, v.uid);
+    this.removeOBJuid(confirmedIdsAll, v.uid);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       confirmedIds,
     });
@@ -122,7 +123,7 @@ export default class Manageusers extends Component {
       fromUsername: sessionStorage.getItem("name"),
       jobId: this.props.job.id,
       notificationType: "removedFromJob",
-      toUser: v,
+      toUser: v.uid,
     });
     this.setState({ confirmedIdsAll });
     setTimeout(() => {

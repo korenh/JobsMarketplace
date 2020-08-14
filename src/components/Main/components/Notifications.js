@@ -167,11 +167,7 @@ export default class Notifications extends Component {
             </div>
           ) : /*-------------------------------------------------------------------*/
           notification.notificationType === "newRequest" ? (
-            <div
-              className="card-notification"
-              key={notification.id}
-              onClick={() => window.location.replace("/main/publishmanage")}
-            >
+            <div className="card-notification" key={notification.id}>
               <HelpIcon
                 style={{
                   color: "rgb(194, 172, 48)",
@@ -196,11 +192,7 @@ export default class Notifications extends Component {
             </div>
           ) : /*-------------------------------------------------------------------*/
           notification.notificationType === "userConfirmed" ? (
-            <div
-              className="card-notification"
-              key={notification.id}
-              onClick={() => window.location.replace("/main/publishmanage")}
-            >
+            <div className="card-notification" key={notification.id}>
               <StarsIcon
                 style={{
                   color: "rgb(45, 123, 212)",
