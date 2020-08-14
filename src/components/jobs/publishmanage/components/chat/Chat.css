@@ -148,5 +148,5 @@
   justify-content: flex-start;
 }
 .chat-each-flex div {
-  line-height: 0.5;
+  line-height: 1;
 }
