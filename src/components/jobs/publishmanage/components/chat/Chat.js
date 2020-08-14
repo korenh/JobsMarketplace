@@ -39,16 +39,19 @@ export default class Chat extends Component {
       .doc(this.props.job.id)
       .get()
       .then((doc) => {
-        doc.data().confirmedIds.map((v) =>
+        const allUsers = [];
+        doc.data().confirmedIds.map((v) => {
           firebase
             .firestore()
             .collection("users")
             .doc(v)
             .get()
             .then((doc) => {
-              console.log(doc.data());
-            })
-        );
+              allUsers.push(doc.data());
+              this.setState({ allUsers });
+            });
+          return "done";
+        });
       });
   };
 
@@ -77,6 +80,26 @@ export default class Chat extends Component {
       });
   };
 
+  getUserName = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].uid === id) {
+        console.log(arr[i].name);
+        return arr[i].name;
+      }
+    }
+  };
+
+  getUserPic = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].uid === id) {
+        console.log(arr[i].name);
+        return arr[i].profileImageURL;
+      }
+    }
+  };
+
   render() {
     return (
       <div className="chat-main">
@@ -96,7 +119,7 @@ export default class Chat extends Component {
           />
         </div>
         <div className="chat-section">
-          <p>'3' of '5' confirmed their participation.</p>
+          <p>Confirmed their participation</p>
           <span>listofpics</span>
           <button className="chat-confirmed">
             <VerifiedUserIcon style={{ color: "white", fontSize: 15 }} />
@@ -110,14 +133,34 @@ export default class Chat extends Component {
                 <p className="chat-each-date">
                   {new Date(message.dateSent).toUTCString()}
                 </p>
-                <p>{message.message}</p>
+                <div className="chat-each-flex">
+                  <img
+                    src={sessionStorage.getItem("url")}
+                    alt="img"
+                    className="chat-each-profile"
+                  />
+                  <div>
+                    <p>{sessionStorage.getItem("name")}</p>
+                    <p>{message.message}</p>
+                  </div>
+                </div>
               </div>
             ) : (
               <div key={message.dateSent} className="chat-each-message2">
                 <p className="chat-each-date">
                   {new Date(message.dateSent).toUTCString()}
                 </p>
-                <p>{message.message}</p>
+                <div className="chat-each-flex">
+                  <img
+                    src={this.getUserPic(message.from)}
+                    alt="img"
+                    className="chat-each-profile"
+                  />
+                  <div>
+                    <p>{this.getUserName(message.from)}</p>
+                    <p>{message.message}</p>
+                  </div>
+                </div>
               </div>
             )
           )}

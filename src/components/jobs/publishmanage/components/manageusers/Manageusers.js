@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import firebase from "../../../../protected/Firebase";
 import { addNotification } from "../../../../functions/helper";
-
 import "./Manageusers.css";
 
 export default class Manageusers extends Component {
@@ -44,9 +43,16 @@ export default class Manageusers extends Component {
       }
   }
 
+  removeOBJuid(arr, id) {
+    for (var i = 0; i < arr.length; i++)
+      if (arr[i].uid === id) {
+        arr.splice(i, 1);
+        return arr;
+      }
+  }
+
   componentDidMount() {
     this.getData();
-    this.getUser(sessionStorage.getItem("uid"));
   }
 
   getData = () => {
@@ -102,22 +108,11 @@ export default class Manageusers extends Component {
       });
   };
 
-  /*
-  this.state.acceptedIds.map((v) => {
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(v)
-          .get()
-          .then((doc) => {
-            acceptedIdsAll.push(doc.data());
-          });
-      });
-  */
-
   deleteconfirmedIds = (v) => {
+    let confirmedIdsAll = this.state.confirmedIdsAll;
     let confirmedIds = this.state.confirmedIds;
     this.removeA(confirmedIds, v);
+    this.removeOBJuid(confirmedIds, v.uid);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       confirmedIds,
     });
@@ -129,38 +124,49 @@ export default class Manageusers extends Component {
       notificationType: "removedFromJob",
       toUser: v,
     });
+    this.setState({ confirmedIdsAll });
     setTimeout(() => {
       this.getData();
-    }, 1);
+    }, 100);
   };
 
   deleteacceptedIds = (v) => {
+    let acceptedIdsAll = this.state.acceptedIdsAll;
     let acceptedIds = this.state.acceptedIds;
     this.removeA(acceptedIds, v);
+    this.removeOBJuid(acceptedIdsAll, v.uid);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
     });
+    this.setState({ acceptedIdsAll });
     setTimeout(() => {
       this.getData();
-    }, 1);
+    }, 100);
   };
 
   removeRequest = (v) => {
+    let RequestsAll = this.state.RequestsAll;
     let requests = this.state.Requests;
+    RequestsAll = this.removeOBJuid(RequestsAll, v.uid);
     requests = this.removeOBJ(requests, v.uid);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       requests,
     });
+    this.setState({ RequestsAll });
     setTimeout(() => {
       this.getData();
-    }, 1);
+    }, 100);
   };
 
   toacceptedIds = (v) => {
+    let RequestsAll = this.state.RequestsAll;
+    let acceptedIdsAll = this.state.acceptedIdsAll;
     let requests = this.state.Requests;
     let acceptedIds = this.state.acceptedIds;
+    acceptedIdsAll.push(v);
     acceptedIds.push(v.uid);
     requests = this.removeOBJ(requests, v.uid);
+    RequestsAll = this.removeOBJuid(RequestsAll, v.uid);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
       requests,
@@ -173,14 +179,10 @@ export default class Manageusers extends Component {
       notificationType: "acceptedToJob",
       toUser: v,
     });
+    this.setState({ RequestsAll, acceptedIdsAll });
     setTimeout(() => {
       this.getData();
-    }, 1);
-  };
-
-  getUser = async (v) => {
-    const doc = await firebase.firestore().collection("users").doc(v).get();
-    this.setState({ user: doc.data() });
+    }, 100);
   };
 
   onStarClick(nextValue, prevValue, name) {
