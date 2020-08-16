@@ -43,6 +43,8 @@ export default class Search extends Component {
     endDateValue: new Date("2 2 2222 22:22"),
     locations: [],
     requests: [],
+    allUsers: [],
+    allLocations: [],
   };
 
   loadMore = () => {
@@ -65,6 +67,8 @@ export default class Search extends Component {
     this.getCoord();
     const allData = [];
     const locations = [];
+    const allUsers = [];
+    const allLocations = [];
     firebase
       .firestore()
       .collection("jobs")
@@ -103,14 +107,33 @@ export default class Search extends Component {
               zoom: 10,
             },
           };
-          //get data about the Createing User
+          fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode?latitude=${
+              doc.data().location.Oa
+            }&longitude=${
+              doc.data().location.Ba
+            }&localityLanguage=en&key=5305f546fbc84e378acc3138bdd5a82f`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              const Geo = { Geo: data.city, id: doc.id };
+              allLocations.push(Geo);
+              this.setState({ allLocations });
+            });
           firebase
             .firestore()
             .collection("users")
             .doc(doc.data().creatingUserId)
             .get()
             .then((doc) => {
-              //console.log(doc.data().profileImageURL);
+              const data = {
+                name: doc.data().name,
+                profileImageURL: doc.data().profileImageURL,
+                id: doc.data().uid,
+                employerRating: doc.data().employerRating.sumOfRatings,
+              };
+              allUsers.push(data);
+              this.setState({ allUsers });
             });
           //-----method ends here-----//
           allData.push(data);
@@ -222,6 +245,46 @@ export default class Search extends Component {
 
   RadiusFilterFunc = (v) => {
     this.setState({ kmFilter: v, radiusValID: v });
+  };
+
+  getUserName = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i].name;
+      }
+    }
+  };
+
+  getUserPic = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i].profileImageURL;
+      }
+    }
+  };
+
+  getUserRate = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i].employerRating;
+      }
+    }
+  };
+
+  getUserGeoName = (id) => {
+    const arr = this.state.allLocations;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        if (arr[i].Geo === "") {
+          return "";
+        } else {
+          return ", " + arr[i].Geo;
+        }
+      }
+    }
   };
 
   render() {
@@ -458,7 +521,7 @@ export default class Search extends Component {
                         style={{ fontSize: 20, margin: "0", color: "gray" }}
                       />
                     </span>
-                    {Math.round(job.km)} km , {job.Geoname}
+                    {Math.round(job.km)} km {this.getUserGeoName(job.id)}
                   </p>
                 </div>
                 <div className="jobs-card-tags">
@@ -586,12 +649,15 @@ export default class Search extends Component {
                       </button>
                     </div>
                     <img
-                      src="https://firebasestorage.googleapis.com/v0/b/altro-db7f0.appspot.com/o/users%2F1593953149041.jpg?alt=media&token=62bd1a4f-78f6-4a94-b0b6-3b9ecbf27c8a"
+                      src={this.getUserPic(job.creatingUserId)}
                       alt="img"
                       className="jobs-selected-profile"
                     />
-                    <p>{sessionStorage.getItem("name")}</p>
-                    <StarRatingComponent starCount={5} value={4} />
+                    <p>{this.getUserName(job.creatingUserId)}</p>
+                    <StarRatingComponent
+                      starCount={5}
+                      value={this.getUserRate(job.creatingUserId)}
+                    />
                   </div>
                 </div>
               </div>
