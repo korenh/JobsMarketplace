@@ -27,9 +27,6 @@ export default class Signin extends Component {
             });
           });
         this.props.history.push("/main/jobs");
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
       })
       .catch(function (error) {
         var errorMessage = error.message;
