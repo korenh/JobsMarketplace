@@ -221,7 +221,7 @@ export default class Jobs extends Component {
     this.setState({ popUp2: false });
     firebase
       .firestore()
-      .collection("pendingJobs")
+      .collection("jobs")
       .add({
         id: "fff",
         creatingUserId: sessionStorage.getItem("uid"),
