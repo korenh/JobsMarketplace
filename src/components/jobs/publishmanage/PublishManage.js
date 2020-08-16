@@ -305,6 +305,16 @@ export default class Jobs extends Component {
       });
       this.setState({ jobDashboard: false });
       firebase.firestore().collection("jobs").doc(job.id).delete();
+      axios
+        .delete(`https://altro-db7f0.firebaseio.com/chats/${job.id}.json`)
+        .then((res) => {
+          console.log("Deleted");
+          try {
+            console.log("error");
+          } catch {
+            console.log("error");
+          }
+        });
       setTimeout(() => {
         this.getData();
       }, 1);
@@ -329,6 +339,16 @@ export default class Jobs extends Component {
         jobdash: job,
         docState: doc.data(),
       });
+      axios
+        .delete(`https://altro-db7f0.firebaseio.com/chats/${job.id}.json`)
+        .then((res) => {
+          console.log("Deleted");
+          try {
+            console.log("error");
+          } catch {
+            console.log("error");
+          }
+        });
       setTimeout(() => {
         this.getData();
       }, 1);
