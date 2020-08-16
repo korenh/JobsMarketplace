@@ -29,7 +29,7 @@ export default class Signin extends Component {
         this.props.history.push("/main/jobs");
         setTimeout(() => {
           this.props.history.push("/main/jobs");
-        }, 500);
+        }, 1000);
       })
       .catch(function (error) {
         var errorMessage = error.message;
