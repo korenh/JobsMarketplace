@@ -36,6 +36,8 @@ export default class Myjobs extends Component {
     lat: undefined,
     lng: undefined,
     ContactPopup: false,
+    allUsers: [],
+    allLocations: [],
   };
 
   getCoord = () => {
@@ -81,6 +83,8 @@ export default class Myjobs extends Component {
     this.getCoord();
     const field = ["savedIds", "acceptedIds"];
     const allData = [];
+    const allUsers = [];
+    const allLocations = [];
     firebase
       .firestore()
       .collection("jobs")
@@ -122,6 +126,34 @@ export default class Myjobs extends Component {
               zoom: 10,
             },
           };
+          fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode?latitude=${
+              doc.data().location.Oa
+            }&longitude=${
+              doc.data().location.Ba
+            }&localityLanguage=en&key=5305f546fbc84e378acc3138bdd5a82f`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              const Geo = { Geo: data.city, id: doc.id };
+              allLocations.push(Geo);
+              this.setState({ allLocations });
+            });
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(doc.data().creatingUserId)
+            .get()
+            .then((doc) => {
+              const data = {
+                name: doc.data().name,
+                profileImageURL: doc.data().profileImageURL,
+                id: doc.data().uid,
+                employerRating: doc.data().employerRating.sumOfRatings,
+              };
+              allUsers.push(data);
+              this.setState({ allUsers });
+            });
           allData.push(data);
         });
         this.setState({ jobs: allData });
@@ -131,6 +163,8 @@ export default class Myjobs extends Component {
   getData2 = (async) => {
     this.getCoord();
     const allData = [];
+    const allUsers = [];
+    const allLocations = [];
     firebase
       .firestore()
       .collection("jobs")
@@ -167,6 +201,34 @@ export default class Myjobs extends Component {
               zoom: 10,
             },
           };
+          fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode?latitude=${
+              doc.data().location.Oa
+            }&longitude=${
+              doc.data().location.Ba
+            }&localityLanguage=en&key=5305f546fbc84e378acc3138bdd5a82f`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              const Geo = { Geo: data.city, id: doc.id };
+              allLocations.push(Geo);
+              this.setState({ allLocations });
+            });
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(doc.data().creatingUserId)
+            .get()
+            .then((doc) => {
+              const data = {
+                name: doc.data().name,
+                profileImageURL: doc.data().profileImageURL,
+                id: doc.data().uid,
+                employerRating: doc.data().employerRating.sumOfRatings,
+              };
+              allUsers.push(data);
+              this.setState({ allUsers });
+            });
           allData.push(data);
         });
         this.setState({ jobsConfirmed: allData });
@@ -281,6 +343,46 @@ export default class Myjobs extends Component {
       });
   };
 
+  getUserName = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i].name;
+      }
+    }
+  };
+
+  getUserPic = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i].profileImageURL;
+      }
+    }
+  };
+
+  getUserRate = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i].employerRating;
+      }
+    }
+  };
+
+  getUserGeoName = (id) => {
+    const arr = this.state.allLocations;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        if (arr[i].Geo === "") {
+          return "";
+        } else {
+          return ", " + arr[i].Geo;
+        }
+      }
+    }
+  };
+
   render() {
     return (
       <div>
@@ -351,7 +453,7 @@ export default class Myjobs extends Component {
                             style={{ fontSize: 20, margin: "0", color: "gray" }}
                           />
                         </span>
-                        {Math.round(job.km)} km
+                        {Math.round(job.km)} km {this.getUserGeoName(job.id)}
                       </p>
                     </div>
                     <div className="jobs-card-tags">
@@ -420,7 +522,8 @@ export default class Myjobs extends Component {
                                 }}
                               />
                             </span>
-                            {Math.round(job.km)} km , {job.Geoname}
+                            {Math.round(job.km)} km
+                            {this.getUserGeoName(job.id)}
                           </p>
                         </div>
                         <div className="jobs-card-tags">
@@ -556,7 +659,7 @@ export default class Myjobs extends Component {
                             style={{ fontSize: 20, margin: "0", color: "gray" }}
                           />
                         </span>
-                        {Math.round(job.km)} km
+                        {Math.round(job.km)} km {this.getUserGeoName(job.id)}
                       </p>
                     </div>
                     <div className="jobs-card-tags">
@@ -617,7 +720,8 @@ export default class Myjobs extends Component {
                                 }}
                               />
                             </span>
-                            {Math.round(job.km)} km , {job.Geoname}
+                            {Math.round(job.km)} km
+                            {this.getUserGeoName(job.id)}
                           </p>
                         </div>
                         <div className="jobs-card-tags">
@@ -771,7 +875,7 @@ export default class Myjobs extends Component {
                             }}
                           />
                         </span>
-                        {Math.round(job.km)} km
+                        {Math.round(job.km)} km {this.getUserGeoName(job.id)}
                       </p>
                     </div>
                     <div className="jobs-card-tags">
@@ -832,7 +936,8 @@ export default class Myjobs extends Component {
                                 }}
                               />
                             </span>
-                            {Math.round(job.km)} km , {job.Geoname}
+                            {Math.round(job.km)} km
+                            {this.getUserGeoName(job.id)}
                           </p>
                         </div>
                         <div className="jobs-card-tags">

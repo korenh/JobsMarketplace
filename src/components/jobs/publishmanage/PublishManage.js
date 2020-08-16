@@ -68,6 +68,7 @@ export default class Jobs extends Component {
     listCategories: [],
     stringCategories: [],
     indexCategories: [],
+    allLocations: [],
   };
 
   handleEnd = (date) => {
@@ -142,8 +143,22 @@ export default class Jobs extends Component {
     return dist;
   }
 
+  getUserGeoName = (id) => {
+    const arr = this.state.allLocations;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        if (arr[i].Geo === "") {
+          return "";
+        } else {
+          return ", " + arr[i].Geo;
+        }
+      }
+    }
+  };
+
   getData = () => {
     const allData = [];
+    const allLocations = [];
     firebase
       .firestore()
       .collection("jobs")
@@ -179,6 +194,19 @@ export default class Jobs extends Component {
               zoom: 10,
             },
           };
+          fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode?latitude=${
+              doc.data().location.Oa
+            }&longitude=${
+              doc.data().location.Ba
+            }&localityLanguage=en&key=5305f546fbc84e378acc3138bdd5a82f`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              const Geo = { Geo: data.city, id: doc.id };
+              allLocations.push(Geo);
+              this.setState({ allLocations });
+            });
           allData.push(data);
         });
         this.setState({ jobs: allData });
@@ -657,7 +685,7 @@ export default class Jobs extends Component {
                         style={{ fontSize: 20, margin: "0", color: "gray" }}
                       />
                     </span>
-                    {Math.round(job.km)} km
+                    {Math.round(job.km)} km {this.getUserGeoName(job.id)}
                   </p>
                 </div>
                 <div className="jobs-card-tags">
@@ -767,7 +795,7 @@ export default class Jobs extends Component {
                             }}
                           />
                         </span>
-                        {Math.round(job.km)} km , {job.Geoname}
+                        {Math.round(job.km)} km {this.getUserGeoName(job.id)}
                       </p>
                     </div>
                     <div className="jobs-card-tags">

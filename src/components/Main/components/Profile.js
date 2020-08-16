@@ -82,63 +82,6 @@ export default class Profile extends Component {
               <p style={{ fontSize: "12px" }}>Employer</p>
             </div>
           </div>
-          <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
-            History
-          </p>
-          <div className="profile-flex-info">
-            <div>
-              <p
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                  marginLeft: "10px",
-                }}
-              >
-                18
-              </p>
-              <p style={{ fontSize: "12px" }}>Jobs Completed</p>
-            </div>
-            <div>
-              <p
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                  marginLeft: "10px",
-                }}
-              >
-                2
-              </p>
-              <p style={{ fontSize: "12px" }}>Monthly Jobs </p>
-            </div>
-          </div>
-          <div className="profile-flex-info">
-            <div>
-              <p
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                  marginLeft: "10px",
-                  color: "rgb(103, 201, 108)",
-                }}
-              >
-                32$
-              </p>
-              <p style={{ fontSize: "12px" }}>Per Job</p>
-            </div>
-            <div>
-              <p
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                  marginLeft: "10px",
-                  color: "rgb(103, 201, 108)",
-                }}
-              >
-                428$
-              </p>
-              <p style={{ fontSize: "12px" }}>Total Earned</p>
-            </div>
-          </div>
         </div>
       </div>
     );

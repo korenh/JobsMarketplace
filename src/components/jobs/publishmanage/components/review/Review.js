@@ -9,15 +9,32 @@ export default class Review extends Component {
     textarea: "",
     ratepop: false,
     array: [],
+    allUsers: [],
   };
 
   componentDidMount() {
+    const allUsers = [];
     let docRef = firebase.firestore().collection("jobs").doc(this.props.job.id);
     docRef.get().then((doc) => {
       let array = [];
       let confirmedIds = doc.data().confirmedIds;
       for (let i = 0; i < confirmedIds.length; i++) {
         array.push({ rate: 5, id: confirmedIds[i] });
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(confirmedIds[i])
+          .get()
+          .then((doc) => {
+            const data = {
+              name: doc.data().name,
+              profileImageURL: doc.data().profileImageURL,
+              id: doc.data().uid,
+              employerRating: doc.data().employerRating.sumOfRatings,
+            };
+            allUsers.push(data);
+            this.setState({ allUsers });
+          });
       }
       this.setState({ array });
     });
@@ -96,6 +113,15 @@ export default class Review extends Component {
     this.props.ReviewJob();
   };
 
+  getUserName = (id) => {
+    const arr = this.state.allUsers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i].name;
+      }
+    }
+  };
+
   render() {
     return (
       <div className="review-main">
@@ -105,7 +131,7 @@ export default class Review extends Component {
             <br />
             {this.state.array.map((user) => (
               <div key={user.id}>
-                <p>{user.id}</p>
+                <p>{this.getUserName(user.id)}</p>
                 <StarRatingComponent
                   name={user.id}
                   starCount={5}
@@ -115,7 +141,9 @@ export default class Review extends Component {
               </div>
             ))}
             <br />
-            <button onClick={() => this.popupRate()}>Rate</button>
+            <button className="signin-btn" onClick={() => this.popupRate()}>
+              Rate
+            </button>
           </div>
         ) : (
           ""
