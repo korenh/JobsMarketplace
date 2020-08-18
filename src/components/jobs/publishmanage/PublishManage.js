@@ -97,10 +97,21 @@ export default class Jobs extends Component {
       this.state.payment === 0 ||
       this.state.numberRequired === 0
     ) {
-      alert("Fill required fields");
+      toast.configure();
+      toast.error("Fill all fields", {
+        autoClose: 2000,
+      });
       return;
+    } else {
+      if (this.state.title.length > 40) {
+        toast.configure();
+        toast.error("Title length cannot be bigger then 40 ", {
+          autoClose: 2000,
+        });
+        return;
+      }
+      this.setState({ popUp: false, popUp2: true });
     }
-    this.setState({ popUp: false, popUp2: true });
   };
 
   removeA(arr) {

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Altro from "./icons/altro.png";
 import firebase from "../protected/Firebase";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import "./Signin.css";
 
 export default class Signin extends Component {
@@ -32,8 +34,10 @@ export default class Signin extends Component {
         }, 1000);
       })
       .catch(function (error) {
-        var errorMessage = error.message;
-        alert(errorMessage);
+        toast.configure();
+        toast.error(error.message, {
+          autoClose: 2000,
+        });
       });
   };
 

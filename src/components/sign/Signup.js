@@ -4,6 +4,8 @@ import Altro from "./icons/altro.png";
 import "./Signup.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import firebase from "../protected/Firebase";
 import { storage } from "../protected/Firebase";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -27,12 +29,44 @@ export default class Signup extends Component {
     let name = e.target.elements.name.value;
     let description = e.target.elements.description.value;
     let phone = e.target.elements.phone.value;
-    if (password !== confirm) {
-      alert("Passwords do not match");
+    if (password.length < 6) {
+      toast.configure();
+      toast.error("Password length must be bigger then 6", {
+        autoClose: 2000,
+      });
+      return;
     } else {
-      if (name === "" || description === "") {
-        alert("Fill all fields");
+      if (password !== confirm) {
+        toast.configure();
+        toast.error("Passwords do not match", {
+          autoClose: 2000,
+        });
+        return;
       } else {
+        if (name === "" || description === "") {
+          toast.configure();
+          toast.error("Fill all fields", {
+            autoClose: 2000,
+          });
+          return;
+        } else {
+          if (phone.length <= 8) {
+            toast.configure();
+            toast.error("Phone number length must be bigger then 8", {
+              autoClose: 2000,
+            });
+            return;
+          } else {
+            if (!email.includes("@")) {
+              toast.configure();
+              toast.error("Email is invalid", {
+                autoClose: 2000,
+              });
+              return;
+            }
+          }
+        }
+
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
@@ -58,12 +92,20 @@ export default class Signup extends Component {
                 fcmToken: "",
               })
               .then((ref) => {
-                alert("signed up!");
+                toast.configure();
+                toast.success("Signed up", {
+                  autoClose: 2000,
+                });
+                return;
               });
             this.props.history.push("/");
           })
           .catch(function (error) {
-            alert("somthing went wrong");
+            toast.configure();
+            toast.error("Somthing went wrong", {
+              autoClose: 2000,
+            });
+            return;
           });
       }
     }
