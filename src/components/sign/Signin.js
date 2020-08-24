@@ -11,6 +11,27 @@ export default class Signin extends Component {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log("😊");
     });
+    if (localStorage.getItem("altro_jwt") !== null) {
+      firebase
+        .firestore()
+        .collection("users")
+        .where("uid", "==", localStorage.getItem("altro_jwt"))
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            sessionStorage.setItem("uid", doc.data().uid);
+            sessionStorage.setItem("name", doc.data().name);
+            sessionStorage.setItem("url", doc.data().profileImageURL);
+            sessionStorage.setItem("description", doc.data().description);
+          });
+        });
+      this.props.history.push("/main/jobs");
+      setTimeout(() => {
+        this.props.history.push("/main/jobs");
+      }, 2000);
+    } else {
+      return;
+    }
   }
   handleLogin = (e) => {
     e.preventDefault();
@@ -31,6 +52,7 @@ export default class Signin extends Component {
               sessionStorage.setItem("name", doc.data().name);
               sessionStorage.setItem("url", doc.data().profileImageURL);
               sessionStorage.setItem("description", doc.data().description);
+              localStorage.setItem("altro_jwt", doc.data().uid);
             });
           });
         this.props.history.push("/main/jobs");

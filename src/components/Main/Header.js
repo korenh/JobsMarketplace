@@ -42,6 +42,7 @@ export default class Header extends Component {
 
   logout = () => {
     sessionStorage.clear();
+    localStorage.removeItem("altro_jwt");
     this.props.history.push("/");
   };
 
