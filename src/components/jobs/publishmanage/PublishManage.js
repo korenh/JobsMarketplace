@@ -187,6 +187,7 @@ export default class Jobs extends Component {
             dateCreated: doc.data().dateCreated,
             acceptedUsers: doc.data().acceptedUsers,
             confirmedUsers: doc.data().confirmedUsers.confirmingUserId,
+            creatingUserId: doc.data().creatingUserId,
             duration: doc.data().duration,
             requiredEmployees: doc.data().requiredEmployees,
             payment: doc.data().payment,

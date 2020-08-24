@@ -18,6 +18,26 @@
   font-size: 14px;
 }
 
+.chat-main2 {
+  -webkit-animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-ver-top 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  z-index: 3;
+  background: rgb(255, 255, 255);
+  position: fixed;
+  width: 90%;
+  max-width: 1000px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  border-radius: 10px;
+  margin: 1em auto;
+  padding: 1em;
+  box-shadow: 0px 0px 20px 2px rgba(117, 117, 117, 0.543);
+  font-size: 14px;
+  cursor: pointer;
+}
+
 .chat-top {
   display: flex;
   justify-content: space-evenly;
@@ -150,4 +170,29 @@
 }
 .chat-each-flex div {
   line-height: 1;
+}
+
+.owner-info-chat {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid gainsboro;
+}
+
+.owner-info-chat img {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+
+.owner-info-green {
+  color: rgb(58, 218, 122);
+  font-weight: bold;
+  width: 50px;
+}
+
+.owner-info-blue {
+  color: var(--main2);
+  font-weight: bold;
+  width: 50px;
 }

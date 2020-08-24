@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import "./Chat.css";
-import { toast } from "react-toastify";
 import firebase from "../../../../protected/Firebase";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import InfoIcon from "@material-ui/icons/Info";
 import SendIcon from "@material-ui/icons/Send";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import ChatInfo from "./components/ChatInfo";
 import axios from "axios";
 export default class Chat extends Component {
   state = {
     allUsers: [],
     message: "",
     messages: [],
+    ChatInfo: false,
   };
 
   componentDidMount() {
@@ -56,10 +57,7 @@ export default class Chat extends Component {
   };
 
   jobInfo = () => {
-    toast.configure();
-    toast.info("Job title :  " + this.props.job.title, {
-      autoClose: 5000,
-    });
+    this.setState({ ChatInfo: !this.state.ChatInfo });
   };
 
   AddData = (e) => {
@@ -103,6 +101,15 @@ export default class Chat extends Component {
   render() {
     return (
       <div className="chat-main">
+        {this.state.ChatInfo ? (
+          <ChatInfo
+            allUsers={this.state.allUsers}
+            id={this.props.job.creatingUserId}
+            jobInfo={this.jobInfo}
+          />
+        ) : (
+          ""
+        )}
         <div className="chat-top">
           <ExitToAppIcon
             onClick={() => this.props.Chat()}
