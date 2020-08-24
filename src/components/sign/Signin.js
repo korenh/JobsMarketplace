@@ -7,6 +7,11 @@ import { toast } from "react-toastify";
 import "./Signin.css";
 
 export default class Signin extends Component {
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log("😊");
+    });
+  }
   handleLogin = (e) => {
     e.preventDefault();
     let email = e.target.elements.email.value;

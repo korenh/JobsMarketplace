@@ -8,6 +8,10 @@ body {
   background: rgb(250, 250, 250);
 }
 
+* {
+  outline: none;
+}
+
 :root {
   --main1: rgb(135, 186, 245);
   --main2: rgb(45, 123, 212);
