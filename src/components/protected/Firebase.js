@@ -3,6 +3,7 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/storage";
 import "firebase/firestore";
+import "firebase/messaging";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBbxuTxDeQbqO3Q6EawvRuwoFaelZbto4E",
@@ -17,5 +18,18 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
+
+const messaging = firebase.messaging();
+messaging
+  .requestPermission()
+  .then(() => {
+    return messaging.getToken();
+  })
+  .then((token) => {
+    console.log(token);
+  })
+  .catch(() => {
+    console.log("Err");
+  });
 
 export { storage, firebase as default };
