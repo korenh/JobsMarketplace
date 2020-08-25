@@ -163,18 +163,17 @@ export default class Search extends Component {
       .doc(job.id)
       .get()
       .then((doc) => {
-        this.setState({ requests: doc.data().requests });
+        let requests = doc.data().requests;
+        requests.push({
+          requestingUserId: sessionStorage.getItem("uid"),
+          dateRequested: firebase.firestore.Timestamp.fromDate(new Date()),
+        });
+        firebase
+          .firestore()
+          .collection("jobs")
+          .doc(job.id)
+          .update({ requests });
       });
-
-    this.state.requests.push({
-      requestingUserId: sessionStorage.getItem("uid"),
-      dateRequested: firebase.firestore.Timestamp.fromDate(new Date()),
-    });
-    firebase
-      .firestore()
-      .collection("jobs")
-      .doc(job.id)
-      .update({ requests: this.state.requests });
     addNotification({
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       fromUser: sessionStorage.getItem("uid"),

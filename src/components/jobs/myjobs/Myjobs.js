@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "../Jobs.css";
 import { addNotification, GeoName } from "../../functions/helper";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
@@ -38,6 +40,8 @@ export default class Myjobs extends Component {
     ContactPopup: false,
     allUsers: [],
     allLocations: [],
+    confirmedUsers: [],
+    acceptedUsers: [],
   };
 
   getCoord = () => {
@@ -61,6 +65,22 @@ export default class Myjobs extends Component {
     return arr;
   }
 
+  removeOBJuid2(arr, id) {
+    for (var i = 0; i < arr.length; i++)
+      if (arr[i].acceptingUserId === id) {
+        arr.splice(i, 1);
+        return arr;
+      }
+  }
+
+  removeOBJuid3(arr, id) {
+    for (var i = 0; i < arr.length; i++)
+      if (arr[i].confirmingUserId === id) {
+        arr.splice(i, 1);
+        return arr;
+      }
+  }
+
   setSaved = (async) => {
     setTimeout(() => {
       this.setState({ saved: true, going: false });
@@ -73,6 +93,36 @@ export default class Myjobs extends Component {
       this.setState({ saved: false, going: true });
       this.getData();
     }, 1);
+  };
+
+  applyJob = (job) => {
+    firebase
+      .firestore()
+      .collection("jobs")
+      .doc(job.id)
+      .get()
+      .then((doc) => {
+        let requests = doc.data().requests;
+        requests.push({
+          requestingUserId: sessionStorage.getItem("uid"),
+          dateRequested: firebase.firestore.Timestamp.fromDate(new Date()),
+        });
+        firebase
+          .firestore()
+          .collection("jobs")
+          .doc(job.id)
+          .update({ requests });
+      });
+    addNotification({
+      date: firebase.firestore.Timestamp.fromDate(new Date()),
+      fromUser: sessionStorage.getItem("uid"),
+      fromUsername: sessionStorage.getItem("name"),
+      jobId: job.id,
+      notificationType: "newRequest",
+      toUser: job.creatingUserId,
+    });
+    toast.configure();
+    toast.info("Job apllied", { autoClose: 2000 });
   };
 
   componentDidMount() {
@@ -293,13 +343,22 @@ export default class Myjobs extends Component {
       .doc(job.id)
       .get()
       .then((doc) => {
+        let acceptedUsers = doc.data().acceptedUsers;
+        let confirmedUsers = doc.data().confirmedUsers;
         let acceptedIds = doc.data().acceptedIds;
         let confirmedIds = doc.data().confirmedIds;
         this.removeA(acceptedIds, sessionStorage.getItem("uid"));
+        this.removeOBJuid2(acceptedUsers, sessionStorage.getItem("uid"));
         confirmedIds.push(sessionStorage.getItem("uid"));
+        confirmedUsers.push({
+          confirmingUserId: sessionStorage.getItem("uid"),
+          dateConfirmed: firebase.firestore.Timestamp.fromDate(new Date()),
+        });
         firebase.firestore().collection("jobs").doc(job.id).update({
           acceptedIds,
           confirmedIds,
+          confirmedUsers,
+          acceptedUsers,
         });
         setTimeout(() => {
           this.getData();
@@ -323,10 +382,13 @@ export default class Myjobs extends Component {
       .doc(job.id)
       .get()
       .then((doc) => {
+        let confirmedUsers = doc.data().confirmedUsers;
         let confirmedIds = doc.data().confirmedIds;
         this.removeA(confirmedIds, sessionStorage.getItem("uid"));
+        this.removeOBJuid3(confirmedUsers, sessionStorage.getItem("uid"));
         firebase.firestore().collection("jobs").doc(job.id).update({
           confirmedIds,
+          confirmedUsers,
         });
         setTimeout(() => {
           this.getData();
@@ -583,7 +645,10 @@ export default class Myjobs extends Component {
                             Contact
                           </button>
                           <br />
-                          <button className="jobs-selected-finish-button">
+                          <button
+                            className="jobs-selected-finish-button"
+                            onClick={() => this.applyJob(job)}
+                          >
                             <CheckCircleIcon
                               style={{
                                 fontSize: 15,

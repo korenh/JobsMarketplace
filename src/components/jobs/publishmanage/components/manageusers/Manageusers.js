@@ -19,6 +19,8 @@ export default class Manageusers extends Component {
     acceptedIdsAll: [],
     confirmedIdsAll: [],
     RequestsAll: [],
+    acceptedUsers: [],
+    confirmedUsers: [],
   };
 
   removeA(arr) {
@@ -51,6 +53,22 @@ export default class Manageusers extends Component {
       }
   }
 
+  removeOBJuid2(arr, id) {
+    for (var i = 0; i < arr.length; i++)
+      if (arr[i].acceptingUserId === id) {
+        arr.splice(i, 1);
+        return arr;
+      }
+  }
+
+  removeOBJuid3(arr, id) {
+    for (var i = 0; i < arr.length; i++)
+      if (arr[i].confirmingUserId === id) {
+        arr.splice(i, 1);
+        return arr;
+      }
+  }
+
   componentDidMount() {
     this.getData();
   }
@@ -65,7 +83,15 @@ export default class Manageusers extends Component {
         let acceptedIds = doc.data().acceptedIds;
         let confirmedIds = doc.data().confirmedIds;
         let Requests = doc.data().requests;
-        this.setState({ acceptedIds, confirmedIds, Requests });
+        let acceptedUsers = doc.data().acceptedUsers;
+        let confirmedUsers = doc.data().confirmedUsers;
+        this.setState({
+          acceptedIds,
+          confirmedIds,
+          Requests,
+          acceptedUsers,
+          confirmedUsers,
+        });
         const acceptedIdsAll = [];
         acceptedIds.map((v) => {
           firebase
@@ -109,12 +135,15 @@ export default class Manageusers extends Component {
   };
 
   deleteconfirmedIds = (v) => {
+    let confirmedUsers = this.state.confirmedUsers;
     let confirmedIdsAll = this.state.confirmedIdsAll;
     let confirmedIds = this.state.confirmedIds;
     this.removeA(confirmedIds, v);
     this.removeOBJuid(confirmedIdsAll, v);
+    this.removeOBJuid3(confirmedUsers, v);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       confirmedIds,
+      confirmedUsers,
     });
     addNotification({
       date: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -131,12 +160,16 @@ export default class Manageusers extends Component {
   };
 
   deleteacceptedIds = (v) => {
+    let acceptedUsers = this.state.acceptedUsers;
     let acceptedIdsAll = this.state.acceptedIdsAll;
     let acceptedIds = this.state.acceptedIds;
     this.removeA(acceptedIds, v);
-    this.removeOBJuid(acceptedIdsAll, v.uid);
+    this.removeOBJuid(acceptedIdsAll, v);
+    this.removeOBJuid2(acceptedUsers, v);
+    console.log(acceptedUsers);
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
+      acceptedUsers,
     });
     this.setState({ acceptedIdsAll });
     setTimeout(() => {
@@ -159,10 +192,15 @@ export default class Manageusers extends Component {
   };
 
   toacceptedIds = (v) => {
+    let acceptedUsers = this.state.acceptedUsers;
     let RequestsAll = this.state.RequestsAll;
     let acceptedIdsAll = this.state.acceptedIdsAll;
     let requests = this.state.Requests;
     let acceptedIds = this.state.acceptedIds;
+    acceptedUsers.push({
+      acceptingUserId: v.uid,
+      dateAccepted: firebase.firestore.Timestamp.fromDate(new Date()),
+    });
     acceptedIdsAll.push(v);
     acceptedIds.push(v.uid);
     requests = this.removeOBJ(requests, v.uid);
@@ -170,6 +208,7 @@ export default class Manageusers extends Component {
     firebase.firestore().collection("jobs").doc(this.props.job.id).update({
       acceptedIds,
       requests,
+      acceptedUsers,
     });
     addNotification({
       date: firebase.firestore.Timestamp.fromDate(new Date()),
