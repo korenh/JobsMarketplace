@@ -62,7 +62,7 @@ export default class Chat extends Component {
 
   AddData = (e) => {
     e.preventDefault();
-    const dateSent = Date.now();
+    const dateSent = new Date().getTimezoneOffset();
     const from = sessionStorage.getItem("uid");
     axios
       .post(
@@ -137,9 +137,6 @@ export default class Chat extends Component {
           {this.state.messages.map((message) =>
             message.from === sessionStorage.getItem("uid") ? (
               <div key={message.dateSent} className="chat-each-message">
-                <p className="chat-each-date">
-                  {new Date(message.dateSent).toUTCString()}
-                </p>
                 <div className="chat-each-flex">
                   <img
                     src={sessionStorage.getItem("url")}
@@ -149,14 +146,16 @@ export default class Chat extends Component {
                   <div>
                     <p>{sessionStorage.getItem("name")}</p>
                     <p>{message.message}</p>
+                    <p className="chat-each-date">
+                      {new Date(message.dateSent).toLocaleDateString() +
+                        "|" +
+                        new Date(message.dateSent).toLocaleTimeString()}
+                    </p>
                   </div>
                 </div>
               </div>
             ) : (
               <div key={message.dateSent} className="chat-each-message2">
-                <p className="chat-each-date">
-                  {new Date(message.dateSent).toUTCString()}
-                </p>
                 <div className="chat-each-flex">
                   <img
                     src={this.getUserPic(message.from)}
@@ -166,6 +165,11 @@ export default class Chat extends Component {
                   <div>
                     <p>{this.getUserName(message.from)}</p>
                     <p>{message.message}</p>
+                    <p className="chat-each-date">
+                      {new Date(message.dateSent).toLocaleDateString() +
+                        "|" +
+                        new Date(message.dateSent).toLocaleTimeString()}
+                    </p>
                   </div>
                 </div>
               </div>
