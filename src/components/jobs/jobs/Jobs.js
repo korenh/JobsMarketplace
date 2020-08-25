@@ -40,7 +40,7 @@ export default class Search extends Component {
     dateValID: 11,
     radiusValID: 11,
     dateValue: new Date(new Date().setDate(new Date().getDate() - 1)),
-    endDateValue: new Date("2 2 2222 22:22"),
+    endDateValue: new Date("05 October 2024 14:48 UTC"),
     locations: [],
     requests: [],
     allUsers: [],
@@ -72,9 +72,9 @@ export default class Search extends Component {
     firebase
       .firestore()
       .collection("jobs")
-      .orderBy("endDate")
-      .where("endDate", ">=", this.state.dateValue)
-      .where("endDate", "<=", this.state.endDateValue)
+      .orderBy("startDate")
+      .where("startDate", ">=", this.state.dateValue)
+      .where("startDate", "<=", this.state.endDateValue)
       .limit(this.state.limit)
       .get()
       .then((snapshot) => {

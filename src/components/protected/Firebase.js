@@ -19,17 +19,4 @@ firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
 
-const messaging = firebase.messaging();
-messaging
-  .requestPermission()
-  .then(() => {
-    return messaging.getToken();
-  })
-  .then((token) => {
-    console.log(token);
-  })
-  .catch(() => {
-    console.log("Err");
-  });
-
 export { storage, firebase as default };
