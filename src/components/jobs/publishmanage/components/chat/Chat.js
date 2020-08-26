@@ -62,7 +62,7 @@ export default class Chat extends Component {
 
   AddData = (e) => {
     e.preventDefault();
-    const dateSent = new Date().getTimezoneOffset();
+    const dateSent = new Date();
     const from = sessionStorage.getItem("uid");
     axios
       .post(
@@ -75,6 +75,7 @@ export default class Chat extends Component {
       )
       .then((res) => {
         this.getData();
+        this.myFormRef.reset();
       });
   };
 
@@ -177,7 +178,11 @@ export default class Chat extends Component {
           )}
         </div>
         <div className="chat-div-form">
-          <form className="chat-form" onSubmit={this.AddData}>
+          <form
+            className="chat-form"
+            onSubmit={this.AddData}
+            ref={(el) => (this.myFormRef = el)}
+          >
             <input type="text" name="message" />
             <button type="submit">
               <SendIcon style={{ color: "white", fontSize: 25 }} />

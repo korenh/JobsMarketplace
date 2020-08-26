@@ -68,7 +68,7 @@
 }
 
 .jobs-selected-card-tag-item {
-  background-image: linear-gradient(-90deg, var(--main1), var(--main2));
+  background: var(--main2);
   border-radius: 20px;
   padding: 0.1em;
   margin: 5px;
@@ -149,7 +149,7 @@
 
 .jobs-selected-save-button {
   cursor: pointer;
-  padding: 0.1em 0.5em;
+  padding: 0.2em 0.5em;
   width: 120px;
   font-size: 15px;
   outline: none;
@@ -157,16 +157,16 @@
   background: white;
   color: var(--main2);
   border-radius: 20px;
-  margin: 0.5em 0;
+  margin: 0.3em 0;
 }
 
 .jobs-selected-apply-button {
   outline: none;
   cursor: pointer;
-  padding: 0.1em 0.5em;
+  padding: 0.2em 0.5em;
   width: 120px;
   font-size: 15px;
-  margin: 0.5em 0;
+  margin: 0.3em 0;
   border: none;
   background: var(--main2);
   color: white;
@@ -175,7 +175,7 @@
 
 .jobs-selected-boost-button {
   cursor: pointer;
-  padding: 0.1em 0.5em;
+  padding: 0.2em 0.5em;
   outline: none;
   width: 120px;
   font-size: 15px;
@@ -187,33 +187,33 @@
   );
   color: var(--main2);
   border-radius: 20px;
-  margin: 0.5em 0;
+  margin: 0.3em 0;
 }
 
 .jobs-selected-finish-button {
   outline: none;
   cursor: pointer;
-  padding: 0.1em 0.5em;
+  padding: 0.2em 0.5em;
   width: 120px;
   font-size: 15px;
   border: none;
   background: var(--main2);
   color: white;
   border-radius: 20px;
-  margin: 0.5em 0.1em;
+  margin: 0.3em 0;
 }
 
 .jobs-selected-delete-button {
   outline: none;
   cursor: pointer;
-  padding: 0.1em 0.5em;
+  padding: 0.2em 0.5em;
   width: 120px;
   font-size: 15px;
   border: none;
   background: rgb(226, 74, 74);
   color: white;
   border-radius: 20px;
-  margin: 0.5em 0.1em;
+  margin: 0.3em 0;
 }
 
 .jobs-selected-card-body-right {
@@ -225,6 +225,7 @@
 .jobs-selected-card-body-left {
   width: 50%;
   max-width: 80%;
+  padding: 0.5em 1em;
 }
 
 .jobs-selected-flex {
