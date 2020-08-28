@@ -5,8 +5,11 @@ import firebase from "../protected/Firebase";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import "./Signin.css";
+import UserContext from "../protected/UserContext";
 
 export default class Signin extends Component {
+  static contextType = UserContext;
+
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log("😊");
@@ -34,6 +37,7 @@ export default class Signin extends Component {
     }
   }
   handleLogin = (e) => {
+    const { setUser } = this.context;
     e.preventDefault();
     let email = e.target.elements.email.value;
     let password = e.target.elements.password.value;
@@ -53,6 +57,12 @@ export default class Signin extends Component {
               sessionStorage.setItem("url", doc.data().profileImageURL);
               sessionStorage.setItem("description", doc.data().description);
               localStorage.setItem("altro_jwt", doc.data().uid);
+              setUser(
+                doc.data().uid,
+                doc.data().name,
+                doc.data().profileImageURL,
+                doc.data().description
+              );
             });
           });
         this.props.history.push("/main/jobs");

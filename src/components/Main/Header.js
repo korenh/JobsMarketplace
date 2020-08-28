@@ -6,8 +6,11 @@ import Profile from "./components/Profile";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import MenuIcon from "@material-ui/icons/Menu";
 import Switch from "@material-ui/core/Switch";
+import UserContext from "../protected/UserContext";
 
 export default class Header extends Component {
+  static contextType = UserContext;
+
   state = {
     popup: false,
     notification: false,
@@ -47,11 +50,14 @@ export default class Header extends Component {
   };
 
   toggleSwitch = () => {
+    const { lang, setLang } = this.context;
     this.setState({ toggle: !this.state.toggle });
-    sessionStorage.setItem("language", this.state.toggle);
+    setLang(lang);
   };
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div className="header">
         <img src={Altro} alt="img" className="header-icon2" />
@@ -110,20 +116,25 @@ export default class Header extends Component {
           )}
           {this.state.menu ? (
             <div className="notifications-slide">
-              <div className="header-menu">
-                <button>About Altro</button>
+              <div
+                className="header-menu"
+                style={lang ? { textAlign: "right" } : {}}
+              >
+                <button>{lang ? "על אלטרו" : "About Altro"}</button>
                 <br />
-                <button>Contact Us</button>
+                <button>{lang ? "צור קשר" : "Contact Us"}</button>
                 <br />
-                <button>Legal</button>
+                <button>{lang ? "חוקיות" : "Legal"}</button>
                 <br />
-                <button className="header-menu-share">Share the App</button>
+                <button className="header-menu-share">
+                  {lang ? "שתף אותנו" : "Share the App"}
+                </button>
                 <br />
                 <button
                   className="header-menu-logout"
                   onClick={() => this.logout()}
                 >
-                  Logout
+                  {lang ? "יציאה" : "Logout"}
                 </button>
                 <br />
                 <p
@@ -140,7 +151,7 @@ export default class Header extends Component {
                     onChange={() => this.toggleSwitch()}
                   />
                   <br />
-                  English/Hebrew
+                  English/עברית
                 </p>
               </div>
             </div>
