@@ -11,6 +11,7 @@ export default class Signin extends Component {
   static contextType = UserContext;
 
   componentDidMount() {
+    const { setUser } = this.context;
     navigator.geolocation.getCurrentPosition((position) => {
       console.log("😊");
     });
@@ -26,6 +27,12 @@ export default class Signin extends Component {
             sessionStorage.setItem("name", doc.data().name);
             sessionStorage.setItem("url", doc.data().profileImageURL);
             sessionStorage.setItem("description", doc.data().description);
+            setUser(
+              doc.data().uid,
+              doc.data().name,
+              doc.data().profileImageURL,
+              doc.data().description
+            );
           });
         });
       this.props.history.push("/main/jobs");

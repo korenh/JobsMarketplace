@@ -2,7 +2,6 @@ import React, { Component } from "react";
 const UserContext = React.createContext();
 
 class UserProvider extends Component {
-  // Context state
   state = {
     user: {
       uid: "",
@@ -11,6 +10,8 @@ class UserProvider extends Component {
       description: "",
     },
     lang: false,
+    lat: "",
+    lng: "",
   };
 
   setLang = () => {
@@ -25,13 +26,18 @@ class UserProvider extends Component {
       description,
     };
     this.setState({ user });
-    alert(user.name);
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({ lat: position.coords.latitude });
+      this.setState({ lng: position.coords.longitude });
+    });
   };
 
   render() {
     const { children } = this.props;
     const { user } = this.state;
     const { lang } = this.state;
+    const { lat } = this.state;
+    const { lng } = this.state;
     const { setUser } = this;
     const { setLang } = this;
 
@@ -42,6 +48,8 @@ class UserProvider extends Component {
           setUser,
           setLang,
           lang,
+          lat,
+          lng,
         }}
       >
         {children}

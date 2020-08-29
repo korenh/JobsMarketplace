@@ -20,8 +20,11 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Contact from "../publishmanage/components/contact/Contact";
 import StarRatingComponent from "react-star-rating-component";
+import UserContext from "../../protected/UserContext";
 
 export default class Myjobs extends Component {
+  static contextType = UserContext;
+
   state = {
     hours: [
       { id: 1, name: "< 3hrs" },
@@ -446,6 +449,8 @@ export default class Myjobs extends Component {
   };
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div>
         <div className="myjobs-main-head-flex">
@@ -457,7 +462,8 @@ export default class Myjobs extends Component {
             }}
           >
             <StarIcon style={{ color: "white", fontSize: 15 }} />
-            Saved
+
+            {lang ? "שמור" : "Saved"}
           </p>
           <p
             onClick={() => this.setGoing()}
@@ -467,7 +473,8 @@ export default class Myjobs extends Component {
             }}
           >
             <NearMeIcon style={{ color: "white", fontSize: 15 }} />
-            Going
+
+            {lang ? "מאושר" : "Going"}
           </p>
         </div>
         {this.state.ContactPopup ? (

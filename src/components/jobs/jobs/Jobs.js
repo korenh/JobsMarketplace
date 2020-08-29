@@ -16,8 +16,11 @@ import Mapview from "../map/Mapview";
 import firebase from "../../protected/Firebase";
 import ReactMapGL, { Marker } from "react-map-gl";
 import StarRatingComponent from "react-star-rating-component";
+import UserContext from "../../protected/UserContext";
 
 export default class Search extends Component {
+  static contextType = UserContext;
+
   state = {
     hours: [
       { id: 1, name: "< 3hrs" },
@@ -287,6 +290,8 @@ export default class Search extends Component {
   };
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div style={{ textAlign: "center" }}>
         <div className="myjobs-main-head-flex">
@@ -298,7 +303,7 @@ export default class Search extends Component {
             <Filter style={{ color: "rgb(45, 123, 212)", fontSize: 15 }}>
               add_circle
             </Filter>
-            Filter
+            {lang ? "סינון" : "Filter"}
           </p>
           <p
             className="job-top-flex-p"
@@ -308,7 +313,7 @@ export default class Search extends Component {
             <MapIcon style={{ color: "rgb(45, 123, 212)", fontSize: 15 }}>
               add_circle
             </MapIcon>
-            MapView
+            {lang ? "מפה" : "MapView"}
           </p>
         </div>
         {this.state.filterpop ? (

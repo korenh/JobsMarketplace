@@ -31,8 +31,11 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import StarRatingComponent from "react-star-rating-component";
+import UserContext from "../../protected/UserContext";
 
 export default class Jobs extends Component {
+  static contextType = UserContext;
+
   state = {
     docState: {},
     job: {},
@@ -395,6 +398,8 @@ export default class Jobs extends Component {
   };
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div>
         <div className="myjobs-main-head-flex">
@@ -406,11 +411,11 @@ export default class Jobs extends Component {
             <AddCircleIcon
               style={{ color: "rgb(45, 123, 212)", fontSize: 15 }}
             />
-            New Job
+            {lang ? "הוסף" : "New Job"}
           </p>
           <p className="job-top-flex-p" style={{ color: "rgb(45, 123, 212)" }}>
             <ArchiveIcon style={{ color: "rgb(45, 123, 212)", fontSize: 15 }} />
-            Archive
+            {lang ? "ארכיון" : "Archive"}
           </p>
         </div>
         {this.state.reviewJob ? (
@@ -460,7 +465,10 @@ export default class Jobs extends Component {
           )}
           <br />
           {this.state.popUp ? (
-            <div className="new-job">
+            <div
+              className="new-job"
+              style={lang ? { textAlign: "right", direction: "rtl" } : {}}
+            >
               <HighlightOffIcon
                 onClick={() => this.setState({ popUp: false, popUp2: false })}
                 className="newjob-close-btn"
@@ -468,10 +476,10 @@ export default class Jobs extends Component {
                 style={{ fontSize: 40, color: "rgb(45, 123, 212)" }}
               />
 
-              <h2>New Job</h2>
+              <h2>{lang ? "פרסם עבודה" : "New Job"}</h2>
               <input
                 type="text"
-                placeholder="Job Title"
+                placeholder={lang ? "שם העבודה" : "Job Title"}
                 className="new-job-input"
                 defaultValue={this.state.title}
                 onChange={(e) => this.setState({ title: e.target.value })}
@@ -479,13 +487,21 @@ export default class Jobs extends Component {
               <br />
               <textarea
                 type="text"
-                placeholder="Job Description & Requirements"
+                placeholder={
+                  lang
+                    ? "מידע ודרישות לעבודה"
+                    : "Job Description & Requirements"
+                }
                 className="new-job-textarea"
                 defaultValue={this.state.description}
                 onChange={(e) => this.setState({ description: e.target.value })}
               />
               <br />
-              <p>Pick up to 5 categories which your job applies.</p>
+              <p>
+                {lang
+                  ? "בחר 5 קטגוריות בהתאם לעבודה"
+                  : "Pick up to 5 categories which your job applies."}
+              </p>
               <div className="jobs-card-tags">
                 {this.state.listCategories.map((v) => (
                   <span
@@ -504,7 +520,11 @@ export default class Jobs extends Component {
                   </span>
                 ))}
               </div>
-              <p>How many employees requires for the job?</p>
+              <p>
+                {lang
+                  ? "בחר כמות עובדים הנדרשת לעבודה"
+                  : "How many employees requires for the job?"}
+              </p>
               <div className="newjob-number-flex">
                 <p
                   className="newjob-plus-button"
@@ -528,7 +548,11 @@ export default class Jobs extends Component {
                   -
                 </p>
               </div>
-              <p>What is approximated job duration?</p>
+              <p>
+                {lang
+                  ? "זמן צפוי למשך העבודה"
+                  : "What is approximated job duration?"}
+              </p>
               <div className="newjob-hours-list">
                 {this.state.hours.map((tag) =>
                   this.state.hour.id === tag.id ? (
@@ -546,8 +570,12 @@ export default class Jobs extends Component {
                   )
                 )}
               </div>
-              <h3>Payment infornmation</h3>
-              <p>How much will you pay for the job (per emplyee)?</p>
+              <h3>{lang ? "מידע לתשלום" : "Payment infornmation"}</h3>
+              <p>
+                {lang
+                  ? "תשלום עבודה לכל עובד"
+                  : "How much will you pay for the job (per emplyee)?"}
+              </p>
               <div className="newjob-number-flex">
                 <p
                   className="newjob-plus-button"
@@ -576,7 +604,7 @@ export default class Jobs extends Component {
                 style={{ fontSize: "20px" }}
                 onChange={(e) => this.setState({ hourly: !this.state.hourly })}
               />
-              <span> Payment is hourly</span>
+              <span>{lang ? "תשלום שעתי" : "Payment is hourly"}</span>
               <br />
               <br />
               <input
@@ -586,25 +614,33 @@ export default class Jobs extends Component {
                   this.setState({ transportation: !this.state.transportation })
                 }
               />
-              <span> I shall be paying for emplyers transportation fees</span>
-              <h3>When & Where</h3>
-              <p>When is the job taking place?</p>
+              <span>
+                {lang
+                  ? " משלם הוצאות תחבורה"
+                  : " I shall be paying for emplyers transportation fees"}
+              </span>
+              <h3>{lang ? "איפה ומתי" : " When & Where"}</h3>
+              <p>{lang ? "מתי העבודה" : "When is the job taking time"}</p>
               <DatePicker
                 selected={this.state.endDate}
                 onChange={this.handleEnd}
                 className="jobs-datepicker"
               />
-              <span> Select End date </span>
+              <span> {lang ? "בחר תאריך סיום" : "Select End date "}</span>
               <br />
               <DatePicker
                 selected={this.state.startDate}
                 onChange={this.handleStart}
                 className="jobs-datepicker"
               />
-              <span> Select Start time </span>
+              <span>{lang ? "בחר תאריך התחלה" : " Select Start time "}</span>
 
-              <p>Where is the job taking place?</p>
-              <p>*Current location is Default</p>
+              <p>{lang ? "היכן העבודה" : "Where is the job taking place"}</p>
+              <p>
+                {lang
+                  ? "מיקום נוכחי הוא ברירת מחדל*"
+                  : "*Current location is Default"}
+              </p>
               <br />
               <br />
               <Mapview2
@@ -615,24 +651,28 @@ export default class Jobs extends Component {
               <br />
               <br />
               <button onClick={() => this.Continue()} className="signup-button">
-                Continue
+                {lang ? "המשך" : "Continue"}
               </button>
             </div>
           ) : (
             ""
           )}
           {this.state.popUp2 ? (
-            <div className="new-job">
+            <div
+              className="new-job"
+              style={lang ? { textAlign: "right", direction: "rtl" } : {}}
+            >
               <ChevronLeftIcon
                 onClick={() => this.setState({ popUp: true, popUp2: false })}
                 className="newjob-back-btn"
                 alt="img"
                 style={{ color: "white", fontSize: 40 }}
               />
-              <h2>Confirm detailes</h2>
+              <h2> {lang ? "אישור פרטים" : "Confirm detailes"}</h2>
               <p>
-                Please review the details of your job before posting it. you may
-                go back and edit details if necessary.
+                {lang
+                  ? "אנא וודא שכל הפרטים שהזנת נכונים . במידה ולא , תוכל לחזור אחורה לעריכת המידע"
+                  : "Please review the details of your job before posting it. you may go back and edit details if necessary."}
               </p>
               <div className="new-job-details">
                 <p>
@@ -673,7 +713,7 @@ export default class Jobs extends Component {
                   style={{ fontSize: "20px" }}
                   onChange={(e) => this.setState({ agree: !this.state.agree })}
                 />
-                <span> I agree to Altro's </span>
+                <span>{lang ? "אני מסכים לאלטרו" : "I agree to Altro's"} </span>
                 <Link to="/" className="signup-link">
                   Terms of Services & Employment
                 </Link>
@@ -685,7 +725,7 @@ export default class Jobs extends Component {
               </div>
               <br />
               <button onClick={() => this.addJob()} className="signup-button">
-                Publish Job
+                {lang ? "פרסום" : "Publish Job"}
               </button>
             </div>
           ) : (
