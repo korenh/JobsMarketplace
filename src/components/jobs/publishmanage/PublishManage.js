@@ -587,7 +587,7 @@ export default class Jobs extends Component {
                 >
                   +
                 </p>
-                <p className="newjob-required">{this.state.payment}$</p>
+                <p className="newjob-required">{this.state.payment}₪</p>
                 <p
                   className="newjob-minus-button"
                   onClick={() =>
@@ -692,7 +692,7 @@ export default class Jobs extends Component {
                 <p>
                   Payment:
                   <span>
-                    ${this.state.payment} {this.state.hourly ? "hourly" : ""}
+                    ₪{this.state.payment} {this.state.hourly ? "hourly" : ""}
                   </span>
                 </p>
                 <p>
@@ -740,7 +740,7 @@ export default class Jobs extends Component {
               >
                 <div className="jobs-card-title">
                   <p className="jobs-card-description">{job.title}</p>
-                  <h3>${job.payment}</h3>
+                  <h3>₪{job.payment}</h3>
                 </div>
                 <div className="jobs-card-info">
                   <p>
@@ -842,7 +842,7 @@ export default class Jobs extends Component {
                   <div className="jobs-selected-card-body-left">
                     <div className="jobs-card-title">
                       <p>{job.title}</p>
-                      <h3>${job.payment}</h3>
+                      <h3>₪{job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
                       <p>
@@ -909,13 +909,15 @@ export default class Jobs extends Component {
                   </div>
                   <div className="jobs-selected-card-body-right">
                     <div className="jobs-selected-bottom-line">
-                      <p style={{ lineHeight: "0" }}>Manage your job</p>
+                      <p style={{ lineHeight: "0" }}>
+                        {lang ? "ניהול העבודה" : "Manage your job"}
+                      </p>
                       <br />
                       <button className="jobs-selected-boost-button">
                         <ArrowUpwardIcon
                           style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
                         />
-                        Boost
+                        {lang ? "שיפור" : "Boost"}
                       </button>
                       <br />
                       <button
@@ -925,7 +927,7 @@ export default class Jobs extends Component {
                         <GroupIcon
                           style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
                         />
-                        Manage
+                        {lang ? "ניהול" : "Manage"}
                       </button>
                       <br />
                       <button
@@ -934,8 +936,8 @@ export default class Jobs extends Component {
                       >
                         <EditIcon
                           style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
-                        />{" "}
-                        Edit
+                        />
+                        {lang ? "עריכה" : "Edit"}
                       </button>
                       <br />
                       <button
@@ -944,8 +946,8 @@ export default class Jobs extends Component {
                       >
                         <ChatIcon
                           style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
-                        />{" "}
-                        Chat
+                        />
+                        {lang ? "הודעות" : "Chat"}
                       </button>
                       <br />
                       <button
@@ -954,8 +956,8 @@ export default class Jobs extends Component {
                       >
                         <CheckCircleIcon
                           style={{ color: "white", fontSize: 14 }}
-                        />{" "}
-                        Finish Job
+                        />
+                        {lang ? "סיום" : "Finish Job"}
                       </button>
                       <br />
                       <button
@@ -963,7 +965,7 @@ export default class Jobs extends Component {
                         onClick={() => this.deleteJob(job)}
                       >
                         <DeleteIcon style={{ color: "white", fontSize: 14 }} />
-                        Delete Job
+                        {lang ? "מחיקה" : "Delete Job"}
                       </button>
                     </div>
                     <img

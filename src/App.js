@@ -7,7 +7,7 @@ import PublishManage from "./components/jobs/publishmanage/PublishManage";
 import Jobs from "./components/jobs/jobs/Jobs";
 import Myjobs from "./components/jobs/myjobs/Myjobs";
 import { UserProvider } from "./components/protected/UserContext";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
         <Route path="/main/publishmanage" exact component={PublishManage} />
         <Route path="/main/jobs" exact component={Jobs} />
         <Route path="/main/myjobs" exact component={Myjobs} />
+        <Redirect to="/" />
       </Router>
     </UserProvider>
   );

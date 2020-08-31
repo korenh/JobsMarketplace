@@ -3,8 +3,11 @@ import "./Profile.css";
 import firebase from "../../protected/Firebase";
 import EditIcon from "@material-ui/icons/Edit";
 import StarRatingComponent from "react-star-rating-component";
+import UserContext from "../../protected/UserContext";
 
 export default class Profile extends Component {
+  static contextType = UserContext;
+
   state = { user: {}, EME: undefined, EMR: undefined };
 
   componentDidMount() {
@@ -23,6 +26,8 @@ export default class Profile extends Component {
   }
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div className="profile">
         <div className="profile-head">
@@ -35,20 +40,17 @@ export default class Profile extends Component {
             {this.state.user.name}
           </p>
           <button className="profile-button">
-            {" "}
-            <EditIcon
-              style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
-            />{" "}
-            Edit Profile
+            <EditIcon style={{ color: "rgb(45, 123, 212)", fontSize: 14 }} />
+            {lang ? "ערוך פרופיל" : "Edit Profile"}
           </button>
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
-            About me
+            {lang ? "על עצמי" : "About me"}
           </p>
           <p style={{ fontSize: "14px", textAlign: "left" }}>
             {this.state.user.description}
           </p>
           <p style={{ lineHeight: "0", fontSize: "17px", textAlign: "left" }}>
-            Rating
+            {lang ? "דירוג" : "Rating"}
           </p>
           <StarRatingComponent
             starCount={5}
@@ -67,7 +69,7 @@ export default class Profile extends Component {
               >
                 {Math.round(this.state.EME * 10) / 10}
               </p>
-              <p style={{ fontSize: "12px" }}>Employee</p>
+              <p style={{ fontSize: "12px" }}>{lang ? "עובד" : "Employee"}</p>
             </div>
             <div>
               <p
@@ -79,7 +81,7 @@ export default class Profile extends Component {
               >
                 {Math.round(this.state.EMR * 10) / 10}
               </p>
-              <p style={{ fontSize: "12px" }}>Employer</p>
+              <p style={{ fontSize: "12px" }}>{lang ? "מעסיק" : "Employer"}</p>
             </div>
           </div>
         </div>

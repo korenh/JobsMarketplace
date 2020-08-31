@@ -319,8 +319,8 @@ export default class Search extends Component {
         {this.state.filterpop ? (
           <div className="filter-card-main">
             <div className="filter-card-main-inner">
-              <h3>Job filter</h3>
-              <p>How far can you go?</p>
+              <h3> {lang ? "סינון עבודה" : "Job filter"}</h3>
+              <p> {lang ? "סינון לפי מרחק" : "How far can you go?"}</p>
               <div className="filter-card-flex">
                 <p
                   style={
@@ -407,7 +407,7 @@ export default class Search extends Component {
                   100+ km
                 </p>
               </div>
-              <p>When?</p>
+              <p>{lang ? "סינון לפי זמן" : "When?"}</p>
               <div className="filter-card-flex">
                 <p
                   style={
@@ -472,13 +472,13 @@ export default class Search extends Component {
                 className="filter-card-cancel"
                 onClick={() => this.setFilter()}
               >
-                Cancel
+                {lang ? "ביטול" : "Cancel"}
               </button>
               <button
                 className="filter-card-search"
                 onClick={() => this.handleSearch()}
               >
-                Search
+                {lang ? "חיפוש" : "Search"}
               </button>
             </div>
           </div>
@@ -508,7 +508,7 @@ export default class Search extends Component {
               >
                 <div className="jobs-card-title">
                   <p className="jobs-card-description">{job.title}</p>
-                  <h3>${job.payment}</h3>
+                  <h3>₪{job.payment}</h3>
                 </div>
                 <div className="jobs-card-info">
                   <p>
@@ -565,7 +565,7 @@ export default class Search extends Component {
                   <div className="jobs-selected-card-body-left">
                     <div className="jobs-card-title">
                       <p>{job.title}</p>
-                      <h3>${job.payment}</h3>
+                      <h3>₪{job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
                       <p>
@@ -639,7 +639,7 @@ export default class Search extends Component {
                         <StarIcon
                           style={{ color: "rgb(45, 123, 212)", fontSize: 14 }}
                         ></StarIcon>
-                        Save job
+                        {lang ? "שמור" : "Save job"}
                       </button>
                       <br />
                       <button
@@ -649,7 +649,7 @@ export default class Search extends Component {
                         <NearMeIcon
                           style={{ color: "white", fontSize: 14 }}
                         ></NearMeIcon>
-                        Apply to job
+                        {lang ? "הגש בקשה" : "Apply to job"}
                       </button>
                     </div>
                     <img
@@ -670,7 +670,7 @@ export default class Search extends Component {
         </div>
         {this.state.jobs.length > 9 ? (
           <button onClick={() => this.loadMore()} className="jobs-load-more">
-            More results
+            {lang ? "תוצאות נוספות" : "More results"}
           </button>
         ) : (
           ""

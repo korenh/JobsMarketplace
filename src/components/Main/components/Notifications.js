@@ -8,8 +8,11 @@ import ErrorIcon from "@material-ui/icons/Error";
 import "./Notifications.css";
 import HelpIcon from "@material-ui/icons/Help";
 import Review2 from "../../jobs/publishmanage/components/review/Review2";
+import UserContext from "../../protected/UserContext";
 
 export default class Notifications extends Component {
+  static contextType = UserContext;
+
   state = {
     notifications: [],
     reviewPop: false,
@@ -72,13 +75,15 @@ export default class Notifications extends Component {
   };
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div className="notifications">
         <button
           className="notifications-clear-all"
           onClick={() => this.deleteAllNotification()}
         >
-          Clear All notification
+          {lang ? "ניקוי כל ההתרראות" : "Clear All notification"}
         </button>
         {this.state.reviewPop ? (
           <Review2 jobFinished={this.jobFinished} job={this.state.jobdata} />

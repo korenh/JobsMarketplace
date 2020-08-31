@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import "./Dashboard.css";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Manageusers from "../manageusers/Manageusers";
+import UserContext from "../../../../protected/UserContext";
 
 export default class Dashboard extends Component {
+  static contextType = UserContext;
+
   state = {
     manageEmplyees: false,
     job: {},
   };
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div className="dashboard">
         {this.state.manageEmplyees ? (
@@ -34,17 +39,27 @@ export default class Dashboard extends Component {
         </div>
         <div className="dashboard-quick">
           <p>Quick Actions</p>
-          <button className="jobs-selected-boost-button">Boost</button>
-          <button className="jobs-selected-save-button">Manage</button>
-          <button className="jobs-selected-save-button">Edit</button>
-          <button className="jobs-selected-save-button">Chat</button>
+          <button className="jobs-selected-boost-button">
+            {lang ? "שיפור" : "Boost"}
+          </button>
+          <button className="jobs-selected-save-button">
+            {lang ? "ניהול" : "Manage"}
+          </button>
+          <button className="jobs-selected-save-button">
+            {lang ? "עריכה" : "Edit"}
+          </button>
+          <button className="jobs-selected-save-button">
+            {lang ? "הודעות" : "Chat"}
+          </button>
           <br />
-          <button className="jobs-selected-finish-button">Finish Job</button>
+          <button className="jobs-selected-finish-button">
+            {lang ? "סיום" : "Finish Job"}
+          </button>
           <button
             className="jobs-selected-delete-button"
             onClick={() => this.props.deleteJob(this.props.job)}
           >
-            Delete Job
+            {lang ? "מחיקה" : "Delete Job"}
           </button>
         </div>
         <div className="dashboard-manage">

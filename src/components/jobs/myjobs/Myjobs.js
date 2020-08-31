@@ -505,7 +505,7 @@ export default class Myjobs extends Component {
                   >
                     <div className="jobs-card-title">
                       <p className="jobs-card-description">{job.title}</p>
-                      <h3>${job.payment}</h3>
+                      <h3>₪{job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
                       <p>
@@ -566,7 +566,7 @@ export default class Myjobs extends Component {
                       <div className="jobs-selected-card-body-left">
                         <div className="jobs-card-title">
                           <p>{job.title}</p>
-                          <h3>${job.payment}</h3>
+                          <h3>₪{job.payment}</h3>
                         </div>
                         <div className="jobs-card-info">
                           <p>
@@ -714,7 +714,7 @@ export default class Myjobs extends Component {
                   >
                     <div className="jobs-card-title">
                       <p className="jobs-card-description">{job.title}</p>
-                      <h3>${job.payment}</h3>
+                      <h3>₪{job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
                       <p>
@@ -767,7 +767,7 @@ export default class Myjobs extends Component {
                       <div className="jobs-selected-card-body-left">
                         <div className="jobs-card-title">
                           <p>{job.title}</p>
-                          <h3>${job.payment}</h3>
+                          <h3>₪{job.payment}</h3>
                         </div>
                         <div className="jobs-card-info">
                           <p>
@@ -922,7 +922,7 @@ export default class Myjobs extends Component {
                   >
                     <div className="jobs-card-title">
                       <p className="jobs-card-description">{job.title}</p>
-                      <h3>${job.payment}</h3>
+                      <h3>₪{job.payment}</h3>
                     </div>
                     <div className="jobs-card-info">
                       <p>
@@ -983,7 +983,7 @@ export default class Myjobs extends Component {
                       <div className="jobs-selected-card-body-left">
                         <div className="jobs-card-title">
                           <p>{job.title}</p>
-                          <h3>${job.payment}</h3>
+                          <h3>₪{job.payment}</h3>
                         </div>
                         <div className="jobs-card-info">
                           <p>
