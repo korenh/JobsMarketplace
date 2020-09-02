@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import UserContext from "../../protected/UserContext";
+import firebase from "../../protected/Firebase";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default class Editprofile extends Component {
   static contextType = UserContext;
@@ -12,6 +15,13 @@ export default class Editprofile extends Component {
   };
 
   updateData = () => {
+    firebase.firestore().collection("users").doc(this.props.user.uid).update({
+      name: this.state.name,
+      phone: this.state.phone,
+      description: this.state.description,
+    });
+    toast.configure();
+    toast.success("Successfully updated", { autoClose: 2000 });
     this.props.editProfile();
   };
 
@@ -51,6 +61,13 @@ export default class Editprofile extends Component {
         <br />
         <button className="signin-button" onClick={() => this.updateData()}>
           {lang ? "עדכון" : "Update"}
+        </button>
+        <button
+          className="signin-button"
+          style={{ background: "red" }}
+          onClick={() => this.props.editProfile()}
+        >
+          {lang ? "ביטול" : "Cancel"}
         </button>
       </div>
     );
