@@ -188,7 +188,7 @@ export default class Myjobs extends Component {
           )
             .then((response) => response.json())
             .then((data) => {
-              const Geo = { Geo: data.city, id: doc.id };
+              const Geo = { Geo: data.locality, id: doc.id };
               allLocations.push(Geo);
               this.setState({ allLocations });
             });
@@ -263,7 +263,7 @@ export default class Myjobs extends Component {
           )
             .then((response) => response.json())
             .then((data) => {
-              const Geo = { Geo: data.city, id: doc.id };
+              const Geo = { Geo: data.locality, id: doc.id };
               allLocations.push(Geo);
               this.setState({ allLocations });
             });

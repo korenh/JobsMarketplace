@@ -119,7 +119,7 @@ export default class Search extends Component {
           )
             .then((response) => response.json())
             .then((data) => {
-              const Geo = { Geo: data.city, id: doc.id };
+              const Geo = { Geo: data.locality, id: doc.id };
               allLocations.push(Geo);
               this.setState({ allLocations });
             });
@@ -590,7 +590,7 @@ export default class Search extends Component {
                             }}
                           />
                         </span>
-                        {Math.round(job.km)} km , {job.Geoname}
+                        {Math.round(job.km)} km {this.getUserGeoName(job.id)}
                       </p>
                     </div>
                     <div className="jobs-card-tags">

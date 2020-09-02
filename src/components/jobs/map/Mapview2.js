@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 
 export default function Mapview2(props) {
-  const [mark, setMark] = useState([props.lat, props.lng]);
+  const [mark, setMark] = useState([
+    props.lat === undefined ? 32.330192 : props.lat,
+    props.lng === undefined ? 34.9226923 : props.lng,
+  ]);
   const [viewport, setViewport] = useState({
-    latitude: props.lat,
-    longitude: props.lng,
+    latitude: props.lat === undefined ? 32.330192 : props.lat,
+    longitude: props.lng === undefined ? 34.9226923 : props.lng,
     width: "100%",
     height: "40vh",
     zoom: 10,

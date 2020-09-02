@@ -6,8 +6,8 @@ import PersonPinCircleIcon from "@material-ui/icons/PersonPinCircle";
 
 export default function Mapview(props) {
   const [viewport, setViewport] = useState({
-    latitude: props.lat,
-    longitude: props.lng,
+    latitude: props.lat === undefined ? 32.330192 : props.lat,
+    longitude: props.lng === undefined ? 34.9226923 : props.lng,
     width: "100%",
     height: "80vh",
     zoom: 10,
@@ -38,8 +38,8 @@ export default function Mapview(props) {
         <Marker
           offsetTop={-48}
           offsetLeft={-24}
-          latitude={props.lat}
-          longitude={props.lng}
+          latitude={props.lat === undefined ? 32.330192 : props.lat}
+          longitude={props.lng === undefined ? 34.9226923 : props.lng}
         >
           <PersonPinCircleIcon style={{ fontSize: 70, color: "#FF4500" }} />
         </Marker>

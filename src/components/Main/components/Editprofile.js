@@ -15,6 +15,8 @@ export default class Editprofile extends Component {
   };
 
   updateData = () => {
+    sessionStorage.setItem("name", this.state.name);
+    sessionStorage.setItem("description", this.state.description);
     firebase.firestore().collection("users").doc(this.props.user.uid).update({
       name: this.state.name,
       phone: this.state.phone,
