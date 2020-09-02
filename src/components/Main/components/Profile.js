@@ -4,11 +4,12 @@ import firebase from "../../protected/Firebase";
 import EditIcon from "@material-ui/icons/Edit";
 import StarRatingComponent from "react-star-rating-component";
 import UserContext from "../../protected/UserContext";
+import Editprofile from "./Editprofile";
 
 export default class Profile extends Component {
   static contextType = UserContext;
 
-  state = { user: {}, EME: undefined, EMR: undefined };
+  state = { user: {}, EME: undefined, EMR: undefined, editMode: false };
 
   componentDidMount() {
     firebase
@@ -25,12 +26,24 @@ export default class Profile extends Component {
       });
   }
 
+  editProfile = () => {
+    this.setState({ editMode: !this.state.editMode });
+  };
+
   render() {
     const { lang } = this.context;
 
     return (
       <div className="profile">
         <div className="profile-head">
+          {this.state.editMode ? (
+            <Editprofile
+              user={this.state.user}
+              editProfile={this.editProfile}
+            />
+          ) : (
+            ""
+          )}
           <img
             src={sessionStorage.getItem("url")}
             alt="img"
@@ -39,7 +52,7 @@ export default class Profile extends Component {
           <p style={{ lineHeight: "0", fontSize: "17px" }}>
             {this.state.user.name}
           </p>
-          <button className="profile-button">
+          <button className="profile-button" onClick={() => this.editProfile()}>
             <EditIcon style={{ color: "rgb(45, 123, 212)", fontSize: 14 }} />
             {lang ? "ערוך פרופיל" : "Edit Profile"}
           </button>

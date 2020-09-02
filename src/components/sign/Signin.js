@@ -98,14 +98,14 @@ export default class Signin extends Component {
         <form className="login-form" onSubmit={this.handleLogin}>
           <input
             type="mail"
-            placeholder="   Email"
+            placeholder="Email"
             className="signin-inp"
             name="email"
           />
           <br />
           <input
             type="password"
-            placeholder="   Password"
+            placeholder="Password"
             className="signin-inp"
             name="password"
           />
