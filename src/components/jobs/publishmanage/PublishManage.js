@@ -509,7 +509,7 @@ export default class Jobs extends Component {
                     key={v.index}
                     onClick={() => this.addStringcategories(v)}
                   >
-                    #{v.en}
+                    {lang ? "#" + v.he : "#" + v.en}
                   </span>
                 ))}
               </div>
