@@ -72,6 +72,7 @@ export default class Jobs extends Component {
     stringCategories: [],
     indexCategories: [],
     allLocations: [],
+    uploadType: true,
   };
 
   handleEnd = (date) => {
@@ -140,6 +141,11 @@ export default class Jobs extends Component {
       )
       .then((response) => {
         this.setState({ listCategories: response.data });
+      });
+    axios
+      .get("https://altro-db7f0.firebaseio.com/config/manualApproval.json")
+      .then((response) => {
+        this.setState({ uploadType: response.data });
       });
   }
 
@@ -233,10 +239,11 @@ export default class Jobs extends Component {
       alert("Please accept Terms of Services & Privacy Policy");
       return;
     }
+
     this.setState({ popUp2: false });
     firebase
       .firestore()
-      .collection("jobs")
+      .collection(this.state.uploadType ? "pendingJobs" : "jobs")
       .add({
         id: "fff",
         creatingUserId: sessionStorage.getItem("uid"),
