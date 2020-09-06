@@ -2,6 +2,7 @@ import React from "react";
 import Signin from "./components/sign/Signin";
 import Signup from "./components/sign/Signup";
 import Header from "./components/Main/Header";
+import Particles from "react-particles-js";
 import Nav from "./components/Main/Nav";
 import PublishManage from "./components/jobs/publishmanage/PublishManage";
 import Jobs from "./components/jobs/jobs/Jobs";
@@ -13,6 +14,20 @@ function App() {
   return (
     <UserProvider>
       <Router>
+        <Particles
+          className="Particles"
+          params={{
+            particles: {
+              number: {
+                value: 100,
+                density: {
+                  enable: true,
+                  value_area: 1000,
+                },
+              },
+            },
+          }}
+        />
         <Route path="/" exact component={Signin} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/main" component={Header} />
