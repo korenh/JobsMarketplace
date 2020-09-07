@@ -1,6 +1,6 @@
 .loading-page {
-  background: var(--main2);
-  z-index: 5;
+  background-image: linear-gradient(-90deg, var(--main1), var(--main2));
+  z-index: 2;
   position: fixed;
   width: 100%;
   height: 100vh;
