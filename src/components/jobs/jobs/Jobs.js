@@ -17,6 +17,7 @@ import firebase from "../../protected/Firebase";
 import ReactMapGL, { Marker } from "react-map-gl";
 import StarRatingComponent from "react-star-rating-component";
 import UserContext from "../../protected/UserContext";
+import Loading from "../../functions/Loading";
 
 export default class Search extends Component {
   static contextType = UserContext;
@@ -48,6 +49,7 @@ export default class Search extends Component {
     requests: [],
     allUsers: [],
     allLocations: [],
+    online: false,
   };
 
   loadMore = () => {
@@ -136,7 +138,7 @@ export default class Search extends Component {
                 employerRating: doc.data().employerRating.sumOfRatings,
               };
               allUsers.push(data);
-              this.setState({ allUsers });
+              this.setState({ allUsers, online: true });
             });
           //-----method ends here-----//
           allData.push(data);
@@ -294,6 +296,7 @@ export default class Search extends Component {
 
     return (
       <div style={{ textAlign: "center" }}>
+        {this.state.online ? "" : <Loading />}
         <div className="myjobs-main-head-flex">
           <p
             className="job-top-flex-p"
