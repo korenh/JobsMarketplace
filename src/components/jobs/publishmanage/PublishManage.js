@@ -32,6 +32,7 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import StarRatingComponent from "react-star-rating-component";
 import UserContext from "../../protected/UserContext";
+import Loading from "../../functions/Loading";
 
 export default class Jobs extends Component {
   static contextType = UserContext;
@@ -73,6 +74,7 @@ export default class Jobs extends Component {
     indexCategories: [],
     allLocations: [],
     uploadType: true,
+    online: false,
   };
 
   handleEnd = (date) => {
@@ -226,7 +228,7 @@ export default class Jobs extends Component {
             .then((data) => {
               const Geo = { Geo: data.locality, id: doc.id };
               allLocations.push(Geo);
-              this.setState({ allLocations });
+              this.setState({ allLocations, online: true });
             });
           allData.push(data);
         });
@@ -409,6 +411,7 @@ export default class Jobs extends Component {
 
     return (
       <div>
+        {this.state.online ? "" : <Loading />}
         <div className="myjobs-main-head-flex">
           <p
             className="job-top-flex-p"
