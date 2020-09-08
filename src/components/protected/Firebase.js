@@ -6,7 +6,7 @@ import "firebase/firestore";
 import "firebase/messaging";
 
 var firebaseConfig = {
-  apiKey: process.env.REACT_APP_SECRET,
+  apiKey: "AIzaSyBbxuTxDeQbqO3Q6EawvRuwoFaelZbto4E",
   authDomain: "altro-db7f0.firebaseapp.com",
   databaseURL: "https://altro-db7f0.firebaseio.com",
   projectId: "altro-db7f0",
