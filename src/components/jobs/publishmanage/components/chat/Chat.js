@@ -6,7 +6,10 @@ import InfoIcon from "@material-ui/icons/Info";
 import SendIcon from "@material-ui/icons/Send";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import ChatInfo from "./components/ChatInfo";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import axios from "axios";
+
 export default class Chat extends Component {
   state = {
     allUsers: [],
@@ -64,6 +67,13 @@ export default class Chat extends Component {
     e.preventDefault();
     const dateSent = new Date();
     const from = sessionStorage.getItem("uid");
+    if (e.target.message.value === "") {
+      toast.configure();
+      toast.error("Empty field", {
+        autoClose: 2000,
+      });
+      return;
+    }
     axios
       .post(
         `https://altro-db7f0.firebaseio.com/chats/${this.props.job.id}.json`,
@@ -74,8 +84,8 @@ export default class Chat extends Component {
         }
       )
       .then((res) => {
-        this.getData();
         this.myFormRef.reset();
+        this.getData();
       });
   };
 
@@ -135,7 +145,7 @@ export default class Chat extends Component {
           </button>
         </div>
         <div className="chat-content">
-          {this.state.messages.map((message) =>
+          {this.state.messages.reverse().map((message) =>
             message.from === sessionStorage.getItem("uid") ? (
               <div key={message.dateSent} className="chat-each-message">
                 <div className="chat-each-flex">
