@@ -121,6 +121,10 @@ export default class Signup extends Component {
     const uploadTask = storage
       .ref(`/users/${e.target.files[0].name}`)
       .put(e.target.files[0]);
+    toast.configure();
+    toast.warning("Upload...", {
+      autoClose: 5000,
+    });
     uploadTask.on(
       "state_changed",
       function (snapshot) {
