@@ -502,8 +502,9 @@ export default class Search extends Component {
         )}
         <div className="jobs">
           {this.state.jobs.map((job) =>
-            /*this.state.job.km < this.state.kmFilter ? diaplay : notDisplay*/
-            this.state.job.id !== job.id ? (
+            job.km > this.state.kmFilter + 1 ? (
+              ""
+            ) : this.state.job.id !== job.id ? (
               <div
                 className="jobs-card"
                 key={job.id}
