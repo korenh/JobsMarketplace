@@ -5,12 +5,7 @@ export default class Loading extends Component {
   render() {
     return (
       <div className="loading-page">
-        <div class="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <div class="loader">Loading...</div>
       </div>
     );
   }
